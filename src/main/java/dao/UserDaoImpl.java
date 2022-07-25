@@ -3,10 +3,8 @@ package dao;
 import models.Role;
 import models.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,106 +15,164 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
     private final static String FIND_USER_BY_LOGIN_QUERY = "SELECT u.id, u.email, u.password " +
             "FROM users u " +
-            "WHERE u.email = ?";
+            "WHERE u.email = ? AND u.roles_id = 1";
+    private static final String FIND_ALL_USERS_QUERY = "SELECT u.id, u.email, u.password FROM users";
 
-    //            "SELECT u.id, u.email, u.password, r.name " +
-//            "FROM users u AND roles r " +
-//            "WHERE u.email = ? AND u.roles_id=r.id";
     private static final String FIND_USER_BY_ID_QUERY = "SELECT u.id, u.email, u.password " +
             "FROM users u " +
-            "WHERE u.id = ?";;
+            "WHERE u.id = ?";
 
     private final static String INSERT_USER_QUERY = "INSERT INTO users (email, password, role_id)" +
             "VALUES (?, ?, ?)";
+    private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
+    private static final String UPDATE_USER_QUERY = "UPDATE users SET email = ?, password = ? WHERE id = ?";
 
     @Override
-    public User getByLogin(String login) {
+    public User getByLogin(String login) throws DaoException{
+        logger.debug("Start searching user ==>" +  login + " in db");
         User user = null;
         Connection conn = null;
-        PreparedStatement prSt = null;
+        PreparedStatement prStatement = null;
         ResultSet rs = null;
         try {
             conn = DBManager.getInstance().getConnection();
-            prSt = conn.prepareStatement(FIND_USER_BY_LOGIN_QUERY);
-            prSt.setString(1, login);
-            rs = prSt.executeQuery();
+            prStatement = conn.prepareStatement(FIND_USER_BY_LOGIN_QUERY);
+            prStatement.setString(1, login);
+            rs = prStatement.executeQuery();
 
             UserMapper mapper = new UserMapper();
             while (rs.next()) {
                 user = mapper.mapEntity(rs);
             }
-            prSt.close();
-            rs.close();
         } catch (SQLException e) {
-            logger.error("Cannot find user with login " + login, e);
             DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot find user with login ==>" + login, e);
+            throw new DaoException("Cannot find user with login ==>" + login, e);
         } finally {
-            DBManager.getInstance().commitAndClose(conn);
+            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
+        logger.debug("Searched user ==>" +  user);
         return user;
     }
 
     @Override
-    public User getById(int id) {
+    public User getById(int id) throws DaoException{
+        logger.debug("Start getting user by id ==> " + id);
         User user = null;
         Connection conn = null;
-        PreparedStatement ps = null;
+        PreparedStatement prStatement = null;
         ResultSet rs = null;
         try{
             conn = DBManager.getInstance().getConnection();
-            ps = conn.prepareStatement(FIND_USER_BY_ID_QUERY);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
+            prStatement = conn.prepareStatement(FIND_USER_BY_ID_QUERY);
+            prStatement.setInt(1, id);
+            rs = prStatement.executeQuery();
 
             UserMapper mapper = new UserMapper();
             while(rs.next()) {
                 user = mapper.mapEntity(rs);
             }
-            ps.close();
-            rs.close();
         } catch(SQLException e){
-            logger.error("Cannot find user by id " + id, e);
             DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot find user by id ==> " + id, e);
+            throw new DaoException("Cannot find user with id ==>" + id, e);
         } finally {
-            DBManager.getInstance().commitAndClose(conn);
+            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
+        logger.debug("Searched user ==>" +  user);
         return user;
     }
 
     @Override
-    public void save(User user) {
-        logger.debug("Start saving user: " + user);
+    public List<User> findAll() throws DaoException{
+        List<User> users = null;
         Connection conn = null;
-        PreparedStatement prSt = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        logger.debug("Finding all users ...");
         try {
             conn = DBManager.getInstance().getConnection();
-            prSt = conn.prepareStatement(INSERT_USER_QUERY);
-            prSt.setString(1, user.getEmail());
-            prSt.setString(2, user.getPassword());
-            //TODO: change role
-            prSt.setObject(3, 1);
-            boolean saved = prSt.execute();
+            statement = conn.createStatement();
+            rs = statement.executeQuery(FIND_ALL_USERS_QUERY);
+
+            users = new ArrayList<>();
+            UserMapper mapper = new UserMapper();
+            while(rs.next()){
+                users.add(mapper.mapEntity(rs));
+            }
         } catch (SQLException e) {
-            logger.error("Cannot save user  " + user, e);
             DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot find all user", e);
+            throw new DaoException("Cannot find all user", e);
         } finally {
-            DBManager.getInstance().commitAndClose(conn);
+            DBManager.getInstance().commitAndClose(conn, statement, rs);
+        }
+        return users;
+    }
+
+    @Override
+    public void save(User user) throws DaoException {
+        logger.debug("Start saving user ==> " + user);
+        Connection conn = null;
+        PreparedStatement prStatement = null;
+        try {
+            conn = DBManager.getInstance().getConnection();
+            prStatement = conn.prepareStatement(INSERT_USER_QUERY);
+            prStatement.setString(1, user.getEmail());
+            prStatement.setString(2, user.getPassword());
+            prStatement.setObject(3, 1);
+            int saved = prStatement.executeUpdate();
+            logger.debug("User " + user + " is saved ? ==>" + (saved == 1));
+        } catch (SQLException e) {
+            DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot save user ==> " + user, e);
+            throw new DaoException("Cannot save user ==> " + user, e);
+        } finally {
+            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+
         }
     }
 
     @Override
-    public void update(User model) {
-
+    public void update(User user) throws DaoException{
+        logger.debug("Start updating user");
+        Connection conn = null;
+        PreparedStatement prStatement = null;
+        try{
+            conn = DBManager.getInstance().getConnection();
+            prStatement = conn.prepareStatement(UPDATE_USER_QUERY);
+            prStatement.setString(1, user.getEmail());
+            prStatement.setString(2, user.getPassword());
+            prStatement.setInt(3, user.getId());
+            int updatedUsers = prStatement.executeUpdate();
+            logger.debug(updatedUsers == 1 ? "User is updated": "Something went wrong");
+        } catch (SQLException e){
+            DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot update user ==> " + user, e);
+            throw new DaoException("Cannot update user ==> " + user, e);
+        } finally {
+            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+        }
     }
 
     @Override
-    public void delete(int id) {
-
-    }
-
-    @Override
-    public List<User> findAll() {
-        return null;
+    public void delete(int id) throws DaoException{
+        Connection conn = null;
+        PreparedStatement prStatement = null;
+        try{
+            conn = DBManager.getInstance().getConnection();
+            prStatement = conn.prepareStatement(DELETE_USER_QUERY);
+            prStatement.setInt(1, id);
+            int deleted = prStatement.executeUpdate();
+            logger.debug("User with id " + id + " removed ? => " + (deleted == 1));
+            prStatement.close();
+        } catch (SQLException e){
+            DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot delete user with id ==> " + id , e);
+            throw new DaoException("Cannot delete user with id ==> " + id , e);
+        } finally {
+            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+        }
     }
 
     /**
@@ -131,11 +187,10 @@ public class UserDaoImpl implements UserDao {
                 user.setEmail(rs.getString(ColumnLabel.USER_EMAIL.getName()));
                 user.setPassword(rs.getString(ColumnLabel.USER_PASSWORD.getName()));
                 user.setRole(Role.CANDIDATE);
-                //TODO: change get role
-                //   user.setRole((Role) rs.getObject(ColumnLabel.ROLE_NAME.name()));
             } catch (SQLException e) {
                 logger.error("Cannot extract user from ResultSet", e);
             }
+            logger.debug("Extracted user from ResultSet ==> " + user);
             return user;
         }
     }

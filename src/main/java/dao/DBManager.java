@@ -6,27 +6,27 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 
 
 // singleton
-public class DBManager{
+public class DBManager {
     private static final Logger logger = Logger.getLogger(DBManager.class);
 
     private static DBManager instance;
 
-    public static synchronized DBManager getInstance(){
-        if(instance == null)
+    public static synchronized DBManager getInstance() {
+        if (instance == null)
             instance = new DBManager();
         return instance;
     }
 
-    private DBManager(){
+    private DBManager() {
     }
 
     /**
      * Get connection from ConnectionPool
+     *
      * @return DB connection
      */
     public Connection getConnection() {
@@ -45,9 +45,10 @@ public class DBManager{
 
     /**
      * Rollbacks and close connection
+     *
      * @param connection to be rollbacked and closed
      */
-    public void rollbackAndClose (Connection connection){
+    public void rollbackAndClose(Connection connection) {
         try {
             connection.rollback();
             connection.close();
@@ -58,17 +59,25 @@ public class DBManager{
 
     /**
      * Commits and close connection
+     *
      * @param connection to be committed and closed
      */
-    public void commitAndClose (Connection connection){
-        try{
+    public void commitAndClose(Connection connection, Statement statement, ResultSet resultSet) {
+        try {
             connection.commit();
-            connection.close();
-        } catch (SQLException e){
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
             logger.error("Cannot commit and close connection", e);
         }
     }
-
 
 
 }

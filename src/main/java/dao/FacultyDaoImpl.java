@@ -31,7 +31,7 @@ public class FacultyDaoImpl  implements FacultyDao{
     }
 
     @Override
-    public void update(Faculty model) {
+    public void update(Faculty faculty) {
 
     }
 
