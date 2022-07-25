@@ -1,5 +1,6 @@
 package logic;
 
+import dao.DaoException;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import models.User;
@@ -16,7 +17,12 @@ public class LoginLogic {
      */
     public static boolean checkLogin(String login, String password){
         UserDao userDao = new UserDaoImpl();
-        User user = userDao.getByLogin(login);
+        User user = null;
+        try {
+            user = userDao.getByLogin(login);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
         if(user == null || !user.getPassword().equals(password)){
             logger.error("Cannot find user with such login/password");
             return false;

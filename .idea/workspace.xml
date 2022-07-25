@@ -9,14 +9,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="first commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dao/DaoException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="change commitAndClose()&#10;refactor UserDaoImpl">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CrudDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CrudDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/SignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/SignupCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/FacultyDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FacultyDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/logic/LoginLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/logic/LoginLogic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/apps/dao/mysql/FacultyDaoImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/apps/dao/mysql/FacultyDaoImplTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +64,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
     "last_opened_file_path": "D:/Final Project/Admissions_committee",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
@@ -134,7 +133,7 @@
       <deployment>
         <artifact name="Admissions_committee:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="" />
+            <option name="CONTEXT_PATH" value="/" />
           </settings>
         </artifact>
       </deployment>
@@ -217,6 +216,11 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.UserDaoImpl$UserMapper" />
+      <item itemvalue="JUnit.FacultyDaoImplTest.testGetConnection" />
+      <item itemvalue="Tomcat Server.Tomcat 10.0.22" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.UserDaoImpl$UserMapper" />
@@ -238,7 +242,7 @@
       <workItem from="1658065611852" duration="8255000" />
       <workItem from="1658086633613" duration="27794000" />
       <workItem from="1658657378153" duration="1811000" />
-      <workItem from="1658659414531" duration="11557000" />
+      <workItem from="1658659414531" duration="16407000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -261,7 +265,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658659487275</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="change commitAndClose()&#10;refactor UserDaoImpl">
+      <created>1658743434177</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658743434177</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,6 +292,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test url" />
     <MESSAGE value="first commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="first commit" />
+    <MESSAGE value="add DaoException" />
+    <MESSAGE value="change commitAndClose()&#10;refactor UserDaoImpl" />
+    <option name="LAST_COMMIT_MESSAGE" value="change commitAndClose()&#10;refactor UserDaoImpl" />
   </component>
 </project>

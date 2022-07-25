@@ -1,5 +1,6 @@
 package command;
 
+import dao.DaoException;
 import dao.UserDao;
 import dao.UserDaoImpl;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +20,11 @@ public class SignupCommand implements ActionCommand{
         UserDao userDao = new UserDaoImpl();
         // TODO: change id and role
         User user = new User(0, login, password, Role.CANDIDATE);
-        userDao.save(user);
+        try {
+            userDao.save(user);
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
 
         String page = ConfigurationManager.getProperty("path.page.main");
         req.setAttribute("user", login);

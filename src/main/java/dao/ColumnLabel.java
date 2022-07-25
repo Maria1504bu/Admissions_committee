@@ -7,7 +7,12 @@ public enum ColumnLabel {
     USER_ROLE_ID("role_id"),
 
     ROLE_ID("id"),
-    ROLE_NAME("name");
+    ROLE_NAME("name"),
+
+    FACULTY_ID("id"),
+    FACULTY_NAME("name"),
+    FACULTY_BUDGET_PLACES("budget_places"),
+    FACULTY_ALL_PLACES("all_places");
     private final String name;
     public final String getName(){
         return name;
