@@ -12,7 +12,11 @@ public enum ColumnLabel {
     FACULTY_ID("id"),
     FACULTY_NAME("name"),
     FACULTY_BUDGET_PLACES("budget_places"),
-    FACULTY_ALL_PLACES("all_places");
+    FACULTY_ALL_PLACES("all_places"),
+
+    SUBJECT_ID("id"),
+    SUBJECT_NAME("name"),
+        SUBJECT_MARK("mark");
     private final String name;
     public final String getName(){
         return name;
