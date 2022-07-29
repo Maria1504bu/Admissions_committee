@@ -1,6 +1,6 @@
 package command;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import managers.ConfigurationManager;
 
 public class InitSignupCommand implements ActionCommand{

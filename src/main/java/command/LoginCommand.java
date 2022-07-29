@@ -3,7 +3,7 @@ package command;
 import dao.DaoException;
 import dao.ExamDao;
 import dao.UserDaoImpl;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import logic.LoginLogic;
 import managers.ConfigurationManager;
 import managers.MessageManager;

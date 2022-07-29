@@ -2,7 +2,7 @@ package command.factory;
 
 import command.ActionCommand;
 import command.client.CommandEnum;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import managers.ConfigurationManager;
 import managers.MessageManager;
 
