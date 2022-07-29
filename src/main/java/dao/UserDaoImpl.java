@@ -15,7 +15,7 @@ public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
     private final static String FIND_USER_BY_LOGIN_QUERY = "SELECT u.id, u.email, u.password " +
             "FROM users u " +
-            "WHERE u.email = ? AND u.roles_id = 1";
+            "WHERE u.email = ?";
     private static final String FIND_ALL_USERS_QUERY = "SELECT u.id, u.email, u.password FROM users";
 
     private static final String FIND_USER_BY_ID_QUERY = "SELECT u.id, u.email, u.password " +

@@ -1,17 +1,22 @@
 package models;
 
-public class Subject {
+public class Exam {
     private int id;
     private String name;
     private int mark;
 
-    public Subject(){
+    public Exam(){
     }
 
-    public Subject(int id, String name, int mark) {
+    public Exam(int id, String name, int mark) {
         this.id = id;
         this.name = name;
         this.mark = mark;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
     public int getId() {

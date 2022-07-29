@@ -39,11 +39,12 @@ Data source and connection pool configuration
     <Resource name="jdbc/admissions_committee"
               auth="Container"
               type="javax.sql.DataSource"
-              maxActive="32" maxIdle="8" maxWait="10000"
+              maxTotal="8" maxIdle="2" maxWaitMillis="-1"
               username="Maria1504" password="passwordForDB"
               driverClassName="com.mysql.cj.jdbc.Driver"
               defaultAutoCommit="false"
               defaultTransactionIsolation="READ_COMMITTED"
-              url="jdbc:mysql://localhost:3306/admissions_committee?useSSL=false&amp;serverTimezone=Europe/Kiev"/>
+              url="jdbc:mysql://localhost:3306/admissions_committee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+    />
 
 </Context>

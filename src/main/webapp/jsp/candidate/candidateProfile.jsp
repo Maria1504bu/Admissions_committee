@@ -15,6 +15,11 @@
 <hr/>
 ${user}, hello!
 <hr/>
+<b2> Your exams:
+</b2>
+${exams}
+lo
+${exams[0]}
 <a href="controller?command=Logout">Logout</a>
 </body>
 </html>

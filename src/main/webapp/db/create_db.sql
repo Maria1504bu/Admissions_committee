@@ -26,8 +26,8 @@ CREATE TABLE users
 CREATE TABLE candidates
 (
     id INTEGER PRIMARY KEY,
+    surname   VARCHAR(50)        NOT NULL,
     first_name  VARCHAR(50)        NOT NULL,
-    last_name   VARCHAR(50)        NOT NULL,
     father_name VARCHAR(50)        NOT NULL,
     city        VARCHAR(50)        NOT NULL,
     region      VARCHAR(50)        NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE candidates
             ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE subjects
+CREATE TABLE exams
 (
     id   INT PRIMARY KEY NOT NULL,
     name VARCHAR(50)     NOT NULL,
@@ -53,22 +53,36 @@ CREATE TABLE faculties
     all_places    INT             NOT NULL
 );
 
-CREATE TABLE subjects_for_faculties
+CREATE TABLE candidates_exams
 (
-    id         INT AUTO_INCREMENT PRIMARY KEY,
-    subject_id INT NOT NULL,
-    faculty_id INT NOT NULL,
-    INDEX fkSubjectIdIndex (subject_id ASC) VISIBLE,
-    INDEX fkFacultyIdIndex (faculty_id ASC) VISIBLE,
+    candidate_id INT NOT NULL,
+    exam_id INT NOT NULL,
+    INDEX fkExamIdIndex (candidate_id ASC) VISIBLE,
+    INDEX fkFacultyIdIndex (exam_id ASC) VISIBLE,
     CONSTRAINT
-        FOREIGN KEY (subject_id)
-            REFERENCES subjects (id)
+        FOREIGN KEY (candidate_id)
+            REFERENCES candidates (id)
             ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT
+        FOREIGN KEY (exam_id)
+            REFERENCES exams (id)
+            ON DELETE CASCADE ON UPDATE CASCADE,
+            CONSTRAINT PRIMARY KEY PK_Candidates_Exams (candidate_id, exam_id)
+);
+
+CREATE TABLE faculties_exams
+(
+    faculty_id INT NOT NULL,
+    exam_id INT NOT NULL,
+    INDEX fkFacultyIdIndex (faculty_id ASC) VISIBLE,
+    INDEX fkExamIdIndex (exam_id ASC) VISIBLE,
     CONSTRAINT
         FOREIGN KEY (faculty_id)
             REFERENCES faculties (id)
-            ON DELETE CASCADE ON UPDATE CASCADE
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT
+        FOREIGN KEY (exam_id)
+            REFERENCES exams (id)
+            ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT PRIMARY KEY PK_Faculties_Exams (faculty_id, exam_id)
 );
-
-INSERT INTO roles (name, description) VALUE ('user', 'description');
-INSERT INTO users (email, password, role_id) VALUE ('qqq', 'qqq', 1)

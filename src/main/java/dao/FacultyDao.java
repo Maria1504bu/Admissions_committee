@@ -1,9 +1,9 @@
 package dao;
 
 import java.util.List;
-import models.Subject;
+import models.Exam;
 import models.Faculty;
 
 public interface FacultyDao extends CrudDao<Faculty> {
-    List<Subject> findSubjects(int id);
+    List<Exam> findSubjects(int id);
 }

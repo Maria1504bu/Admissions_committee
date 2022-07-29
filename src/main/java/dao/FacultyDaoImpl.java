@@ -1,15 +1,12 @@
 package dao;
 
 import models.Faculty;
-import models.Role;
-import models.Faculty;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import models.Subject;
 import org.apache.log4j.Logger;
 import util.EntityMapper;
 

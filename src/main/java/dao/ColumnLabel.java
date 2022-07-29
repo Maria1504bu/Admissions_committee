@@ -14,9 +14,9 @@ public enum ColumnLabel {
     FACULTY_BUDGET_PLACES("budget_places"),
     FACULTY_ALL_PLACES("all_places"),
 
-    SUBJECT_ID("id"),
-    SUBJECT_NAME("name"),
-        SUBJECT_MARK("mark");
+    EXAM_ID("id"),
+    EXAM_NAME("name"),
+    EXAM_MARK("mark");
     private final String name;
     public final String getName(){
         return name;
