@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import logic.LoginLogic;
 import managers.ConfigurationManager;
 import managers.MessageManager;
+import models.Exam;
 
 import javax.security.auth.login.Configuration;
 import java.util.ArrayList;
@@ -21,10 +22,14 @@ public class LoginCommand implements ActionCommand{
         String login = req.getParameter(PARAM_NAME_LOGIN);
         String password = req.getParameter(PARAM_NAME_PASSWORD);
         if(LoginLogic.checkLogin(login, password)){
-            req.getSession().setAttribute("user", login);
+            try {
+                req.getSession().setAttribute("user", new UserDaoImpl().getByLogin(login));
+            } catch (DaoException e) {
+                throw new RuntimeException(e);
+            }
 
             // TODO: sout exams this user
-            List exams = null;
+            List<Exam> exams = null;
             try {
                 exams = new ExamDao().findAllByCandidatesId(1);
             } catch (DaoException e) {

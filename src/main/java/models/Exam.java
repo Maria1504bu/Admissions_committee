@@ -14,9 +14,11 @@ public class Exam {
         this.mark = mark;
     }
 
+
     @Override
     public String toString() {
-        return super.toString();
+        return "Exam [ id = " + id +
+                " name = " + name + " ]";
     }
 
     public int getId() {

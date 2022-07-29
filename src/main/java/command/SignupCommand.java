@@ -26,7 +26,7 @@ public class SignupCommand implements ActionCommand{
             throw new RuntimeException(e);
         }
 
-        String page = ConfigurationManager.getProperty("path.page.main");
+        String page = ConfigurationManager.getProperty("path.page.candidateProfile");
         req.setAttribute("user", login);
         return page;
     }
