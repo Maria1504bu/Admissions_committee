@@ -1254,7 +1254,7 @@ exam_id</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="334" parent="295" name="id">
-      <AutoIncrement>2</AutoIncrement>
+      <AutoIncrement>4</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1264,12 +1264,13 @@ exam_id</ColNames>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="336" parent="295" name="description">
-      <DataType>varchar(50)|0s</DataType>
-      <Position>3</Position>
-    </column>
-    <index id="337" parent="295" name="PRIMARY">
+    <index id="336" parent="295" name="PRIMARY">
       <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="337" parent="295" name="name">
+      <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
@@ -1278,44 +1279,47 @@ exam_id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="339" parent="296" name="id">
-      <AutoIncrement>2</AutoIncrement>
+    <key id="339" parent="295" name="name">
+      <UnderlyingIndexName>name</UnderlyingIndexName>
+    </key>
+    <column id="340" parent="296" name="id">
+      <AutoIncrement>3</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="296" name="email">
+    <column id="341" parent="296" name="email">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="341" parent="296" name="password">
+    <column id="342" parent="296" name="password">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="342" parent="296" name="role_id">
+    <column id="343" parent="296" name="role_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="343" parent="296" name="fkUserRole">
+    <foreign-key id="344" parent="296" name="fkUserRole">
       <ColNames>role_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>roles</RefTableName>
     </foreign-key>
-    <index id="344" parent="296" name="PRIMARY">
+    <index id="345" parent="296" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="345" parent="296" name="fkUserRole">
+    <index id="346" parent="296" name="fkUserRole">
       <ColNames>role_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="346" parent="296" name="PRIMARY">
+    <key id="347" parent="296" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>

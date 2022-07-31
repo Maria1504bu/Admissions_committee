@@ -7,8 +7,7 @@ USE Admissions_committee;
 CREATE TABLE roles
 (
     id          INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    name        VARCHAR(50)                    NOT NULL,
-    description VARCHAR(50)
+    name        VARCHAR(50) UNIQUE             NOT NULL
 );
 
 CREATE TABLE users

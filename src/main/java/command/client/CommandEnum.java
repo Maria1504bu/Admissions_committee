@@ -21,6 +21,10 @@ public enum CommandEnum {
         this.command = new CandidateProfileCommand();
     }},
 
+    ADMIN_PROFILE {{
+        this.command = new AdminProfileCommand();
+    }},
+
     ADD_EXAM {{
         this.command = new AddExamCommand();
     }};

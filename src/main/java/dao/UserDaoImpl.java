@@ -2,25 +2,25 @@ package dao;
 
 import models.Role;
 import models.User;
+import org.apache.log4j.Logger;
+import util.EntityMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import org.apache.log4j.Logger;
-import util.EntityMapper;
-
 public class UserDaoImpl implements UserDao {
     private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
-    private final static String FIND_USER_BY_LOGIN_QUERY = "SELECT u.id, u.email, u.password " +
-            "FROM users u " +
-            "WHERE u.email = ?";
-    private static final String FIND_ALL_USERS_QUERY = "SELECT u.id, u.email, u.password FROM users";
+    private final static String FIND_USER_BY_LOGIN_QUERY = "SELECT u.id, u.email, u.password, r.name " +
+            "FROM users u, roles r " +
+            "WHERE u.email = ? AND u.role_id = r.id";
+    private static final String FIND_ALL_USERS_QUERY = "SELECT u.id, u.email, u.password, r.name " +
+            "FROM users u, roles r " +
+            "WHERE u.role_id = r.id";
 
-    private static final String FIND_USER_BY_ID_QUERY = "SELECT u.id, u.email, u.password " +
-            "FROM users u " +
-            "WHERE u.id = ?";
+    private static final String FIND_USER_BY_ID_QUERY = "SELECT u.id, u.email, u.password, r.name " +
+            "FROM users u, roles r " +
+            "WHERE u.id = ? AND u.role_id = r.id";
 
     private final static String INSERT_USER_QUERY = "INSERT INTO users (email, password, role_id)" +
             "VALUES (?, ?, ?)";
@@ -120,7 +120,7 @@ public class UserDaoImpl implements UserDao {
             prStatement = conn.prepareStatement(INSERT_USER_QUERY);
             prStatement.setString(1, user.getEmail());
             prStatement.setString(2, user.getPassword());
-            prStatement.setObject(3, 1);
+            prStatement.setInt(3, 2);
             int saved = prStatement.executeUpdate();
             logger.debug("User " + user + " is saved ? ==>" + (saved == 1));
         } catch (SQLException e) {
@@ -186,7 +186,8 @@ public class UserDaoImpl implements UserDao {
                 user.setId(rs.getInt(ColumnLabel.USER_ID.getName()));
                 user.setEmail(rs.getString(ColumnLabel.USER_EMAIL.getName()));
                 user.setPassword(rs.getString(ColumnLabel.USER_PASSWORD.getName()));
-                user.setRole(Role.CANDIDATE);
+                user.setRole(Enum.valueOf(Role.class, rs.getString(ColumnLabel.ROLE_NAME
+                                .getName()).toUpperCase()));
             } catch (SQLException e) {
                 logger.error("Cannot extract user from ResultSet", e);
             }

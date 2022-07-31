@@ -1,18 +1,14 @@
 package command;
 
 import dao.DaoException;
-import dao.ExamDao;
 import dao.UserDaoImpl;
-import javax.servlet.http.HttpServletRequest;
 import logic.LoginLogic;
 import managers.ConfigurationManager;
 import managers.MessageManager;
-import models.Exam;
+import models.Role;
+import models.User;
 
-import javax.security.auth.login.Configuration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 public class LoginCommand implements ActionCommand{
    private static final String PARAM_NAME_LOGIN = "login";
@@ -20,17 +16,22 @@ public class LoginCommand implements ActionCommand{
     @Override
     public String execute(HttpServletRequest req) {
         String page = null;
+        User user = null;
         String login = req.getParameter(PARAM_NAME_LOGIN);
         String password = req.getParameter(PARAM_NAME_PASSWORD);
         if(LoginLogic.checkLogin(login, password)){
             try {
-                req.getSession().setAttribute("user", new UserDaoImpl().getByLogin(login));
+                user = new UserDaoImpl().getByLogin(login);
+                req.getSession().setAttribute("user", user);
             } catch (DaoException e) {
                 throw new RuntimeException(e);
             }
-
-            // TODO:write if user is admin
-            page = ConfigurationManager.getProperty("path.command.candidateProfile");
+            Role role = user.getRole();
+            if (role == Role.CANDIDATE) {
+                page = ConfigurationManager.getProperty("path.command.candidateProfile");
+            } else if (role == Role.ADMIN) {
+                page = ConfigurationManager.getProperty("path.page.adminProfile");
+            }
         } else {
             req.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginError"));
