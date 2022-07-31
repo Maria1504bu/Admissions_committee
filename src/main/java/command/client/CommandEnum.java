@@ -1,5 +1,6 @@
 package command.client;
 
+
 import command.*;
 
 public enum CommandEnum {
@@ -18,6 +19,10 @@ public enum CommandEnum {
 
     CANDIDATE_PROFILE {{
         this.command = new CandidateProfileCommand();
+    }},
+
+    ADD_EXAM {{
+        this.command = new AddExamCommand();
     }};
     ActionCommand command;
 

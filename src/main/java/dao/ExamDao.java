@@ -17,11 +17,17 @@ public class ExamDao implements CrudDao<Exam> {
             "FROM exams " +
             "WHERE id = ?";
 
+    private static final String FIND_EXAM_BY_NAME_QUERY = "SELECT id, name " +
+            "FROM exams " +
+            "WHERE name = ?";
+
     private static final String FIND_EXAM_BY_CANDIDATE_ID_QUERY = "SELECT e.id, e.name, ce.mark FROM candidates_exams ce, exams e " +
             "WHERE ce.candidate_id = ? AND e.id = ce.exam_id";
     private static final String FIND_ALL_EXAMS_QUERY = "SELECT * FROM exams";
     private final static String INSERT_EXAM_QUERY = "INSERT INTO exams (name)" +
             "VALUE (?)";
+    private static final String INSERT_CANDIDATES_EXAM_QUERY = "INSERT INTO candidates_exams " +
+            "VALUES (?, ?, ?)";
     private static final String DELETE_EXAM_QUERY = "DELETE FROM exams WHERE id = ?";
     private static final String UPDATE_EXAM_QUERY = "UPDATE exams SET name = ? " +
             " WHERE id = ?";
@@ -47,6 +53,33 @@ public class ExamDao implements CrudDao<Exam> {
             DBManager.getInstance().rollbackAndClose(conn);
             logger.error("Cannot find exam by id ==> " + id, e);
             throw new DaoException("Cannot find exam with id ==>" + id, e);
+        } finally {
+            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
+        }
+        logger.debug("Searched exam ==>" + exam);
+        return exam;
+    }
+
+    public Exam getByName(String name) throws DaoException {
+        logger.debug("Start getting exam by name ==> " + name);
+        Exam exam = null;
+        Connection conn = null;
+        PreparedStatement prStatement = null;
+        ResultSet rs = null;
+        try {
+            conn = DBManager.getInstance().getConnection();
+            prStatement = conn.prepareStatement(FIND_EXAM_BY_NAME_QUERY);
+            prStatement.setString(1, name);
+            rs = prStatement.executeQuery();
+
+            ExamMapper mapper = new ExamMapper();
+            while (rs.next()) {
+                exam = mapper.mapEntity(rs);
+            }
+        } catch (SQLException e) {
+            DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot find exam by name ==> " + name, e);
+            throw new DaoException("Cannot find exam with name ==>" + name, e);
         } finally {
             DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
@@ -109,6 +142,31 @@ public class ExamDao implements CrudDao<Exam> {
         }
         logger.debug("Searched candidates exams:" + exams.entrySet());
         return exams;
+    }
+
+    public boolean addCandidatesExam(int candidatesId, int examId, int mark) throws DaoException{
+        logger.debug("Start adding new candidates exam to db");
+        Connection conn = null;
+        PreparedStatement prStatement = null;
+        boolean added = false;
+        try{
+            conn = DBManager.getInstance().getConnection();
+            prStatement = conn.prepareStatement(INSERT_CANDIDATES_EXAM_QUERY);
+            prStatement.setInt(1, candidatesId);
+            prStatement.setInt(2, examId);
+            prStatement.setInt(3, mark);
+            added = prStatement.executeUpdate() == 1;
+        } catch (SQLException e){
+            DBManager.getInstance().rollbackAndClose(conn);
+            logger.error("Cannot add candidates exam with candidates id ==> " + candidatesId +
+                    "examId => " + examId + ", mark = " + mark, e);
+            throw new DaoException("Cannot add candidates exams with candidates id ==> " + candidatesId +
+                    "examId => " + examId + ", mark = " + mark, e);
+        } finally {
+            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+        }
+        logger.debug("New candidates exam is added ? ==> " + added);
+        return added;
     }
 
 

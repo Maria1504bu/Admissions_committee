@@ -2,7 +2,6 @@ package command;
 
 import dao.DaoException;
 import dao.ExamDao;
-import dao.UserDaoImpl;
 import managers.ConfigurationManager;
 import models.Exam;
 import models.User;
@@ -10,7 +9,6 @@ import models.User;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class CandidateProfileCommand implements ActionCommand {
     @Override
@@ -26,14 +24,15 @@ public class CandidateProfileCommand implements ActionCommand {
         }
         req.getSession().setAttribute("candidatesExams", candidatesExams);
 
-        List<String> allExamsNames = null;
+        List<Exam> notPassedExams = null;
         try {
-            allExamsNames = new ExamDao().findAll().stream()
-                    .map(exam -> exam.getName()).sorted().collect(Collectors.toList());
-        } catch (DaoException e) {
+            notPassedExams = new ExamDao().findAll();
+            for(String examName : candidatesExams.keySet()) {
+                notPassedExams.removeIf(exam -> exam.getName().equals(examName));
+            }} catch (DaoException e) {
             throw new RuntimeException(e);
         }
-        req.getSession().setAttribute("allExamsNames", allExamsNames);
+        req.getSession().setAttribute("notPassedExams", notPassedExams);
         String page = ConfigurationManager.getProperty("path.page.candidateProfile");
         return page;
     }
