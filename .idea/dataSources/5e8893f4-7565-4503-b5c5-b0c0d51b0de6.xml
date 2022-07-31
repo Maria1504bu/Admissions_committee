@@ -1122,53 +1122,53 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <foreign-key id="309" parent="291" name="candidates_exams_ibfk_1">
+    <column id="309" parent="291" name="mark">
+      <DataType>int|0s</DataType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="310" parent="291" name="candidates_exams_ibfk_1">
       <ColNames>candidate_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>candidates</RefTableName>
     </foreign-key>
-    <foreign-key id="310" parent="291" name="candidates_exams_ibfk_2">
+    <foreign-key id="311" parent="291" name="candidates_exams_ibfk_2">
       <ColNames>exam_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>exams</RefTableName>
     </foreign-key>
-    <index id="311" parent="291" name="PRIMARY">
+    <index id="312" parent="291" name="PRIMARY">
       <ColNames>candidate_id
 exam_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="312" parent="291" name="fkExamIdIndex">
+    <index id="313" parent="291" name="fkExamIdIndex">
       <ColNames>candidate_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="313" parent="291" name="fkFacultyIdIndex">
+    <index id="314" parent="291" name="fkFacultyIdIndex">
       <ColNames>exam_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="314" parent="291" name="PRIMARY">
+    <key id="315" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="315" parent="292" name="id">
+    <column id="316" parent="292" name="id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="316" parent="292" name="name">
+    <column id="317" parent="292" name="name">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
-    </column>
-    <column id="317" parent="292" name="mark">
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
     </column>
     <index id="318" parent="292" name="PRIMARY">
       <ColNames>id</ColNames>

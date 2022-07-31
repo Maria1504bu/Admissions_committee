@@ -9,11 +9,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="change dependencies from jakarta to javax, because new needed dependency javax.jstl corrupt with jakarta">
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="display and add exams candidateProfile.jsp">
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/CandidateProfileCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/InitSignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/InitSignupCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/LoginCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/SignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/SignupCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/client/CommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/client/CommandEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ColumnLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ColumnLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ExamDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ExamDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Exam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,8 +36,8 @@
         <option value="Interface" />
         <option value="Enum" />
         <option value="XML Properties File" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -405,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659091112661</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="display and add exams candidateProfile.jsp">
+      <created>1659094684994</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1659094684995</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -431,7 +447,8 @@
     <MESSAGE value="implements crud operations for SubjectDao" />
     <MESSAGE value="rename subject to exam;&#10;display candidates exams to candidateProfile.jsp" />
     <MESSAGE value="change dependencies from jakarta to javax, because new needed dependency javax.jstl corrupt with jakarta" />
-    <option name="LAST_COMMIT_MESSAGE" value="change dependencies from jakarta to javax, because new needed dependency javax.jstl corrupt with jakarta" />
+    <MESSAGE value="display and add exams candidateProfile.jsp" />
+    <option name="LAST_COMMIT_MESSAGE" value="display and add exams candidateProfile.jsp" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

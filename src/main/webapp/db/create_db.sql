@@ -41,8 +41,7 @@ CREATE TABLE candidates
 CREATE TABLE exams
 (
     id   INT PRIMARY KEY NOT NULL,
-    name VARCHAR(50)     NOT NULL,
-    mark INT             NOT NULL
+    name VARCHAR(50)     NOT NULL
 );
 
 CREATE TABLE faculties
@@ -57,6 +56,7 @@ CREATE TABLE candidates_exams
 (
     candidate_id INT NOT NULL,
     exam_id INT NOT NULL,
+    mark INT NOT NULL,
     INDEX fkExamIdIndex (candidate_id ASC) VISIBLE,
     INDEX fkFacultyIdIndex (exam_id ASC) VISIBLE,
     CONSTRAINT
@@ -67,7 +67,7 @@ CREATE TABLE candidates_exams
         FOREIGN KEY (exam_id)
             REFERENCES exams (id)
             ON DELETE CASCADE ON UPDATE CASCADE,
-            CONSTRAINT PRIMARY KEY PK_Candidates_Exams (candidate_id, exam_id)
+    CONSTRAINT PRIMARY KEY PK_Candidates_Exams (candidate_id, exam_id)
 );
 
 CREATE TABLE faculties_exams

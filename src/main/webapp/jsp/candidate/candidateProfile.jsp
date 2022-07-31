@@ -16,15 +16,26 @@
 ${user.id}, ${user.email} hello!
 <hr/>
 <h4> Your exams:</h4>
-${exams}
+<table>
+    <tr>
+        <th>Subject</th>
+        <th>Mark</th>
+    </tr>
+    <c:forEach items="${candidatesExams}" var="examEntry">
+        <tr>
+        <td><c:out value="${examEntry.key}"/></td>
+        <td><c:out value="${examEntry.value}"/></td>
+    </tr>
+    </c:forEach>
+</table>
 <hr/>
 <h4>Add new exam</h4>
 <%--//TODO: command--%>
     <%-- <input type="hidden" name="command" value=""/>--%>
 Choose new exam:
-    <select name="list">
-        <c:forEach items="${exams}" var="exam">
-            <option>${exam.name}</option>
+    <select name="chooseNewCandidatesExam">
+        <c:forEach items="${allExamsNames}" var="examName">
+            <option value="${examName}">${examName}</option>
         </c:forEach>
     </select>
     </br>

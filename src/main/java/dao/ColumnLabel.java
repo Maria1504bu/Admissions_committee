@@ -16,7 +16,8 @@ public enum ColumnLabel {
 
     EXAM_ID("id"),
     EXAM_NAME("name"),
-    EXAM_MARK("mark");
+
+    CANDIDATES_EXAM_MARK("mark");
     private final String name;
     public final String getName(){
         return name;

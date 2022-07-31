@@ -12,6 +12,7 @@ import models.Exam;
 import javax.security.auth.login.Configuration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LoginCommand implements ActionCommand{
    private static final String PARAM_NAME_LOGIN = "login";
@@ -28,15 +29,8 @@ public class LoginCommand implements ActionCommand{
                 throw new RuntimeException(e);
             }
 
-            // TODO: sout exams this user
-            List<Exam> exams = null;
-            try {
-                exams = new ExamDao().findAllByCandidatesId(1);
-            } catch (DaoException e) {
-                throw new RuntimeException(e);
-            }
-            req.getSession().setAttribute("exams", exams);
-            page = ConfigurationManager.getProperty("path.page.candidateProfile");
+            // TODO:write if user is admin
+            page = ConfigurationManager.getProperty("path.command.candidateProfile");
         } else {
             req.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginError"));

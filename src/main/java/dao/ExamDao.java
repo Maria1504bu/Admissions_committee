@@ -2,7 +2,9 @@ package dao;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Exam;
 import org.apache.log4j.Logger;
@@ -11,17 +13,17 @@ import util.EntityMapper;
 public class ExamDao implements CrudDao<Exam> {
     private static final Logger logger = Logger.getLogger(ExamDao.class);
 
-    private static final String FIND_EXAM_BY_ID_QUERY = "SELECT name, mark " +
+    private static final String FIND_EXAM_BY_ID_QUERY = "SELECT name " +
             "FROM exams " +
             "WHERE id = ?";
 
-    private static final String FIND_EXAM_BY_CANDIDATE_ID_QUERY = "SELECT e.id, e.name, e.mark FROM candidates_exams ce, exams e " +
+    private static final String FIND_EXAM_BY_CANDIDATE_ID_QUERY = "SELECT e.id, e.name, ce.mark FROM candidates_exams ce, exams e " +
             "WHERE ce.candidate_id = ? AND e.id = ce.exam_id";
-    private static final String FIND_ALL_EXAMS_QUERY = "SELECT name, mark FROM exams";
-    private final static String INSERT_EXAM_QUERY = "INSERT INTO exams (name, mark)" +
-            "VALUES (?, ?)";
+    private static final String FIND_ALL_EXAMS_QUERY = "SELECT * FROM exams";
+    private final static String INSERT_EXAM_QUERY = "INSERT INTO exams (name)" +
+            "VALUE (?)";
     private static final String DELETE_EXAM_QUERY = "DELETE FROM exams WHERE id = ?";
-    private static final String UPDATE_EXAM_QUERY = "UPDATE exams SET name = ?, mark = ?" +
+    private static final String UPDATE_EXAM_QUERY = "UPDATE exams SET name = ? " +
             " WHERE id = ?";
 
     @Override
@@ -58,7 +60,7 @@ public class ExamDao implements CrudDao<Exam> {
         Connection conn = null;
         Statement statement = null;
         ResultSet rs = null;
-        logger.debug("Finding all exams ...");
+        logger.debug("Start searching all exams");
         try {
             conn = DBManager.getInstance().getConnection();
             statement = conn.createStatement();
@@ -79,12 +81,12 @@ public class ExamDao implements CrudDao<Exam> {
         return exams;
     }
 
-    public List<Exam> findAllByCandidatesId(int id) throws DaoException {
+    public Map<String, Integer> findAllByCandidatesId(int id) throws DaoException {
         logger.debug("Start searching candidates exams");
         Connection conn = null;
         PreparedStatement prStatement = null;
         ResultSet resultSet = null;
-        List<Exam> exams = null;
+        Map<String, Integer> exams = null;
         EntityMapper mapper = null;
         try {
             conn = DBManager.getInstance().getConnection();
@@ -92,10 +94,11 @@ public class ExamDao implements CrudDao<Exam> {
             prStatement.setInt(1, id);
             resultSet = prStatement.executeQuery();
 
-            exams = new ArrayList<>();
+            exams = new HashMap<>();
             mapper = new ExamMapper();
             while (resultSet.next()) {
-                exams.add((Exam) mapper.mapEntity(resultSet));
+                exams.put(resultSet.getString(ColumnLabel.EXAM_NAME.getName()),
+                        resultSet.getInt(ColumnLabel.CANDIDATES_EXAM_MARK.getName()));
             }
         } catch (SQLException e){
             DBManager.getInstance().rollbackAndClose(conn);
@@ -104,6 +107,7 @@ public class ExamDao implements CrudDao<Exam> {
         } finally {
             DBManager.getInstance().commitAndClose(conn, prStatement, resultSet);
         }
+        logger.debug("Searched candidates exams:" + exams.entrySet());
         return exams;
     }
 
@@ -118,7 +122,6 @@ public class ExamDao implements CrudDao<Exam> {
             conn = DBManager.getInstance().getConnection();
             prStatement = conn.prepareStatement(INSERT_EXAM_QUERY);
             prStatement.setString(1, exam.getName());
-            prStatement.setInt(2, exam.getMark());
             int saved = prStatement.executeUpdate();
             logger.debug("exam " + exam + " is saved ? ==>" + (saved == 1));
         } catch (SQLException e) {
@@ -139,7 +142,7 @@ public class ExamDao implements CrudDao<Exam> {
             conn = DBManager.getInstance().getConnection();
             prStatement = conn.prepareStatement(UPDATE_EXAM_QUERY);
             prStatement.setString(1, exam.getName());
-            prStatement.setInt(2, exam.getMark());
+            prStatement.setInt(2, exam.getId());
             int updatedFaculties = prStatement.executeUpdate();
             logger.debug(updatedFaculties == 1 ? "exam is updated" : "Something went wrong");
         } catch (SQLException e) {
@@ -181,7 +184,6 @@ private static class ExamMapper implements EntityMapper<Exam> {
         try {
             exam.setId(rs.getInt(ColumnLabel.EXAM_ID.getName()));
             exam.setName(rs.getString(ColumnLabel.EXAM_NAME.getName()));
-            exam.setMark(rs.getInt(ColumnLabel.EXAM_MARK.getName()));
         } catch (SQLException e) {
             logger.error("Cannot extract exam from ResultSet", e);
         }

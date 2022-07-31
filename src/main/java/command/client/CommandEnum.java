@@ -14,6 +14,10 @@ public enum CommandEnum {
     }},
     INITSIGNUP {{
         this.command = new InitSignupCommand();
+    }},
+
+    CANDIDATE_PROFILE {{
+        this.command = new CandidateProfileCommand();
     }};
     ActionCommand command;
 
