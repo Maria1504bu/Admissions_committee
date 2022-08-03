@@ -7,6 +7,11 @@ public class Exam {
     public Exam(){
     }
 
+    public Exam(String name){
+        this.id = 0;
+        this.name = name;
+    }
+
     public Exam(int id, String name) {
         this.id = id;
         this.name = name;

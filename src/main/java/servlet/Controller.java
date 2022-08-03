@@ -2,14 +2,14 @@ package servlet;
 
 import command.ActionCommand;
 import command.factory.ActionFactory;
+import managers.ConfigurationManager;
+import managers.MessageManager;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import managers.ConfigurationManager;
-import managers.MessageManager;
-
 import java.io.IOException;
 
 @WebServlet("/controller")
@@ -26,13 +26,12 @@ public class Controller  extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = null;
-        ActionFactory client = new ActionFactory();
-        ActionCommand command = client.defineCommand(req);
+        ActionCommand command = new ActionFactory().defineCommand(req);
         page = command.execute(req);
         if(page != null) {
             getServletContext().getRequestDispatcher(page).forward(req, resp);
         } else{
-            page = ConfigurationManager.getProperty("path.page.index");
+            page = ConfigurationManager.getProperty("path.common.index");
             req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
             resp.sendRedirect(req.getContextPath() + page);
         }

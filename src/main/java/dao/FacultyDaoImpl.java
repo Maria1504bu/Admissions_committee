@@ -1,16 +1,14 @@
 package dao;
 
 import models.Faculty;
+import org.apache.log4j.Logger;
+import util.EntityMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import org.apache.log4j.Logger;
-import util.EntityMapper;
-
-public class FacultyDaoImpl implements CrudDao<Faculty> {
+public class FacultyDaoImpl implements FacultyDao {
     private static final Logger logger = Logger.getLogger(FacultyDaoImpl.class);
 
     private static final String FIND_FACULTY_BY_ID_QUERY = "SELECT name, budget_places, all_places " +

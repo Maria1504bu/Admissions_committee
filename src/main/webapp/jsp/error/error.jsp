@@ -11,6 +11,8 @@
     <title>Error Page</title>
 </head>
 <body>
+${errorNoPermission}
+
     Request from ${pageContext.errorData.requestURI} is failed
 <br/>
 Servlet name or type: ${pageContext.errorData.servletName}

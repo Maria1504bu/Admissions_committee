@@ -1,7 +1,8 @@
-package command;
+package command.candidate;
 
+import command.ActionCommand;
 import dao.DaoException;
-import dao.ExamDao;
+import dao.ExamDaoImpl;
 import managers.ConfigurationManager;
 import managers.MessageManager;
 import models.User;
@@ -9,8 +10,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AddExamCommand implements ActionCommand{
-    private static final Logger logger = Logger.getLogger(AddExamCommand.class);
+public class AddCandidateExamCommand implements ActionCommand {
+    private static final Logger logger = Logger.getLogger(AddCandidateExamCommand.class);
     private  static final String PARAM_NAME_EXAM_ID = "examId";
     private  static final String PARAM_NAME_MARK = "mark";
     @Override
@@ -22,7 +23,7 @@ public class AddExamCommand implements ActionCommand{
         int mark = Integer.parseInt(req.getParameter(PARAM_NAME_MARK));
         boolean added = false;
         try {
-            added = new ExamDao().addCandidatesExam(candidatesId, examId, mark);
+            added = new ExamDaoImpl().addCandidatesExam(candidatesId, examId, mark);
         } catch (DaoException e) {
             throw new RuntimeException(e);
         }

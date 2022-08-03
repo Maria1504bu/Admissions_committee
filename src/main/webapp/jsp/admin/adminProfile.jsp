@@ -15,12 +15,12 @@
 <hr/>
 ${user.id}, ${user.email} hello!
 <hr/>
-<a href="exams.jsp">Exams</a>
+<a href="controller?command=exams">Exams</a>
 <br>
-<a href="faculties.jsp">Faculties</a>
+<a href="controller?command=faculties">Faculties</a>
 <br>
 <a href="candidates.jsp">Candidates</a>
 <br>
-<a href="controller?command=Logout">Logout</a>
+<a href="controller?command=logout">Logout</a>
 </body>
 </html>

@@ -13,7 +13,7 @@
 <body>
 <h3>Welcome</h3>
 <hr/>
-${user.id}, ${user.email} hello!
+ ${user.email} hello!
 <hr/>
 <h4> Your exams:</h4>
 <table>
@@ -31,7 +31,7 @@ ${user.id}, ${user.email} hello!
 <hr/>
 <h4>Add new exam</h4>
 <form name="AddExamForm" action="/controller" method="post">
-    <input type="hidden" name="command" value="add_exam"/>
+    <input type="hidden" name="command" value="add_candidate_exam"/>
     Choose new exam:
     <select name="examId">
         <c:forEach items="${notPassedExams}" var="exam">
@@ -45,6 +45,6 @@ ${user.id}, ${user.email} hello!
     ${examIsAdded}
 </form>
 <hr/>
-<a href="controller?command=Logout">Logout</a>
+<a href="controller?command=logout">Logout</a>
 </body>
 </html>

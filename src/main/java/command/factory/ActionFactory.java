@@ -1,30 +1,28 @@
 package command.factory;
 
 import command.ActionCommand;
-import command.client.CommandEnum;
-import javax.servlet.http.HttpServletRequest;
+import command.CommandContainer;
 import managers.ConfigurationManager;
 import managers.MessageManager;
 
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
 
 public class ActionFactory {
     public ActionCommand defineCommand(HttpServletRequest req){
         ActionCommand currentCommand = new ActionCommand() {
             @Override
             public String execute(HttpServletRequest req) {
-                return ConfigurationManager.getProperty("path.page.index");
+                return ConfigurationManager.getProperty("path.commmon.index");
             }
         };// TODO: переробити на блокировка запроса на випадок якщо невалідне значення параметру команд
-        String action = req.getParameter("command");
-        if (action == null || action.isEmpty()){
+        String commandName = req.getParameter("command");
+        if (commandName == null || commandName.isEmpty()){
             return currentCommand;
         }
         try{
-            CommandEnum currentEnum = CommandEnum.valueOf(action.toUpperCase());
-            currentCommand = currentEnum.getCurrentCommand();
+            currentCommand = CommandContainer.get(commandName);
         } catch (IllegalArgumentException e) {
-            req.setAttribute("wrongAction", action + MessageManager.getProperty("message.wrongAction"));
+            req.setAttribute("wrongCommandName", commandName + MessageManager.getProperty("message.wrongAction"));
         }
         return currentCommand;
     }

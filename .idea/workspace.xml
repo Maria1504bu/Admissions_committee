@@ -9,18 +9,60 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="replace column mark from table exams to candidates_exams in order to candidate can`t create exams_name themself, also refactor ExamDao, candidateProfile.jsp and create CandidateProfileCommand">
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/AdminProfileCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/adminProfile.jsp" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create EncodingFilter and CommandAccessFilter">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/AddExamCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/AddFacultyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/EditExamCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/EditFacultyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/ExamsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/FacultiesCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dao/ExamDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/filter/EncodingFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/listener/ContextListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/ExamService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/ExamServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/FacultyService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/FacultyServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/ServiceException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/NotValidException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/Validator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidates.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/LoginCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/client/CommandEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/client/CommandEnum.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/AddExamCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/AddCandidateExamCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/AdminProfileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/AdminProfileCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/CandidateProfileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CandidateProfileCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/InitSignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/InitSignupCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/common/LogoutCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/SignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/SignupCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/client/CommandEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/factory/ActionFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/factory/ActionFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/DaoException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/DaoException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ExamDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ExamDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FacultyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FacultyDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/FacultyDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/FacultyDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Exam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Exam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/config.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/resources/messages.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/adminProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/adminProfile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/common/signup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/common/signup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/error/error.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/error/error.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,11 +75,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="XML Properties File" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -67,31 +109,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Final Project/Admissions_committee&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "D:/Final Project/Admissions_committee",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "Errors"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="command" />
+      <recent name="services" />
       <recent name="dao" />
-      <recent name="models" />
+      <recent name="command.admin" />
+      <recent name="command.client" />
+      <recent name="command" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Admissions_committee\src" />
@@ -106,6 +150,11 @@
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="filter" />
+      <recent name="command.filter" />
+      <recent name="listener" />
     </key>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat  8.5.81">
@@ -122,7 +171,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserDaoImpl$UserMapper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="dao.UserDaoImpl$UserMapper" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dao.UserDaoImpl$UserMapper" />
       <module name="Admissions_committee" />
       <extension name="coverage">
@@ -157,6 +206,7 @@
       </method>
     </configuration>
     <configuration name="Tomcat  8.5.81" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.81" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="Admissions_committee:war exploded">
@@ -332,8 +382,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.dao.UserDaoImpl$UserMapper" />
       <item itemvalue="Application.Exam" />
-      <item itemvalue="Application.UserDaoImpl$UserMapper" />
       <item itemvalue="Database Script.create_db.sql" />
       <item itemvalue="JUnit.FacultyDaoImplTest.testGetConnection" />
       <item itemvalue="Tomcat Server.Tomcat 10.0.22" />
@@ -341,7 +391,7 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.UserDaoImpl$UserMapper" />
+        <item itemvalue="Application.dao.UserDaoImpl$UserMapper" />
         <item itemvalue="Application.Exam" />
         <item itemvalue="Database Script.create_db.sql" />
         <item itemvalue="JUnit.FacultyDaoImplTest.testGetConnection" />
@@ -366,7 +416,8 @@
       <workItem from="1658916753544" duration="3348000" />
       <workItem from="1658920930746" duration="15736000" />
       <workItem from="1659268598564" duration="1189000" />
-      <workItem from="1659269826135" duration="6042000" />
+      <workItem from="1659269826135" duration="10696000" />
+      <workItem from="1659334929806" duration="46144000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -438,7 +489,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659269880229</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="create adminProfile">
+      <created>1659293188555</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1659293188555</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -466,7 +524,9 @@
     <MESSAGE value="change dependencies from jakarta to javax, because new needed dependency javax.jstl corrupt with jakarta" />
     <MESSAGE value="display and add exams candidateProfile.jsp" />
     <MESSAGE value="replace column mark from table exams to candidates_exams in order to candidate can`t create exams_name themself, also refactor ExamDao, candidateProfile.jsp and create CandidateProfileCommand" />
-    <option name="LAST_COMMIT_MESSAGE" value="replace column mark from table exams to candidates_exams in order to candidate can`t create exams_name themself, also refactor ExamDao, candidateProfile.jsp and create CandidateProfileCommand" />
+    <MESSAGE value="create adminProfile" />
+    <MESSAGE value="create EncodingFilter and CommandAccessFilter" />
+    <option name="LAST_COMMIT_MESSAGE" value="create EncodingFilter and CommandAccessFilter" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

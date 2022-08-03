@@ -5,7 +5,7 @@
 </head>
 <body>
 <form name="LoginForm" method="Post" action="controller">
-    <input type="hidden" name="command" value="Login"/>
+    <input type="hidden" name="command" value="login"/>
     Login:<br/>
     <input type="email" name="login" value=""/>
     <br/>Password:<br/>
@@ -18,7 +18,7 @@
     ${nullPage}
     <br/>
     <input type="submit" value="Log in"/>
-    <a href="controller?command=InitSignup">Sign Up</a>
+    <a href="controller?command=init_signup">Sign Up</a>
 </form>
 <hr/>
 </body>

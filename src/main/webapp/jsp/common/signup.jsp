@@ -12,7 +12,7 @@
 </head>
 <body>
 <form name="SignupForm" method="Post" action="controller">
-    <input type="hidden" name="command" value="Signup"/>
+    <input type="hidden" name="command" value="signup"/>
     Sign up:<br/>
     <input type="email" name="login" value=""/>
     <br/>Password:<br/>

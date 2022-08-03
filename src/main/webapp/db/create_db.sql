@@ -39,7 +39,7 @@ CREATE TABLE candidates
 
 CREATE TABLE exams
 (
-    id   INT PRIMARY KEY NOT NULL,
+    id   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     name VARCHAR(50)     NOT NULL
 );
 
