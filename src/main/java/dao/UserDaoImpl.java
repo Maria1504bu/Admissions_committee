@@ -5,12 +5,13 @@ import models.User;
 import org.apache.log4j.Logger;
 import util.EntityMapper;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-    private static final Logger logger = Logger.getLogger(UserDaoImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserDaoImpl.class);
     private final static String FIND_USER_BY_LOGIN_QUERY = "SELECT u.id, u.email, u.password, r.name " +
             "FROM users u, roles r " +
             "WHERE u.email = ? AND u.role_id = r.id";
@@ -27,151 +28,163 @@ public class UserDaoImpl implements UserDao {
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     private static final String UPDATE_USER_QUERY = "UPDATE users SET email = ?, password = ? WHERE id = ?";
 
+    private final DataSource dataSource;
+
+    private Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
+    public UserDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
-    public User getByLogin(String login) throws DaoException{
-        logger.debug("Start searching user ==>" +  login + " in db");
+    public User getByLogin(String login) throws DaoException {
+        LOG.debug("Start searching user ==>" + login + " in db");
         User user = null;
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        ResultSet rs = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(FIND_USER_BY_LOGIN_QUERY);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(FIND_USER_BY_LOGIN_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, login);
-            rs = prStatement.executeQuery();
 
-            UserMapper mapper = new UserMapper();
-            while (rs.next()) {
-                user = mapper.mapEntity(rs);
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                UserMapper mapper = new UserMapper();
+                while (resultSet.next()) {
+                    user = mapper.mapEntity(resultSet);
+                }
             }
+
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find user with login ==>" + login, e);
             throw new DaoException("Cannot find user with login ==>" + login, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
-        logger.debug("Searched user ==>" +  user);
+        LOG.debug("Searched user ==>" + user);
         return user;
     }
 
     @Override
-    public User getById(int id) throws DaoException{
-        logger.debug("Start getting user by id ==> " + id);
+    public User getById(int id) throws DaoException {
+        LOG.debug("Start getting user by id ==> " + id);
         User user = null;
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        ResultSet rs = null;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(FIND_USER_BY_ID_QUERY);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(FIND_USER_BY_ID_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setInt(1, id);
-            rs = prStatement.executeQuery();
 
-            UserMapper mapper = new UserMapper();
-            while(rs.next()) {
-                user = mapper.mapEntity(rs);
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                UserMapper mapper = new UserMapper();
+                while (resultSet.next()) {
+                    user = mapper.mapEntity(resultSet);
+                }
             }
-        } catch(SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find user by id ==> " + id, e);
+
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
+        } catch (SQLException e) {
             throw new DaoException("Cannot find user with id ==>" + id, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
-        logger.debug("Searched user ==>" +  user);
+        LOG.debug("Searched user ==>" + user);
         return user;
     }
 
     @Override
-    public List<User> findAll() throws DaoException{
-        List<User> users = null;
-        Connection conn = null;
-        Statement statement = null;
-        ResultSet rs = null;
-        logger.debug("Finding all users ...");
-        try {
-            conn = DBManager.getInstance().getConnection();
-            statement = conn.createStatement();
-            rs = statement.executeQuery(FIND_ALL_USERS_QUERY);
+    public List<User> findAll() throws DaoException {
+        List<User> users = new ArrayList<>();
+        LOG.debug("Finding all users ...");
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(FIND_ALL_USERS_QUERY)) {
+            LOG.trace("Resources are created");
 
-            users = new ArrayList<>();
             UserMapper mapper = new UserMapper();
-            while(rs.next()){
-                users.add(mapper.mapEntity(rs));
+            while (resultSet.next()) {
+                users.add(mapper.mapEntity(resultSet));
             }
+
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find all user", e);
             throw new DaoException("Cannot find all user", e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, statement, rs);
         }
+        LOG.debug("Found user ==> " + users);
         return users;
     }
 
     @Override
-    public void save(User user) throws DaoException {
-        logger.debug("Start saving user ==> " + user);
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(INSERT_USER_QUERY);
+    public void save(User user) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+        LOG.debug("Start saving user ==> " + user);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(INSERT_USER_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, user.getEmail());
             prStatement.setString(2, user.getPassword());
             prStatement.setInt(3, 2);
-            int saved = prStatement.executeUpdate();
-            logger.debug("User " + user + " is saved ? ==>" + (saved == 1));
-        } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot save user ==> " + user, e);
-            throw new DaoException("Cannot save user ==> " + user, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
 
+            boolean saved = prStatement.executeUpdate() == 1;
+            LOG.debug("User " + user + " is saved ? ==>" + saved);
+            if (saved) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of user " + user);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("User is already exist", e);
+        } catch (SQLException e) {
+            throw new DaoException("Cannot save user ==> " + user, e);
         }
     }
 
     @Override
-    public void update(User user) throws DaoException{
-        logger.debug("Start updating user");
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(UPDATE_USER_QUERY);
+    public void update(User user) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+        LOG.debug("Start updating user");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(UPDATE_USER_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, user.getEmail());
             prStatement.setString(2, user.getPassword());
             prStatement.setInt(3, user.getId());
-            int updatedUsers = prStatement.executeUpdate();
-            logger.debug(updatedUsers == 1 ? "User is updated": "Something went wrong");
-        } catch (SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot update user ==> " + user, e);
+
+            boolean updated = prStatement.executeUpdate() == 1;
+            LOG.debug("User " + user + " is updated ? ==>" + updated);
+            if (updated) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of user " + user);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("Similar user already exist", e);
+        } catch (SQLException e) {
             throw new DaoException("Cannot update user ==> " + user, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
         }
     }
 
     @Override
-    public void delete(int id) throws DaoException{
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(DELETE_USER_QUERY);
-            prStatement.setInt(1, id);
-            int deleted = prStatement.executeUpdate();
-            logger.debug("User with id " + id + " removed ? => " + (deleted == 1));
-            prStatement.close();
-        } catch (SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot delete user with id ==> " + id , e);
-            throw new DaoException("Cannot delete user with id ==> " + id , e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+    public void delete(User user) throws WrongExecutedQueryException, DaoException {
+        LOG.debug("Start deleting user");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(DELETE_USER_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setInt(1, user.getId());
+
+            boolean deleted = prStatement.executeUpdate() == 1;
+            LOG.debug("User " + user + " is deleted ? ==>" + deleted);
+            if (deleted) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of user " + user);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot delete user ==> " + user, e);
         }
     }
 
@@ -187,11 +200,11 @@ public class UserDaoImpl implements UserDao {
                 user.setEmail(rs.getString(ColumnLabel.USER_EMAIL.getName()));
                 user.setPassword(rs.getString(ColumnLabel.USER_PASSWORD.getName()));
                 user.setRole(Enum.valueOf(Role.class, rs.getString(ColumnLabel.ROLE_NAME
-                                .getName()).toUpperCase()));
+                        .getName()).toUpperCase()));
             } catch (SQLException e) {
-                logger.error("Cannot extract user from ResultSet", e);
+                LOG.error("Cannot extract user from ResultSet", e);
             }
-            logger.debug("Extracted user from ResultSet ==> " + user);
+            LOG.debug("Extracted user from ResultSet ==> " + user);
             return user;
         }
     }

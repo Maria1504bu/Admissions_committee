@@ -2,7 +2,6 @@ package command.admin;
 
 import command.ActionCommand;
 import dao.DaoException;
-import dao.ExamDaoImpl;
 import managers.ConfigurationManager;
 import org.apache.log4j.Logger;
 import services.ExamService;
@@ -23,9 +22,9 @@ public class ExamsCommand implements ActionCommand {
         LOG.debug("Start examsCommand");
         String page = null;
         List exams = null;
-        //TODO: ds
+        //TODO:
         try {
-            exams = new ExamDaoImpl().findAll();
+            exams = examService.findAll();
         } catch (DaoException e) {
             throw new RuntimeException(e);
         }

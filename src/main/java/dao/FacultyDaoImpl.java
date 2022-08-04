@@ -4,12 +4,13 @@ import models.Faculty;
 import org.apache.log4j.Logger;
 import util.EntityMapper;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FacultyDaoImpl implements FacultyDao {
-    private static final Logger logger = Logger.getLogger(FacultyDaoImpl.class);
+    private static final Logger LOG = Logger.getLogger(FacultyDaoImpl.class);
 
     private static final String FIND_FACULTY_BY_ID_QUERY = "SELECT name, budget_places, all_places " +
             "FROM faculties " +
@@ -21,123 +22,138 @@ public class FacultyDaoImpl implements FacultyDao {
     private static final String DELETE_FACULTY_QUERY = "DELETE FROM faculties WHERE id = ?";
     private static final String UPDATE_FACULTY_QUERY = "UPDATE faculties SET name = ?, budget_places = ?, all_places = ?" +
             " WHERE id = ?";
+    private final DataSource dataSource;
+
+    public FacultyDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    private Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
 
     @Override
-    public Faculty getById(int id) throws DaoException{
-        logger.debug("Start getting faculty by id ==> " + id);
+    public Faculty getById(int id) throws DaoException {
+        LOG.debug("Start getting faculty by id ==> " + id);
         Faculty faculty = null;
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        ResultSet rs = null;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(FIND_FACULTY_BY_ID_QUERY);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(FIND_FACULTY_BY_ID_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setInt(1, id);
-            rs = prStatement.executeQuery();
 
-            FacultyMapper mapper = new FacultyMapper();
-            while(rs.next()) {
-                faculty = mapper.mapEntity(rs);
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                FacultyMapper mapper = new FacultyMapper();
+                while (resultSet.next()) {
+                    faculty = mapper.mapEntity(resultSet);
+                }
             }
-        } catch(SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find faculty by id ==> " + id, e);
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
+        } catch (SQLException e) {
             throw new DaoException("Cannot find faculty with id ==>" + id, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
-        logger.debug("Searched faculty ==>" +  faculty);
+        LOG.debug("Searched faculty ==>" + faculty);
         return faculty;
     }
 
     @Override
-    public List<Faculty> findAll() throws DaoException{
-        List<Faculty> faculties = null;
-        Connection conn = null;
-        Statement statement = null;
-        ResultSet rs = null;
-        logger.debug("Finding all faculties ...");
-        try {
-            conn = DBManager.getInstance().getConnection();
-            statement = conn.createStatement();
-            rs = statement.executeQuery(FIND_ALL_FACULTIES_QUERY);
+    public List<Faculty> findAll() throws DaoException {
+        List<Faculty> faculties = new ArrayList<>();
+        LOG.debug("Finding all faculties ...");
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(FIND_ALL_FACULTIES_QUERY)) {
+            LOG.trace("Resources are created");
 
-            faculties = new ArrayList<>();
             FacultyMapper mapper = new FacultyMapper();
-            while(rs.next()){
-                faculties.add(mapper.mapEntity(rs));
+            while (resultSet.next()) {
+                faculties.add(mapper.mapEntity(resultSet));
             }
+
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find all faculties", e);
             throw new DaoException("Cannot find all faculties", e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, statement, rs);
         }
+        LOG.debug("Found faculties ==>" + faculties);
         return faculties;
     }
 
+    // TODO: boolean
     @Override
-    public void save(Faculty faculty) throws DaoException {
-        logger.debug("Start saving faculty ==> " + faculty);
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(INSERT_FACULTY_QUERY);
+    public void save(Faculty faculty) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+        LOG.debug("Start saving faculty ==> " + faculty);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(INSERT_FACULTY_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, faculty.getName());
             prStatement.setInt(2, faculty.getBudget_places());
             prStatement.setInt(3, faculty.getAll_places());
-            int saved = prStatement.executeUpdate();
-            logger.debug("Faculty " + faculty + " is saved ? ==>" + (saved == 1));
+
+            boolean saved = prStatement.executeUpdate() == 1;
+            LOG.debug("Faculty " + faculty + " is saved ? ==>" + saved);
+            if (saved) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of faculty " + faculty);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("Faculty is already exist", e);
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot save faculty ==> " + faculty, e);
             throw new DaoException("Cannot save faculty ==> " + faculty, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
         }
     }
 
     @Override
-    public void update(Faculty faculty) throws DaoException{
-        logger.debug("Start updating faculty");
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(UPDATE_FACULTY_QUERY);
+    public void update(Faculty faculty) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+        LOG.debug("Start updating faculty");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(UPDATE_FACULTY_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, faculty.getName());
             prStatement.setInt(2, faculty.getBudget_places());
             prStatement.setInt(3, faculty.getAll_places());
-            int updatedFaculties = prStatement.executeUpdate();
-            logger.debug(updatedFaculties == 1 ? "Faculty is updated": "Something went wrong");
-        } catch (SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot update faculty ==> " + faculty, e);
+
+            boolean updated = prStatement.executeUpdate() == 1;
+            LOG.debug("Faculty " + faculty + " is updated ? ==>" + updated);
+            if (updated) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of faculty " + faculty);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("Similar faculty already exist", e);
+        } catch (SQLException e) {
             throw new DaoException("Cannot update faculty ==> " + faculty, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
         }
     }
 
     @Override
-    public void delete(int id) throws DaoException{
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(DELETE_FACULTY_QUERY);
-            prStatement.setInt(1, id);
-            int deleted = prStatement.executeUpdate();
-            logger.debug("Faculty with id " + id + " removed ? => " + (deleted == 1));
-            prStatement.close();
-        } catch (SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot delete faculty with id ==> " + id , e);
-            throw new DaoException("Cannot delete faculty with id ==> " + id , e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+    public void delete(Faculty faculty) throws WrongExecutedQueryException, DaoException {
+        LOG.debug("Start deleting faculty");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(DELETE_FACULTY_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setInt(1, faculty.getId());
+
+            boolean deleted = prStatement.executeUpdate() == 1;
+            LOG.debug("Faculty " + faculty + " is deleted ? ==>" + deleted);
+            if (deleted) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of faculty " + faculty);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot delete faculty ==> " + faculty, e);
         }
     }
 
@@ -154,9 +170,9 @@ public class FacultyDaoImpl implements FacultyDao {
                 faculty.setBudget_places(rs.getInt(ColumnLabel.FACULTY_BUDGET_PLACES.getName()));
                 faculty.setAll_places(rs.getInt(ColumnLabel.FACULTY_ALL_PLACES.getName()));
             } catch (SQLException e) {
-                logger.error("Cannot extract Faculty from ResultSet", e);
+                LOG.error("Cannot extract Faculty from ResultSet", e);
             }
-            logger.debug("Extracted Faculty from ResultSet ==> " + faculty);
+            LOG.debug("Extracted Faculty from ResultSet ==> " + faculty);
             return faculty;
         }
     }

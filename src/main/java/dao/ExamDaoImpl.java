@@ -4,14 +4,15 @@ import models.Exam;
 import org.apache.log4j.Logger;
 import util.EntityMapper;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ExamDaoImpl implements ExamDao{
-    private static final Logger logger = Logger.getLogger(ExamDaoImpl.class);
+public class ExamDaoImpl implements ExamDao {
+    private static final Logger LOG = Logger.getLogger(ExamDaoImpl.class);
 
     private static final String FIND_EXAM_BY_ID_QUERY = "SELECT name " +
             "FROM exams " +
@@ -32,223 +33,219 @@ public class ExamDaoImpl implements ExamDao{
     private static final String UPDATE_EXAM_QUERY = "UPDATE exams SET name = ? " +
             " WHERE id = ?";
 
+    private final DataSource dataSource;
+
+    public ExamDaoImpl(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    private Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
+    }
+
     @Override
     public Exam getById(int id) throws DaoException {
-        logger.debug("Start getting exam by id ==> " + id);
+        LOG.debug("Start getting exam by id ==> " + id);
         Exam exam = null;
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        ResultSet rs = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(FIND_EXAM_BY_ID_QUERY);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(FIND_EXAM_BY_ID_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setInt(1, id);
-            rs = prStatement.executeQuery();
-
-            ExamMapper mapper = new ExamMapper();
-            while (rs.next()) {
-                exam = mapper.mapEntity(rs);
+            LOG.trace("set parameter into prepareStatement" + id);
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                ExamMapper mapper = new ExamMapper();
+                while (resultSet.next()) {
+                    exam = mapper.mapEntity(resultSet);
+                }
             }
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find exam by id ==> " + id, e);
             throw new DaoException("Cannot find exam with id ==>" + id, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
-        logger.debug("Searched exam ==>" + exam);
+        LOG.debug("Searched exam ==>" + exam);
         return exam;
     }
 
     @Override
     public Exam getByName(String name) throws DaoException {
-        logger.debug("Start getting exam by name ==> " + name);
+        LOG.debug("Start getting exam by name ==> " + name);
         Exam exam = null;
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        ResultSet rs = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(FIND_EXAM_BY_NAME_QUERY);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(FIND_EXAM_BY_NAME_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, name);
-            rs = prStatement.executeQuery();
-
-            ExamMapper mapper = new ExamMapper();
-            while (rs.next()) {
-                exam = mapper.mapEntity(rs);
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                ExamMapper mapper = new ExamMapper();
+                while (resultSet.next()) {
+                    exam = mapper.mapEntity(resultSet);
+                }
             }
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find exam by name ==> " + name, e);
             throw new DaoException("Cannot find exam with name ==>" + name, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, rs);
         }
-        logger.debug("Searched exam ==>" + exam);
+        LOG.debug("Searched exam ==>" + exam);
         return exam;
     }
 
     @Override
     public List<Exam> findAll() throws DaoException {
-        List<Exam> exams = null;
-        Connection conn = null;
-        Statement statement = null;
-        ResultSet rs = null;
-        logger.debug("Start searching all exams");
-        try {
-            conn = DBManager.getInstance().getConnection();
-            statement = conn.createStatement();
-            rs = statement.executeQuery(FIND_ALL_EXAMS_QUERY);
-
-            exams = new ArrayList<>();
+        List<Exam> exams = new ArrayList<>();
+        LOG.debug("Start searching all exams");
+        try (Connection connection = getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(FIND_ALL_EXAMS_QUERY)) {
+            LOG.trace("Resources are created");
             ExamMapper mapper = new ExamMapper();
-            while (rs.next()) {
-                exams.add(mapper.mapEntity(rs));
+            while (resultSet.next()) {
+                exams.add(mapper.mapEntity(resultSet));
             }
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find all exams", e);
             throw new DaoException("Cannot find all exams", e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, statement, rs);
         }
+        LOG.debug("Searched exams ==>" + exams);
         return exams;
     }
 
     @Override
     public Map<String, Integer> findAllByCandidatesId(int id) throws DaoException {
-        logger.debug("Start searching candidates exams");
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        ResultSet resultSet = null;
-        Map<String, Integer> exams = null;
-        EntityMapper mapper = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(FIND_EXAM_BY_CANDIDATE_ID_QUERY);
+        LOG.debug("Start searching candidates exams");
+        Map<String, Integer> exams = new HashMap<>();
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(FIND_EXAM_BY_CANDIDATE_ID_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setInt(1, id);
-            resultSet = prStatement.executeQuery();
-
-            exams = new HashMap<>();
-            mapper = new ExamMapper();
-            while (resultSet.next()) {
-                exams.put(resultSet.getString(ColumnLabel.EXAM_NAME.getName()),
-                        resultSet.getInt(ColumnLabel.CANDIDATES_EXAM_MARK.getName()));
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    exams.put(resultSet.getString(ColumnLabel.EXAM_NAME.getName()),
+                            resultSet.getInt(ColumnLabel.CANDIDATES_EXAM_MARK.getName()));
+                }
             }
-        } catch (SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot find candidates exams by id ==> " + id, e);
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
+        } catch (SQLException e) {
             throw new DaoException("Cannot find candidates exams by id ==> " + id, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, resultSet);
         }
-        logger.debug("Searched candidates exams:" + exams.entrySet());
+        LOG.debug("Searched candidates exams:" + exams.entrySet());
         return exams;
     }
 
-    public boolean addCandidatesExam(int candidatesId, int examId, int mark) throws DaoException{
-        logger.debug("Start adding new candidates exam to db");
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        boolean added = false;
-        try{
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(INSERT_CANDIDATES_EXAM_QUERY);
+    public boolean addCandidatesExam(int candidatesId, int examId, int mark) throws DaoException {
+        LOG.debug("Start adding new candidates exam to db");
+        boolean added;
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(INSERT_CANDIDATES_EXAM_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setInt(1, candidatesId);
             prStatement.setInt(2, examId);
             prStatement.setInt(3, mark);
             added = prStatement.executeUpdate() == 1;
-        } catch (SQLException e){
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot add candidates exam with candidates id ==> " + candidatesId +
-                    "examId => " + examId + ", mark = " + mark, e);
+
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
+        } catch (SQLException e) {
             throw new DaoException("Cannot add candidates exams with candidates id ==> " + candidatesId +
                     "examId => " + examId + ", mark = " + mark, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
         }
-        logger.debug("New candidates exam is added ? ==> " + added);
+        LOG.debug("New candidates exam is added ? ==> " + added);
         return added;
     }
 
 
-
     @Override
-    public void save(Exam exam) throws DaoException {
-        logger.debug("Start saving exam ==> " + exam);
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(INSERT_EXAM_QUERY);
+    public void save(Exam exam) throws WrongExecutedQueryException, AlreadyExistException,  DaoException {
+        LOG.debug("Start saving exam ==> " + exam);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(INSERT_EXAM_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, exam.getName());
-            int saved = prStatement.executeUpdate();
-            logger.debug("exam " + exam + " is saved ? ==>" + (saved == 1));
+
+            boolean saved = prStatement.executeUpdate() == 1;
+            LOG.debug("exam " + exam + " is saved ? ==>" + saved);
+            if (saved) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of exam " + exam);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("Exam is already exist", e);
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot save exam ==> " + exam, e);
             throw new DaoException("Cannot save exam ==> " + exam, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
         }
     }
 
     @Override
-    public void update(Exam exam) throws DaoException {
-        logger.debug("Start updating exam");
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(UPDATE_EXAM_QUERY);
+    public void update(Exam exam) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+        LOG.debug("Start updating exam");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(UPDATE_EXAM_QUERY)) {
+            LOG.trace("Resources are created");
             prStatement.setString(1, exam.getName());
             prStatement.setInt(2, exam.getId());
-            int updatedFaculties = prStatement.executeUpdate();
-            logger.debug(updatedFaculties == 1 ? "exam is updated" : "Something went wrong");
+
+            boolean updated = prStatement.executeUpdate() == 1;
+            LOG.debug("Exam " + exam + " is updated ? ==>" + updated);
+
+            if (updated) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of exam " + exam);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("Similar exam already exist", e);
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot update exam ==> " + exam, e);
             throw new DaoException("Cannot update exam ==> " + exam, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
         }
     }
 
     @Override
-    public void delete(int id) throws DaoException {
-        Connection conn = null;
-        PreparedStatement prStatement = null;
-        try {
-            conn = DBManager.getInstance().getConnection();
-            prStatement = conn.prepareStatement(DELETE_EXAM_QUERY);
-            prStatement.setInt(1, id);
-            int deleted = prStatement.executeUpdate();
-            logger.debug("exam with id " + id + " removed ? => " + (deleted == 1));
-            prStatement.close();
+    public void delete(Exam exam) throws WrongExecutedQueryException, DaoException {
+        LOG.debug("Start deleting exam");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(DELETE_EXAM_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setInt(1, exam.getId());
+
+            boolean deleted = prStatement.executeUpdate() == 1;
+            LOG.debug("Exam " + exam + " removed ? => " + deleted);
+            if (deleted) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of exam " + exam);
+            }
         } catch (SQLException e) {
-            DBManager.getInstance().rollbackAndClose(conn);
-            logger.error("Cannot delete exam with id ==> " + id, e);
-            throw new DaoException("Cannot delete exam with id ==> " + id, e);
-        } finally {
-            DBManager.getInstance().commitAndClose(conn, prStatement, null);
+            throw new DaoException("Cannot delete exam ==> " + exam, e);
         }
     }
 
-/**
- * Extract exam from ResultSet
- */
-private static class ExamMapper implements EntityMapper<Exam> {
-    @Override
-    public Exam mapEntity(ResultSet rs) {
-        Exam exam = new Exam();
-        try {
-            exam.setId(rs.getInt(ColumnLabel.EXAM_ID.getName()));
-            exam.setName(rs.getString(ColumnLabel.EXAM_NAME.getName()));
-        } catch (SQLException e) {
-            logger.error("Cannot extract exam from ResultSet", e);
+    /**
+     * Extract exam from ResultSet
+     */
+    private static class ExamMapper implements EntityMapper<Exam> {
+        @Override
+        public Exam mapEntity(ResultSet rs) {
+            Exam exam = new Exam();
+            try {
+                exam.setId(rs.getInt(ColumnLabel.EXAM_ID.getName()));
+                exam.setName(rs.getString(ColumnLabel.EXAM_NAME.getName()));
+            } catch (SQLException e) {
+                LOG.error("Cannot extract exam from ResultSet", e);
+            }
+            LOG.debug("Extracted exam from ResultSet ==> " + exam);
+            return exam;
         }
-        logger.debug("Extracted exam from ResultSet ==> " + exam);
-        return exam;
     }
-}
 }

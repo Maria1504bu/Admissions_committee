@@ -11,23 +11,24 @@ import dao.*;
 import org.apache.log4j.Logger;
 import services.*;
 
+import javax.sql.DataSource;
 import java.util.TreeMap;
 
 public class CommandContainer {
     private static final Logger LOG = Logger.getLogger(CommandContainer.class);
     static TreeMap<String, ActionCommand> commands;
-
-    static {
-        UserDao userDao = new UserDaoImpl();
-        FacultyDao facultyDao = new FacultyDaoImpl();
-        ExamDao examDao = new ExamDaoImpl();
+//TODO: Can do strategy?
+    public static void init(DataSource dataSource){
+        UserDao userDao = new UserDaoImpl(dataSource);
+        FacultyDao facultyDao = new FacultyDaoImpl(dataSource);
+        ExamDao examDao = new ExamDaoImpl(dataSource);
 
         UserService userService = new UserServiceImpl();
         FacultyService facultyService = new FacultyServiceImpl(facultyDao);
         ExamService examService = new ExamServiceImpl();
 
 
-// out_of_control
+        // out_of_control
         commands.put("login", new LoginCommand(userService));
         commands.put("signup", new SignupCommand(userService));
         commands.put("initSignup", new InitSignupCommand());
