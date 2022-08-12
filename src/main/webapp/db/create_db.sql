@@ -176,7 +176,7 @@ CREATE TABLE applications
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE IF NOT EXISTS `university`.`grades`
+CREATE TABLE grades
 (
     `id`          INT NOT NULL AUTO_INCREMENT,
     `subjects_id` INT NOT NULL,
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `university`.`grades`
             ON UPDATE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS `university`.`applications_grades`
+CREATE TABLE applications_grades
 (
     `applications_id` INT NOT NULL,
     `grades_id`       INT NOT NULL,
