@@ -1,7 +1,8 @@
 package models;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 public class Candidate implements Serializable {
@@ -12,12 +13,13 @@ public class Candidate implements Serializable {
     private String firstName;
     private String fatherName;
     private String secondName;
+    private String certificate_url;
     private String city;
     private String schoolName;
     private byte[] schoolCertificate;
     private boolean isBlocked;
     private List<Application> applicationsList;
-    private LocalDate applicationDate;
+    private Date applicationDate;
 
     public int getId() {
         return id;
@@ -47,6 +49,10 @@ public class Candidate implements Serializable {
         return secondName;
     }
 
+    public String getCertificate_url() {
+        return certificate_url;
+    }
+
     public String getCity() {
         return city;
     }
@@ -68,103 +74,131 @@ public class Candidate implements Serializable {
         return applicationsList;
     }
 
-    public LocalDate getApplicationDate() {
+    public Date getApplicationDate() {
         return applicationDate;
     }
 
-    private Candidate(CandidateBuilder builder){
-        this.id = builder.id;
-        this.email = builder.email;
-        this.password = builder.password;
-        this.role = builder.role;
-        this.firstName = builder.firstName;
-        this.fatherName = builder.fatherName;
-        this.secondName = builder.secondName;
-        this.city = builder.city;
-        this.schoolName = builder.schoolName;
-        this.schoolCertificate = builder.schoolCertificate;
-        this.isBlocked = builder.isBlocked;
-        this.applicationsList = builder.applicationsList;
-        this.applicationDate = builder.applicationDate;
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", firstName='" + firstName + '\'' +
+                ", fatherName='" + fatherName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", certificate_url'" + certificate_url + '\'' +
+                ", city='" + city + '\'' +
+                ", schoolName='" + schoolName + '\'' +
+                ", schoolCertificate=" + Arrays.toString(schoolCertificate) +
+                ", isBlocked=" + isBlocked +
+                ", applicationsList=" + applicationsList +
+                ", applicationDate=" + applicationDate +
+                '}';
     }
 
+    public static CandidateBuilder builder(){
+        return new CandidateBuilder();
+    }
+
+    public static CandidateBuilder modify(Candidate candidate){
+        return new CandidateBuilder(candidate);
+    }
+
+
+    public static void main(String[] args) {
+        Candidate candidate = new CandidateBuilder()
+                .city("loh")
+                .password("loh").build();
+        System.out.println(candidate);
+        Candidate candidate1 = new CandidateBuilder()
+                .email("111").build();
+        System.out.println(candidate1);
+        Candidate candidate3 = new CandidateBuilder().id('2').build();
+        System.out.println(candidate3);
+    }
+    /**
+     * Builder
+     */
     public static  class CandidateBuilder{
-        private int id;
-        private String email;
-        private String password;
-        private Role role;
-        private String firstName;
-        private String fatherName;
-        private String secondName;
-        private String city;
-        private String schoolName;
-        private byte[] schoolCertificate;
-        private boolean isBlocked;
-        private List<Application> applicationsList;
-        private LocalDate applicationDate;
+        private Candidate candidate;
+
+        private CandidateBuilder(){
+            this.candidate = new Candidate();
+        }
+
+        private CandidateBuilder(Candidate candidate){
+            this.candidate = candidate;
+        }
 
         public CandidateBuilder id(int id){
-            this.id = id;
+            candidate.id = id;
             return this;
         }
 
         public CandidateBuilder email(String email){
-            this.email = email;
+            candidate.email = email;
             return this;
         }
 
         public CandidateBuilder password(String password){
-            this.password = password;
+            candidate.password = password;
             return this;
         }
 
         public CandidateBuilder role(Role role){
-            this.role = role;
+            candidate.role = role;
             return this;
         }
 
         public CandidateBuilder firstName(String firstName){
-            this.firstName = firstName;
+            candidate.firstName = firstName;
             return this;
         }
 
         public CandidateBuilder fatherName(String fatherName){
-            this.fatherName = fatherName;
+            candidate.fatherName = fatherName;
             return this;
         }
 
         public CandidateBuilder secondName(String secondName){
-            this.secondName = secondName;
+            candidate.secondName = secondName;
+            return this;
+        }
+
+        public CandidateBuilder certificate_url(String certificate_url){
+            candidate.certificate_url = certificate_url;
             return this;
         }
 
         public CandidateBuilder city(String city){
-            this.city = city;
+            candidate.city = city;
             return this;
         }
 
         public CandidateBuilder schoolName(String schoolName){
-            this.schoolName = schoolName;
+            candidate.schoolName = schoolName;
             return this;
         }
         public CandidateBuilder schoolCertificate(byte[] schoolCertificate){
-            this.schoolCertificate = schoolCertificate;
+            candidate.schoolCertificate = schoolCertificate;
             return this;
         }
         public CandidateBuilder isBlocked(boolean isBlocked){
-            this.isBlocked = isBlocked;
+            candidate.isBlocked = isBlocked;
             return this;
         }
         public CandidateBuilder applicationsList(List<Application> applicationsList){
-            this.applicationsList = applicationsList;
+            candidate.applicationsList = applicationsList;
             return this;
         }
-        public CandidateBuilder applicationDate(LocalDate applicationDate){
-            this.applicationDate = applicationDate;
+        public CandidateBuilder applicationDate(Date applicationDate){
+            candidate.applicationDate = applicationDate;
             return this;
         }
         public Candidate build(){
-            return new Candidate(this);
+            return this.candidate;
         }
     }
 }

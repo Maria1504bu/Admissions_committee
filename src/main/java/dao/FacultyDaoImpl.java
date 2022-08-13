@@ -7,21 +7,44 @@ import util.EntityMapper;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FacultyDaoImpl implements FacultyDao {
     private static final Logger LOG = Logger.getLogger(FacultyDaoImpl.class);
 
-    private static final String FIND_FACULTY_BY_ID_QUERY = "SELECT name, budget_places, all_places " +
-            "FROM faculties " +
-            "WHERE id = ?";
+    private static final String FIND_FACULTY_BY_ID_QUERY = "SELECT f.id, f.budget_places, f.total_places, fl.name " +
+            "FROM faculties f " +
+            "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
+            "INNER JOIN languages l ON l.id = fl.languages_id " +
+            "WHERE f.id = ?  AND l.name = ?";
 
-    private static final String FIND_ALL_FACULTIES_QUERY = "SELECT name, budget_places, all_places FROM faculties";
-    private final static String INSERT_FACULTY_QUERY = "INSERT INTO faculties (name, budget_places, all_places)" +
-            "VALUES (?, ?, ?)";
-    private static final String DELETE_FACULTY_QUERY = "DELETE FROM faculties WHERE id = ?";
-    private static final String UPDATE_FACULTY_QUERY = "UPDATE faculties SET name = ?, budget_places = ?, all_places = ?" +
-            " WHERE id = ?";
+    private static final String FIND_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, fa.total_places, fl.name " +
+            "FROM faculties f " +
+            "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
+            "INNER JOIN languages l ON l.id = fl.languages_id " +
+            "WHERE l.name = ?";
+    private final static String INSERT_FACULTY_QUERY = "INSERT INTO faculties (budget_places_qty, total_places_qty) VALUES (?, ?); " +
+            "INSERT INTO faculties_languages (faculties_id, languages_id, name) " +
+            "VALUES " +
+            "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'en'), ?), " +
+            "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'uk'), ?), " +
+            "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'ru'), ?) ";
+
+    private static final String INSERT_SUBJECTS_TO_FACULTY =
+            "INSERT INTO faculties_subjects (faculties_id, subjects_id) VALUES (?, ?);";
+
+
+    private static final String UPDATE_FACULTY_QUERY =
+            "UPDATE faculties SET budget_places = ?, total_places = ? " +
+                    "WHERE id = ?;";
+
+    private static final String UPDATE_FACULTY_LANG_SET_QUERY =
+            "UPDATE faculties_languages SET name = ? " +
+                    "WHERE faculties_id = ? AND languages_id = ?;";
+
+    private static final String DELETE_FACULTY_QUERY =
+            "DELETE FROM faculties WHERE id = ?;";
     private final DataSource dataSource;
 
     public FacultyDaoImpl(DataSource dataSource) {
@@ -79,18 +102,20 @@ public class FacultyDaoImpl implements FacultyDao {
         return faculties;
     }
 
-    // TODO: boolean
     @Override
     public void save(Faculty faculty) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving faculty ==> " + faculty);
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(INSERT_FACULTY_QUERY)) {
             LOG.trace("Resources are created");
-            prStatement.setString(1, faculty.getName());
-            prStatement.setInt(2, faculty.getBudget_places());
-            prStatement.setInt(3, faculty.getAll_places());
+            prStatement.setInt(1, faculty.getBudgetPlaces());
+            prStatement.setInt(2, faculty.getTotalPlaces());
 
-            boolean saved = prStatement.executeUpdate() == 1;
+            prStatement.setString(3, faculty.getNamesList().get(0));
+            prStatement.setString(4, faculty.getNamesList().get(1));
+            prStatement.setString(5, faculty.getNamesList().get(2));
+
+            boolean saved = prStatement.executeUpdate() == 4;
             LOG.debug("Faculty " + faculty + " is saved ? ==>" + saved);
             if (saved) {
                 connection.commit();
@@ -100,6 +125,7 @@ public class FacultyDaoImpl implements FacultyDao {
                 LOG.trace("Changes at db is rollback");
                 throw new WrongExecutedQueryException("Operation is rollback! Wrong data of faculty " + faculty);
             }
+
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new AlreadyExistException("Faculty is already exist", e);
         } catch (SQLException e) {
@@ -108,14 +134,45 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
+    public void addSubjectsToFaculty(Faculty faculty) throws WrongExecutedQueryException, DaoException {
+        LOG.debug("Start adding subjects to faculty :" + faculty.getNamesList().get(0));
+        int savedRows = 0;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SUBJECTS_TO_FACULTY)) {
+            LOG.trace("Resources are created");
+            for (model.Subject subject : faculty.getSubjectList()) {
+                try {
+                    preparedStatement.setInt(1, faculty.getId());
+                    preparedStatement.setInt(2, subject.getId());
+                    preparedStatement.executeUpdate();
+                    savedRows++;
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    continue;
+                }
+                if (savedRows > 0) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback!");
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot add subjects to faculty", e);
+        }
+
+    }
+
+    @Override
     public void update(Faculty faculty) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start updating faculty");
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(UPDATE_FACULTY_QUERY)) {
             LOG.trace("Resources are created");
-            prStatement.setString(1, faculty.getName());
-            prStatement.setInt(2, faculty.getBudget_places());
-            prStatement.setInt(3, faculty.getAll_places());
+            prStatement.setInt(1, faculty.getBudgetPlaces());
+            prStatement.setInt(2, faculty.getTotalPlaces());
+            prStatement.setInt(3, faculty.getId());
 
             boolean updated = prStatement.executeUpdate() == 1;
             LOG.debug("Faculty " + faculty + " is updated ? ==>" + updated);
@@ -129,6 +186,32 @@ public class FacultyDaoImpl implements FacultyDao {
             }
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new AlreadyExistException("Similar faculty already exist", e);
+        } catch (SQLException e) {
+            throw new DaoException("Cannot update faculty ==> " + faculty, e);
+        }
+    }
+
+    @Override
+    public void updateLangSet(Faculty faculty) throws DaoException {
+        LOG.debug("Start updating faculty");
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(UPDATE_FACULTY_LANG_SET_QUERY)) {
+            LOG.trace("Resources are created");
+            int i = 0;
+            for (String facultyName : faculty.getNamesList()) {
+                try {
+                    prStatement.setString(1, facultyName);
+                    prStatement.setInt(2, faculty.getId());
+                    prStatement.setInt(3, ++i);
+                    boolean updated = prStatement.executeUpdate() == 1;
+                    LOG.debug("Faculty name " + facultyName + " is updated ? ==>" + updated);
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    LOG.debug("Faculty name with this parameters already exist", e);
+                    continue;
+                }
+            }
+            connection.commit();
+            LOG.trace("Changes at db was committed");
         } catch (SQLException e) {
             throw new DaoException("Cannot update faculty ==> " + faculty, e);
         }
@@ -157,6 +240,7 @@ public class FacultyDaoImpl implements FacultyDao {
         }
     }
 
+
     /**
      * Extract faculty from ResultSet
      */
@@ -166,9 +250,9 @@ public class FacultyDaoImpl implements FacultyDao {
             Faculty faculty = new Faculty();
             try {
                 faculty.setId(rs.getInt(ColumnLabel.FACULTY_ID.getName()));
-                faculty.setName(rs.getString(ColumnLabel.FACULTY_NAME.getName()));
-                faculty.setBudget_places(rs.getInt(ColumnLabel.FACULTY_BUDGET_PLACES.getName()));
-                faculty.setAll_places(rs.getInt(ColumnLabel.FACULTY_ALL_PLACES.getName()));
+                faculty.getNamesList().addAll(Arrays.asList(rs.getString(ColumnLabel.FACULTY_NAME.getName())));
+                faculty.setBudgetPlaces(rs.getInt(ColumnLabel.FACULTY_BUDGET_PLACES.getName()));
+                faculty.setTotalPlaces(rs.getInt(ColumnLabel.FACULTY_ALL_PLACES.getName()));
             } catch (SQLException e) {
                 LOG.error("Cannot extract Faculty from ResultSet", e);
             }

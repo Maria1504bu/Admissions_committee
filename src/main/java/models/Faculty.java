@@ -1,21 +1,42 @@
 package models;
 
-public class Faculty {
+import java.io.Serializable;
+import java.util.*;
+
+public class Faculty implements Serializable {
+    private static final long serialVersionUID = 3523165227703971485L;
     private int id;
-    private String name;
-    private int budget_places;
-    private int all_places;
+    private List<String> namesList;
+    private int budgetPlaces;
+    private int totalPlaces;
+    private List<model.Subject> subjectList;
 
-    public Faculty() {
+
+    public Faculty(){
+        subjectList = new ArrayList<>();
+        namesList = new ArrayList<>();
     }
-
-    public Faculty(int id, String name, int budget_places, int all_places) {
+    public Faculty(int id){
         this.id = id;
-        this.name = name;
-        this.budget_places = budget_places;
-        this.all_places = all_places;
     }
-
+    public Faculty(int id, String[] names, int budgetPlacesQty, int totalPlacesQty){
+        this.id = id;
+        this.namesList = new ArrayList<>();
+        this.budgetPlaces = budgetPlacesQty;
+        this.totalPlaces = totalPlacesQty;
+        this.subjectList = new ArrayList<>();
+        listInitialize(names);
+    }
+    public Faculty(String[] names, int budgetPlacesQty, int totalPlacesQty){
+        this.namesList = new ArrayList<>();
+        this.budgetPlaces = budgetPlacesQty;
+        this.totalPlaces = totalPlacesQty;
+        this.subjectList = new ArrayList<>();
+        listInitialize(names);
+    }
+    private void listInitialize(String[] localesNames) {
+        namesList.addAll(Arrays.asList(localesNames));
+    }
     public int getId() {
         return id;
     }
@@ -24,27 +45,61 @@ public class Faculty {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public List<String> getNamesList() {
+        return namesList;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getBudgetPlaces() {
+        return budgetPlaces;
     }
 
-    public int getBudget_places() {
-        return budget_places;
+    public void setBudgetPlaces(int budgetPlaces) {
+        this.budgetPlaces = budgetPlaces;
     }
 
-    public void setBudget_places(int budget_places) {
-        this.budget_places = budget_places;
+    public int getTotalPlaces() {
+        return totalPlaces;
     }
 
-    public int getAll_places() {
-        return all_places;
+    public void setTotalPlaces(int totalPlaces) {
+        this.totalPlaces = totalPlaces;
     }
 
-    public void setAll_places(int all_places) {
-        this.all_places = all_places;
+    public List<model.Subject> getSubjectList() {
+        return subjectList;
+    }
+
+    public static Comparator<Faculty> COMPARE_BY_NAME = (one, other) -> one.getNamesList().get(0).compareTo(other.getNamesList().get(0));
+
+    public static Comparator<Faculty> COMPARE_BY_BUDGET_PLACES = (one, other) -> one.getBudgetPlaces() - other.getBudgetPlaces();
+
+    public static Comparator<Faculty> COMPARE_BY_TOTAL_PLACES = (one, other) -> one.getTotalPlaces() - other.getTotalPlaces();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Faculty faculty = (Faculty) o;
+        return id == faculty.id &&
+                budgetPlaces == faculty.budgetPlaces &&
+                totalPlaces == faculty.totalPlaces &&
+                namesList.equals(faculty.namesList) &&
+                Objects.equals(subjectList, faculty.subjectList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, namesList, budgetPlaces, totalPlaces, subjectList);
+    }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", namesList=" + namesList +
+                ", budgetPlacesQty=" + budgetPlaces +
+                ", totalPlacesQty=" + totalPlaces +
+                ", subjectList=" + subjectList +
+                '}';
     }
 }
