@@ -4,29 +4,29 @@ CREATE DATABASE IF NOT EXISTS Admissions_committee;
 USE Admissions_committee;
 
 
-CREATE TABLE user_roles
+CREATE TABLE roles
 (
     id   INT AUTO_INCREMENT PRIMARY KEY          NOT NULL,
     name VARCHAR(50) CHARACTER SET 'utf8' UNIQUE NOT NULL
 );
 
-CREATE TABLE user_logins
+CREATE TABLE logins
 (
     `id`            INT                               NOT NULL AUTO_INCREMENT,
     `email`         VARCHAR(45) CHARACTER SET 'utf8'  NOT NULL,
     `password`      VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
-    `user_roles_id` INT                               NOT NULL,
+    `roles_id` INT                               NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-    INDEX `fk_user_logins_user_roles_idx` (`user_roles_id` ASC) VISIBLE,
-    CONSTRAINT `fk_user_logins_user_roles`
-        FOREIGN KEY (`user_roles_id`)
-            REFERENCES user_roles (`id`)
+    INDEX `fk_logins_roles_idx` (`roles_id` ASC) VISIBLE,
+    CONSTRAINT `fk_logins_roles`
+        FOREIGN KEY (`roles_id`)
+            REFERENCES roles (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
 
-CREATE TABLE states
+CREATE TABLE cities
 (
     `id`   INT                              NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) CHARACTER SET 'utf8' NOT NULL,
@@ -35,40 +35,26 @@ CREATE TABLE states
 
 CREATE TABLE candidates
 (
-    `user_logins_id` INT                               NOT NULL,
+    `login_id` INT                               NOT NULL,
     `first_name`     VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `father_name`    VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `second_name`    VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
-    `city`           VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
-    `states_id`      INT                               NOT NULL,
+    `certificate_url` VARCHAR(80) CHARACTER SET 'utf8' NOT NULL,
+    `city_id`        INT                               NOT NULL,
     `school_name`    VARCHAR(150) CHARACTER SET 'utf8' NOT NULL,
-    `is_blocked`     INT                               NOT NULL,
+    `is_blocked`     BOOLEAN                           NOT NULL,
     `appl_date`      DATE                              NOT NULL,
-    INDEX `fk_candidates_states1_idx` (`states_id` ASC) VISIBLE,
-    INDEX `fk_candidates_user_logins1_idx` (`user_logins_id` ASC) VISIBLE,
-    PRIMARY KEY (`user_logins_id`),
-    CONSTRAINT `fk_candidates_states1`
-        FOREIGN KEY (`states_id`)
-            REFERENCES states (`id`)
+    INDEX `fk_candidates_cities1_idx` (`city_id` ASC) VISIBLE,
+    INDEX `fk_candidates_logins1_idx` (`login_id` ASC) VISIBLE,
+    PRIMARY KEY (`login_id`),
+    CONSTRAINT `fk_candidates_cities1`
+        FOREIGN KEY (`city_id`)
+            REFERENCES cities (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-    CONSTRAINT `fk_candidates_user_logins`
-        FOREIGN KEY (`user_logins_id`)
-            REFERENCES user_logins (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
-);
-
-
-CREATE TABLE certificates
-(
-    `enrollees_user_logins_id` INT        NOT NULL,
-    `school_certificate`       MEDIUMBLOB NOT NULL,
-    PRIMARY KEY (`enrollees_user_logins_id`),
-    INDEX `fk_certificates_enrollees1_idx` (`enrollees_user_logins_id` ASC) VISIBLE,
-    CONSTRAINT `fk_certificates_enrollees1`
-        FOREIGN KEY (`enrollees_user_logins_id`)
-            REFERENCES candidates (`user_logins_id`)
+    CONSTRAINT `fk_candidates_logins`
+        FOREIGN KEY (`login_id`)
+            REFERENCES logins (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
@@ -134,19 +120,19 @@ CREATE TABLE faculties_subjects
 
 CREATE TABLE subjects_languages
 (
-    `subjects_id`  INT                               NOT NULL,
-    `languages_id` INT                               NOT NULL,
+    subject_id  INT                               NOT NULL,
+    language_id INT                               NOT NULL,
     `name`         VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
-    PRIMARY KEY (`subjects_id`, `languages_id`),
-    INDEX `fk_subjects_languages_subjects1_idx` (`subjects_id` ASC) VISIBLE,
-    INDEX `fk_subjects_languages_languages1_idx` (`languages_id` ASC) VISIBLE,
+    PRIMARY KEY (subject_id, language_id),
+    INDEX `fk_subjects_languages_subjects1_idx` (subject_id ASC) VISIBLE,
+    INDEX `fk_subjects_languages_languages1_idx` (language_id ASC) VISIBLE,
     CONSTRAINT `fk_subjects_languages_subjects1`
-        FOREIGN KEY (`subjects_id`)
+        FOREIGN KEY (subject_id)
             REFERENCES subjects (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     CONSTRAINT `fk_subjects_languages_languages1`
-        FOREIGN KEY (`languages_id`)
+        FOREIGN KEY (language_id)
             REFERENCES languages (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
@@ -155,21 +141,21 @@ CREATE TABLE subjects_languages
 CREATE TABLE applications
 (
     `id`             INT NOT NULL AUTO_INCREMENT,
-    `user_logins_id` INT NOT NULL,
-    `faculties_id`   INT NOT NULL,
+    `login_id` INT NOT NULL,
+    `faculty_id`   INT NOT NULL,
     `priority`       INT NOT NULL,
-    `is_approved`    INT NOT NULL,
+    `status`    VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `fk_statement_user_logins1_idx` (`user_logins_id` ASC) VISIBLE,
-    INDEX `fk_applications_faculties1_idx` (`faculties_id` ASC) VISIBLE,
+    INDEX `fk_statement_logins1_idx` (`login_id` ASC) VISIBLE,
+    INDEX `fk_applications_faculties1_idx` (`faculty_id` ASC) VISIBLE,
     CONSTRAINT `fk_applications_faculties1`
-        FOREIGN KEY (`faculties_id`)
+        FOREIGN KEY (`faculty_id`)
             REFERENCES faculties (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-    CONSTRAINT `fk_statement_user_logins1`
-        FOREIGN KEY (`user_logins_id`)
-            REFERENCES user_logins (`id`)
+    CONSTRAINT `fk_statement_logins1`
+        FOREIGN KEY (`login_id`)
+            REFERENCES logins (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
 )
@@ -179,12 +165,12 @@ CREATE TABLE applications
 CREATE TABLE grades
 (
     `id`          INT NOT NULL AUTO_INCREMENT,
-    `subjects_id` INT NOT NULL,
+    `subject_id` INT NOT NULL,
     `grade`       INT NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `fk_grades_subjects1_idx` (`subjects_id` ASC) VISIBLE,
+    INDEX `fk_grades_subjects1_idx` (`subject_id` ASC) VISIBLE,
     CONSTRAINT `fk_grades_subjects1`
-        FOREIGN KEY (`subjects_id`)
+        FOREIGN KEY (`subject_id`)
             REFERENCES subjects (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE
@@ -192,18 +178,18 @@ CREATE TABLE grades
 
 CREATE TABLE applications_grades
 (
-    `applications_id` INT NOT NULL,
-    `grades_id`       INT NOT NULL,
-    PRIMARY KEY (`applications_id`, `grades_id`),
-    INDEX `fk_applications_has_grades_grades1_idx` (`grades_id` ASC) VISIBLE,
-    INDEX `fk_applications_has_grades_applications1_idx` (`applications_id` ASC) VISIBLE,
+    `application_id` INT NOT NULL,
+    grade_id       INT NOT NULL,
+    PRIMARY KEY (`application_id`, grade_id),
+    INDEX `fk_applications_has_grades_grades1_idx` (grade_id ASC) VISIBLE,
+    INDEX `fk_applications_has_grades_applications1_idx` (`application_id` ASC) VISIBLE,
     CONSTRAINT `fk_applications_has_grades_applications1`
-        FOREIGN KEY (`applications_id`)
+        FOREIGN KEY (`application_id`)
             REFERENCES applications (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     CONSTRAINT `fk_applications_has_grades_grades1`
-        FOREIGN KEY (`grades_id`)
+        FOREIGN KEY (grade_id)
             REFERENCES grades (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE

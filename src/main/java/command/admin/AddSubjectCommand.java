@@ -4,34 +4,34 @@ import command.ActionCommand;
 import managers.ConfigurationManager;
 import managers.MessageManager;
 import org.apache.log4j.Logger;
-import services.ExamService;
+import services.interfaces.SubjectService;
 import services.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class AddExamCommand implements ActionCommand {
+public class AddSubjectCommand implements ActionCommand {
     private static final String PARAM_NAME_NEW_EXAM = "newExam";
-    private static final Logger LOG = Logger.getLogger(AddExamCommand.class);
-    private ExamService examService;
-    public AddExamCommand(ExamService examService) {
-        this.examService = examService;
+    private static final Logger LOG = Logger.getLogger(AddSubjectCommand.class);
+    private SubjectService subjectService;
+    public AddSubjectCommand(SubjectService subjectService) {
+        this.subjectService = subjectService;
     }
     @Override
     public String execute(HttpServletRequest req) {
         String page = null;
-        String examName = null;
+        String subjectName = null;
         LOG.debug("Start addExamCommand");
-        examName = req.getParameter(PARAM_NAME_NEW_EXAM);
+        subjectName = req.getParameter(PARAM_NAME_NEW_EXAM);
 
         try {
-            examService.addExam(examName);
+            subjectService.addSubject(subjectName);
             //TODO: change catch e
         } catch (ServiceException e) {
             req.setAttribute("alreadyExist",
                     MessageManager.getProperty("message.alreadyExist"));
             throw new RuntimeException(e);
         }
-        page = ConfigurationManager.getProperty("path.command.exams");
+        page = ConfigurationManager.getProperty("path.command.subjects");
         LOG.debug("Go to ExamsCommand");
         return page;
     }

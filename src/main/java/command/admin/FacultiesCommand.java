@@ -3,7 +3,7 @@ package command.admin;
 import command.ActionCommand;
 import managers.ConfigurationManager;
 import org.apache.log4j.Logger;
-import services.FacultyService;
+import services.interfaces.FacultyService;
 import services.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;

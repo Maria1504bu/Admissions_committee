@@ -1,15 +1,17 @@
 package command;
 
 import command.admin.*;
-import command.candidate.AddCandidateExamCommand;
+import command.candidate.AddApplicationCommand;
 import command.candidate.CandidateProfileCommand;
 import command.common.LogoutCommand;
 import command.out_of_control.InitSignupCommand;
 import command.out_of_control.LoginCommand;
 import command.out_of_control.SignupCommand;
-import dao.*;
+import dao.implementation.*;
+import dao.interfaces.*;
 import org.apache.log4j.Logger;
-import services.*;
+import services.implementation.*;
+import services.interfaces.*;
 
 import javax.sql.DataSource;
 import java.util.TreeMap;
@@ -17,29 +19,31 @@ import java.util.TreeMap;
 public class CommandContainer {
     private static final Logger LOG = Logger.getLogger(CommandContainer.class);
     static TreeMap<String, ActionCommand> commands;
-//TODO: Can do strategy?
     public static void init(DataSource dataSource){
-        UserDao userDao = new UserDaoImpl(dataSource);
+        ApplicationDao applicationDao = new ApplicationDaoImpl(dataSource);
+        CandidateDao candidateDao = new CandidateDaoImpl(dataSource);
         FacultyDao facultyDao = new FacultyDaoImpl(dataSource);
-        ExamDao examDao = new ExamDaoImpl(dataSource);
+        GradeDao gradeDao = new GradeDaoImpl(dataSource);
+        SubjectDao subjectDao = new SubjectDaoImpl(dataSource);
 
-        UserService userService = new UserServiceImpl();
+        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao);
+        CandidateService candidateService = new CandidateServiceImpl(candidateDao);
         FacultyService facultyService = new FacultyServiceImpl(facultyDao);
-        ExamService examService = new ExamServiceImpl();
+        GradeService gradeService = new GradeServiceImpl(gradeDao);
+        SubjectService examService = new SubjectServiceImpl(subjectDao);
 
 
         // out_of_control
-        commands.put("login", new LoginCommand(userService));
-        commands.put("signup", new SignupCommand(userService));
+        commands.put("login", new LoginCommand(candidateService));
+        commands.put("signup", new SignupCommand(candidateService));
         commands.put("initSignup", new InitSignupCommand());
         // candidate
-        commands.put("candidateProfile", new CandidateProfileCommand());
-        commands.put("addCandidateExam", new AddCandidateExamCommand());
+        commands.put("candidateProfile", new CandidateProfileCommand(candidateService));
+        commands.put("addApplication", new AddApplicationCommand(applicationService));
         // admin
         commands.put("adminProfile", new AdminProfileCommand());
-        commands.put("exams", new ExamsCommand(examService));
-        commands.put("addExam", new AddExamCommand(examService));
-        commands.put("editExam", new EditExamCommand(examService));
+        commands.put("exams", new SubjectCommand(examService));
+        commands.put("addExam", new AddSubjectCommand(examService));
         commands.put("faculties", new FacultiesCommand(facultyService));
         commands.put("addFaculty", new AddFacultyCommand(facultyService));
         commands.put("editFaculties", new EditFacultyCommand(facultyService));

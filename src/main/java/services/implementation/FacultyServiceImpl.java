@@ -1,16 +1,18 @@
-package services;
+package services.implementation;
 
 
 import dao.DaoException;
-import dao.FacultyDao;
+import dao.interfaces.FacultyDao;
 import models.Faculty;
 import org.apache.log4j.Logger;
+import services.ServiceException;
+import services.interfaces.FacultyService;
 import util.NotValidException;
 import util.Validator;
 
 import java.util.List;
 
-public class FacultyServiceImpl implements FacultyService{
+public class FacultyServiceImpl implements FacultyService {
 
     private static final Logger LOG = Logger.getLogger(FacultyServiceImpl.class);
     private FacultyDao facultyDao;
@@ -20,7 +22,7 @@ public class FacultyServiceImpl implements FacultyService{
     }
 
     @Override
-    public Faculty getById(int id) throws ServiceException{
+    public Faculty getById(int id) throws ServiceException {
         Faculty faculty;
         try {
             Validator.validateId(id);

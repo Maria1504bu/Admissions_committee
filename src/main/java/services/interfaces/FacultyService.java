@@ -1,4 +1,4 @@
-package services;
+package services.interfaces;
 
 import com.google.protobuf.ServiceException;
 import models.Faculty;

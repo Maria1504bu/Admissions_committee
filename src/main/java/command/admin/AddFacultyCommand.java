@@ -2,7 +2,7 @@ package command.admin;
 
 import command.ActionCommand;
 import org.apache.log4j.Logger;
-import services.FacultyService;
+import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
 

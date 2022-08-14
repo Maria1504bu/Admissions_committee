@@ -9,7 +9,7 @@ public class Faculty implements Serializable {
     private List<String> namesList;
     private int budgetPlaces;
     private int totalPlaces;
-    private List<model.Subject> subjectList;
+    private List<Subject> subjectList;
 
 
     public Faculty(){
@@ -65,7 +65,7 @@ public class Faculty implements Serializable {
         this.totalPlaces = totalPlaces;
     }
 
-    public List<model.Subject> getSubjectList() {
+    public List<Subject> getSubjectList() {
         return subjectList;
     }
 
