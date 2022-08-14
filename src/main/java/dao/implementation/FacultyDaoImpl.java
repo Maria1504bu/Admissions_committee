@@ -1,6 +1,12 @@
-package dao;
+package dao.implementation;
 
+import dao.AlreadyExistException;
+import dao.ColumnLabel;
+import dao.DaoException;
+import dao.WrongExecutedQueryException;
+import dao.interfaces.FacultyDao;
 import models.Faculty;
+import models.Subject;
 import org.apache.log4j.Logger;
 import util.EntityMapper;
 
@@ -13,13 +19,13 @@ import java.util.List;
 public class FacultyDaoImpl implements FacultyDao {
     private static final Logger LOG = Logger.getLogger(FacultyDaoImpl.class);
 
-    private static final String FIND_FACULTY_BY_ID_QUERY = "SELECT f.id, f.budget_places, f.total_places, fl.name " +
+    private static final String GET_FACULTY_BY_ID_QUERY = "SELECT f.id, f.budget_places, f.total_places, fl.name " +
             "FROM faculties f " +
             "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
             "INNER JOIN languages l ON l.id = fl.languages_id " +
             "WHERE f.id = ?  AND l.name = ?";
 
-    private static final String FIND_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, fa.total_places, fl.name " +
+    private static final String GET_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, fa.total_places, fl.name " +
             "FROM faculties f " +
             "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
             "INNER JOIN languages l ON l.id = fl.languages_id " +
@@ -28,9 +34,7 @@ public class FacultyDaoImpl implements FacultyDao {
             "INSERT INTO faculties_languages (faculties_id, languages_id, name) " +
             "VALUES " +
             "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'en'), ?), " +
-            "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'uk'), ?), " +
-            "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'ru'), ?) ";
-
+            "((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'uk'), ?) ";
     private static final String INSERT_SUBJECTS_TO_FACULTY =
             "INSERT INTO faculties_subjects (faculties_id, subjects_id) VALUES (?, ?);";
 
@@ -60,7 +64,7 @@ public class FacultyDaoImpl implements FacultyDao {
         LOG.debug("Start getting faculty by id ==> " + id);
         Faculty faculty = null;
         try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(FIND_FACULTY_BY_ID_QUERY)) {
+             PreparedStatement prStatement = connection.prepareStatement(GET_FACULTY_BY_ID_QUERY)) {
             LOG.trace("Resources are created");
             prStatement.setInt(1, id);
 
@@ -85,7 +89,7 @@ public class FacultyDaoImpl implements FacultyDao {
         LOG.debug("Finding all faculties ...");
         try (Connection connection = getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(FIND_ALL_FACULTIES_QUERY)) {
+             ResultSet resultSet = statement.executeQuery(GET_ALL_FACULTIES_QUERY)) {
             LOG.trace("Resources are created");
 
             FacultyMapper mapper = new FacultyMapper();
@@ -113,9 +117,8 @@ public class FacultyDaoImpl implements FacultyDao {
 
             prStatement.setString(3, faculty.getNamesList().get(0));
             prStatement.setString(4, faculty.getNamesList().get(1));
-            prStatement.setString(5, faculty.getNamesList().get(2));
 
-            boolean saved = prStatement.executeUpdate() == 4;
+            boolean saved = prStatement.executeUpdate() == 3;
             LOG.debug("Faculty " + faculty + " is saved ? ==>" + saved);
             if (saved) {
                 connection.commit();
@@ -140,7 +143,7 @@ public class FacultyDaoImpl implements FacultyDao {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SUBJECTS_TO_FACULTY)) {
             LOG.trace("Resources are created");
-            for (model.Subject subject : faculty.getSubjectList()) {
+            for (Subject subject : faculty.getSubjectList()) {
                 try {
                     preparedStatement.setInt(1, faculty.getId());
                     preparedStatement.setInt(2, subject.getId());
@@ -218,25 +221,25 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
-    public void delete(Faculty faculty) throws WrongExecutedQueryException, DaoException {
+    public void delete(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start deleting faculty");
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(DELETE_FACULTY_QUERY)) {
             LOG.trace("Resources are created");
-            prStatement.setInt(1, faculty.getId());
+            prStatement.setInt(1, id);
 
             boolean deleted = prStatement.executeUpdate() == 1;
-            LOG.debug("Faculty " + faculty + " is deleted ? ==>" + deleted);
+            LOG.debug("Faculty with id" + id + " is deleted ? ==>" + deleted);
             if (deleted) {
                 connection.commit();
                 LOG.trace("Changes at db was committed");
             } else {
                 connection.rollback();
                 LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of faculty " + faculty);
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong faculty`s id " + id);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot delete faculty ==> " + faculty, e);
+            throw new DaoException("Cannot delete faculty with id ==> " + id, e);
         }
     }
 

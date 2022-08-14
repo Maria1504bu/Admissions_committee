@@ -1,14 +1,6 @@
 package apps.dao.mysql;
 
-import static org.junit.Assert.*;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import dao.FacultyDaoImpl;
-import dao.UserDao;
-import dao.UserDaoImpl;
-import models.Role;
+import dao.implementation.FacultyDaoImpl;
 import models.User;
 import org.junit.Before;
 import org.junit.BeforeClass;

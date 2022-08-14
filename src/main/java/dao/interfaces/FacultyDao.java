@@ -1,5 +1,6 @@
-package dao;
+package dao.interfaces;
 
+import dao.WrongExecutedQueryException;
 import models.Faculty;
 
 public interface FacultyDao extends CrudDao<Faculty> {

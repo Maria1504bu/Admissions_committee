@@ -1,5 +1,7 @@
-package dao;
+package dao.implementation;
 
+import dao.*;
+import dao.interfaces.CandidateDao;
 import models.Candidate;
 import models.Role;
 import org.apache.log4j.Logger;
@@ -265,25 +267,25 @@ public class CandidateDaoImpl implements CandidateDao {
     }
 
     @Override
-    public void delete(Candidate candidate) throws WrongExecutedQueryException, DaoException {
+    public void delete(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start deleting candidate");
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(DELETE_CANDIDATE_QUERY)) {
             LOG.trace("Resources are created");
-            prStatement.setInt(1, candidate.getId());
+            prStatement.setInt(1, id);
 
             boolean deleted = prStatement.executeUpdate() == 1;
-            LOG.debug("Candidate " + candidate + " is deleted ? ==>" + deleted);
+            LOG.debug("Candidate with id " + id + " is deleted ? ==>" + deleted);
             if (deleted) {
                 connection.commit();
                 LOG.trace("Changes at db was committed");
             } else {
                 connection.rollback();
                 LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate " + candidate);
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong candidate`s id  " + id);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot delete candidate ==> " + candidate, e);
+            throw new DaoException("Cannot delete candidate with id ==> " + id, e);
         }
     }
 
@@ -366,7 +368,7 @@ public class CandidateDaoImpl implements CandidateDao {
                         .city(rs.getString(ColumnLabel.CITY_NAME.name()))
                         .schoolName(rs.getString(ColumnLabel.CANDIDATE_SCHOOL.getName()))
                         .isBlocked(rs.getObject(ColumnLabel.CANDIDATE_IS_BLOCKED.getName(), Boolean.class))
-                        .applicationDate(rs.getDate(ColumnLabel.EXAM_ID.getName()))
+                        .applicationDate(rs.getDate(ColumnLabel.CANDIDATE_APPL_DATE.getName()))
                         .build();
             } catch (SQLException e) {
                 LOG.error("Cannot extract candidate from ResultSet", e);
