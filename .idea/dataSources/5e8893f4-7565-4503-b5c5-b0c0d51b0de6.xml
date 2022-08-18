@@ -1290,6 +1290,7 @@ grade_id</ColNames>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
     <column id="341" parent="294" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
@@ -1299,7 +1300,7 @@ grade_id</ColNames>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="343" parent="294" name="all_places">
+    <column id="343" parent="294" name="total_places">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
@@ -1478,13 +1479,13 @@ languages_id</ColNames>
       <Position>3</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="376" parent="299" name="roles_id">
+    <column id="376" parent="299" name="role_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
     <foreign-key id="377" parent="299" name="fk_logins_roles">
-      <ColNames>roles_id</ColNames>
+      <ColNames>role_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
@@ -1500,8 +1501,8 @@ languages_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="380" parent="299" name="fk_logins_roles_idx">
-      <ColNames>roles_id</ColNames>
+    <index id="380" parent="299" name="fk_logins_role_idx">
+      <ColNames>role_id</ColNames>
       <Type>btree</Type>
     </index>
     <key id="381" parent="299" name="PRIMARY">

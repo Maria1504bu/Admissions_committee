@@ -61,9 +61,9 @@ CREATE TABLE candidates
 
 CREATE TABLE faculties
 (
-    id            INT PRIMARY KEY NOT NULL,
+    id            INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     budget_places INT             NOT NULL,
-    all_places    INT             NOT NULL
+    total_places    INT             NOT NULL
 );
 
 CREATE TABLE languages

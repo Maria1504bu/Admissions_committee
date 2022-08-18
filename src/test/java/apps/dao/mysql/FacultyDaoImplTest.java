@@ -1,7 +1,6 @@
 package apps.dao.mysql;
 
 import dao.implementation.FacultyDaoImpl;
-import models.User;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

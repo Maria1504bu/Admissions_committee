@@ -23,27 +23,27 @@ public class CandidateDaoImpl implements CandidateDao {
             "FROM logins l, roles r " +
             "WHERE l.role_id = r.id AND l.email=?";
 
-    private static final String FIND_CANDIDATE_BY_ID_QUERY = "SELECT l.id AS login_id, l.email, l.password, r.name, c.first_name, " +
-            "c.father_name, c.second_name, c.certificate_url, cities.name " +
-            "c.school_name, c.is_blocked, c.appl_date, " +
+    private static final String FIND_CANDIDATE_BY_ID_QUERY = "SELECT l.id, l.email, l.password, r.name AS role, c.first_name, " +
+            "c.father_name, c.second_name, c.certificate_url, cities.name AS city, " +
+            "c.school_name, c.is_blocked, c.appl_date " +
             "FROM logins l " +
-            "INNER JOIN roles r ON l.role.id = r.id " +
-            "INNER JOIN candidates c ON l.id = c.user_logins_id " +
+            "INNER JOIN roles r ON l.role_id = r.id " +
+            "INNER JOIN candidates c ON l.id = c.login_id " +
             "INNER JOIN cities ON cities.id = c.city_id " +
-            "WHERE l.id = ?;";
+            "WHERE l.id = ?";
 
-    private static final String FIND_ALL_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name, " +
-            "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name, " +
+    private static final String FIND_ALL_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name AS role, " +
+            "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name AS city, " +
             "c.school_name, , c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities " +
             "WHERE c.login_id = l.id AND cities.id = с.city_id AND " +
             "r.name = 'CANDIDATE' ";
 
-    private static final String FIND_FACULTY_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name, " +
-            "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name, " +
+    private static final String FIND_FACULTY_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name AS role, " +
+            "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name AS city, " +
             "c.school_name, , c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities, applications a " +
-            "WHERE c.login_id = l.id AND cities.id = с.city_id AND " +
+            "WHERE c.login_id = l.id AND cities.id = с.city_id " +
             "AND c.login_id = a.login_id AND r.name = 'CANDIDATE' " +
             "AND a.faculties_id = ? LIMIT ? OFFSET ?";
 
@@ -353,6 +353,8 @@ public class CandidateDaoImpl implements CandidateDao {
      * Extract candidate from ResultSet
      */
     private static class CandidateMapper implements EntityMapper<Candidate> {
+        private static final String ROLE_COLUMN = "role";
+        private static final String CITY_COLUMN = "city";
         @Override
         public Candidate mapEntity(ResultSet rs) {
             Candidate candidate = null;
@@ -361,14 +363,12 @@ public class CandidateDaoImpl implements CandidateDao {
                         .id(rs.getInt(ColumnLabel.USER_ID.getName()))
                         .email(rs.getString(ColumnLabel.USER_EMAIL.getName()))
                         .password(rs.getString(ColumnLabel.USER_PASSWORD.getName()))
-                        .role(Enum.valueOf(Role.class, rs.getString(ColumnLabel.ROLE_NAME
-                                .getName()).toUpperCase()))
+                        .role(Enum.valueOf(Role.class, rs.getString(ROLE_COLUMN).toUpperCase()))
                         .firstName(rs.getString(ColumnLabel.CANDIDATE_FIRSTNAME.getName()))
                         .fatherName(rs.getString(ColumnLabel.CANDIDATE_FATHER_NAME.getName()))
                         .secondName(rs.getString(ColumnLabel.CANDIDATE_SECOND_NAME.getName()))
                         .certificate_url(rs.getString(ColumnLabel.CANDIDATE_CERTIFICATE_URL.getName()))
-                        .city(Enum.valueOf(City.class, rs.getString(ColumnLabel.CITY_NAME
-                                        .getName())))
+                        .city(Enum.valueOf(City.class, rs.getString(CITY_COLUMN)))
                         .schoolName(rs.getString(ColumnLabel.CANDIDATE_SCHOOL.getName()))
                         .isBlocked(rs.getObject(ColumnLabel.CANDIDATE_IS_BLOCKED.getName(), Boolean.class))
                         .applicationDate(LocalDate.parse(rs.getString(ColumnLabel.CANDIDATE_APPL_DATE.getName())))

@@ -24,7 +24,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private static final Logger LOG = Logger.getLogger(ApplicationDaoImpl.class);
 
     private static final String INSERT_APPL_QUERY =
-            "INSERT INTO applications(user_logins_id, faculty_id, priority, status)VALUES(?, ?, ?, ?)";
+            "INSERT INTO applications(login_id, faculty_id, priority, status)VALUES(?, ?, ?, ?)";
     private static final String GET_APPL_BY_ID_QUERY = "SELECT * FROM applications WHERE id = ?";
     private static final String GET_CANDIDATES_APPLS_QUERY = "SELECT * FROM applications WHERE login_id = ?";
     private static final String GET_ALL_APPLS_QUERY = "SELECT * FROM applications";
@@ -82,7 +82,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
              PreparedStatement prStatement = connection.prepareStatement(GET_CANDIDATES_APPLS_QUERY)) {
             LOG.trace("Resources are created");
             prStatement.setInt(1, candidateId);
-            LOG.trace("set parameter into prepareStatement" + candidateId);
+            LOG.trace("set parameter into prepareStatement ==> " + candidateId);
             try (ResultSet resultSet = prStatement.executeQuery()) {
                 ApplicationMapper mapper = new ApplicationMapper();
                 while (resultSet.next()) {
@@ -237,7 +237,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
                 application.setCandidate(Candidate.builder().id(rs.getInt(LOGIN_ID_COLUMN)).build());
                 application.getFaculty().setId(rs.getInt(FACULTY_ID_COLUMN));
                 application.setPriority(rs.getInt(ColumnLabel.APPL_PRIORITY.getName()));
-                application.setApplicationStatus(ApplicationStatus.values()[rs.getInt(ColumnLabel.APPL_STATUS.getName())]);
+                application.setApplicationStatus(Enum.valueOf(ApplicationStatus.class, rs.getString(ColumnLabel.APPL_STATUS.getName())));
                 return application;
             } catch (SQLException e) {
                 LOG.error("Cannot extract application from ResultSet", e);

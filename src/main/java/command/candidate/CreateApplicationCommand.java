@@ -19,8 +19,8 @@ public class CreateApplicationCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-        logger.debug("AddSubjectCommand starts");
-        String page = ConfigurationManager.getProperty("path.command.candidateProfile");
+        logger.debug("CreateApplicationCommand starts");
+        String page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
         return page;
     }
 }

@@ -15,10 +15,11 @@ public class Application implements Serializable {
     private int priority;
     private ApplicationStatus applicationStatus;
 
-    public Application(){
+    public Application() {
         this.gradesList = new ArrayList<>();
     }
-    public Application(int id, Candidate candidate, Faculty faculty, List<Grade> grList, int priority, ApplicationStatus applicationStatus){
+
+    public Application(int id, Candidate candidate, Faculty faculty, List<Grade> grList, int priority, ApplicationStatus applicationStatus) {
         this.id = id;
         this.candidate = candidate;
         this.faculty = faculty;
@@ -28,7 +29,7 @@ public class Application implements Serializable {
         listInitialize(grList);
     }
 
-    public Application(Candidate candidate, Faculty faculty, List<Grade> grList, int priority, ApplicationStatus applicationStatus){
+    public Application(Candidate candidate, Faculty faculty, List<Grade> grList, int priority, ApplicationStatus applicationStatus) {
         this.candidate = candidate;
         this.faculty = faculty;
         this.priority = priority;
@@ -36,9 +37,11 @@ public class Application implements Serializable {
         this.gradesList = new ArrayList<>();
         listInitialize(grList);
     }
+
     private void listInitialize(List<Grade> grList) {
         gradesList.addAll(grList);
     }
+
     public int getId() {
         return id;
     }
@@ -71,7 +74,7 @@ public class Application implements Serializable {
         this.priority = priority;
     }
 
-    public String getApplicationStatus() {
+    public ApplicationStatus getApplicationStatus() {
         return applicationStatus;
     }
 
@@ -83,20 +86,24 @@ public class Application implements Serializable {
         return gradesList;
     }
 
+    public void setGradesList(List<Grade> gradesList) {
+        this.gradesList = gradesList;
+    }
+
     public static Comparator<Application> COMPARE_BY_AVERAGE_GRADE =
             (appl1, appl2) -> {
                 int appl1AverGrade = 0;
                 int appl2AverGrade = 0;
-                for(Grade g : appl1.getGradesList()){
+                for (Grade g : appl1.getGradesList()) {
                     appl1AverGrade += g.getGrade();
                 }
-                if(appl1.getGradesList().size() > 0)
+                if (appl1.getGradesList().size() > 0)
                     appl1AverGrade = appl1AverGrade / appl1.getGradesList().size();
 
-                for(Grade g : appl2.getGradesList()){
+                for (Grade g : appl2.getGradesList()) {
                     appl2AverGrade += g.getGrade();
                 }
-                if(appl2.getGradesList().size() > 0)
+                if (appl2.getGradesList().size() > 0)
                     appl2AverGrade = appl2AverGrade / appl2.getGradesList().size();
                 return appl1AverGrade - appl2AverGrade;
             };

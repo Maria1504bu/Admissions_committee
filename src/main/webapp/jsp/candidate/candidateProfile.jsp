@@ -41,8 +41,8 @@
             <tbody>
             <c:forEach items="${applList}" var="a" varStatus="loop">
             <tr>
-                <td class="td-to-align">${a.getPriority}</td>
-                <td>${a.getFaculty.getNamesList.get(0)}</td>
+                <td class="td-to-align">${a.getPriority()}</td>
+                <td>${a.getFaculty().getNamesList().get(0)}</td>
 
                     <c:set var="avaregeGrade" value="${0}"/>
                 <c:forEach var="g" items="${a.getGradesList()}">
@@ -52,6 +52,8 @@
                 <td class="td-to-align">${fn:substringBefore(avaregeGrade, '.')}</td>
 
                 <td class="td-to-align">${a.getApplicationStatus()}</td>
+
+
                 <c:forEach items="${a.getGradesList()}" var="g" varStatus="loop">
             <tr>
             <thead>

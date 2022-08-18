@@ -27,7 +27,7 @@ public class CommandContainer {
         GradeDao gradeDao = new GradeDaoImpl(dataSource);
         SubjectDao subjectDao = new SubjectDaoImpl(dataSource);
 
-        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao, facultyDao);
+        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao, facultyDao, gradeDao);
         CandidateService candidateService = new CandidateServiceImpl(candidateDao);
         FacultyService facultyService = new FacultyServiceImpl(facultyDao);
         GradeService gradeService = new GradeServiceImpl(gradeDao);

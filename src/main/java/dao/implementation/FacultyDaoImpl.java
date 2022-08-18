@@ -15,17 +15,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class FacultyDaoImpl implements FacultyDao {
     private static final Logger LOG = Logger.getLogger(FacultyDaoImpl.class);
 
-    private static final String GET_FACULTY_BY_ID_QUERY = "SELECT f.id, f.budget_places, f.total_places, fl.name " +
+    private static final String GET_FACULTY_BY_ID_QUERY = "SELECT f.id, f.budget_places, f.total_places, GROUP_CONCAT(fl.name SEPARATOR '; ') AS name " +
             "FROM faculties f " +
             "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
             "INNER JOIN languages l ON l.id = fl.languages_id " +
-            "WHERE f.id = ?  AND l.name = ?";
+            "WHERE f.id = ?";
 
-    private static final String GET_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, fa.total_places, fl.name " +
+    private static final String GET_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, f.total_places, GROUP_CONCAT(fl.name SEPARATOR '; ') AS name" +
             "FROM faculties f " +
             "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
             "INNER JOIN languages l ON l.id = fl.languages_id " +
@@ -253,9 +254,9 @@ public class FacultyDaoImpl implements FacultyDao {
             Faculty faculty = new Faculty();
             try {
                 faculty.setId(rs.getInt(ColumnLabel.FACULTY_ID.getName()));
-                faculty.getNamesList().addAll(Arrays.asList(rs.getString(ColumnLabel.FACULTY_NAME.getName())));
+                faculty.getNamesList().addAll(Arrays.asList(rs.getString(ColumnLabel.FACULTY_NAME.getName()).split(Pattern.quote(";"))));
                 faculty.setBudgetPlaces(rs.getInt(ColumnLabel.FACULTY_BUDGET_PLACES.getName()));
-                faculty.setTotalPlaces(rs.getInt(ColumnLabel.FACULTY_ALL_PLACES.getName()));
+                faculty.setTotalPlaces(rs.getInt(ColumnLabel.FACULTY_TOTAL_PLACES.getName()));
             } catch (SQLException e) {
                 LOG.error("Cannot extract Faculty from ResultSet", e);
             }

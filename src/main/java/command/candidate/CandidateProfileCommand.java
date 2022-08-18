@@ -21,8 +21,8 @@ public class CandidateProfileCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
         LOG.debug("Start candidateProfileCommand");
-        Candidate candidate = (Candidate) req.getSession().getAttribute("candidate");
-        LOG.trace("Candidate from session ==>" + candidate);
+        Candidate candidate = (Candidate) req.getSession().getAttribute("user");
+        LOG.trace("User from session ==>" + candidate);
         String lang = req.getLocale().getLanguage();
         LOG.trace("Locale language ==> " + lang);
 

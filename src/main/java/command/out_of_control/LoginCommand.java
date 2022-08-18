@@ -40,6 +40,7 @@ public class LoginCommand implements ActionCommand {
             req.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginError"));
             page = ConfigurationManager.getProperty("path.common.login");
+            logger.trace("Error. go to ==>" + page);
             return page;
         }
 
