@@ -1,0 +1,35 @@
+<!-- Login, Registration Header -->
+<nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+    <!-- Brand -->
+    <a class="navbar-brand" href=""><span class="logo"><fmt:message key="header.TitleUni"/></span></a>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item px-3">
+            <a class="nav-link" id="facultiesLink"
+               href="${pageContext.request.contextPath}/controller?command=getFaculties"><fmt:message key="header.Faculties"/></a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href=""><fmt:message key="header.Applications"/></a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" id="about-link-id" href="" onclick="displayAbout(); return false;"><fmt:message key="header.About"/></a>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href=""><fmt:message key="header.Contacts"/></a>
+        </li>
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="" id="navbardrop" data-toggle="dropdown">
+                <fmt:message key="header.Login"/>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" id="loginLinkId"
+                   href="${pageContext.request.contextPath}/controller?command=login"><fmt:message key="header.Login"/></a>
+                <a class="dropdown-item" id="reisterLinkId"
+                   href="${pageContext.request.contextPath}/controller?command=initSignup"><fmt:message key="header.Registration"/></a>
+            </div>
+        </li>
+    </ul>
+</nav>

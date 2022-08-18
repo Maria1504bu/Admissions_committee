@@ -1,50 +1,92 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: knkyu
-  Date: 06.07.2022
-  Time: 18:00
-  To change this template use File | Settings | File Templates.
---%>
 <%@ include file="/jspf/directives.jspf" %>
+<%@ include file="/jspf/lang.jspf" %>
+
 <html>
 <head>
-    <title>Welcome</title>
+    <title>Display Candidate</title>
+<%--    <%@ include file="/jspf/headDirectives.jspf" %>--%>
+    <style>
+        <%@ include file="/css/styles.css" %>
+    </style>
 </head>
 <body>
-<h3>Welcome</h3>
-<hr/>
- ${user.email} hello!
-<hr/>
-<h4> Your exams:</h4>
-<table>
-    <tr>
-        <th>Subject</th>
-        <th>Mark</th>
-    </tr>
-    <c:forEach items="${candidatesExams}" var="examEntry">
-        <tr>
-            <td><c:out value="${examEntry.key}"/></td>
-            <td><c:out value="${examEntry.value}"/></td>
-        </tr>
-    </c:forEach>
-</table>
-<hr/>
-<h4>Add new exam</h4>
-<form name="AddExamForm" action="/controller" method="post">
-    <input type="hidden" name="command" value="add_candidate_exam"/>
-    Choose new exam:
-    <select name="examId">
-        <c:forEach items="${notPassedExams}" var="exam">
-            <option value="${exam.id}">${exam.name}</option>
-        </c:forEach>
-    </select>
-    </br>
-    Choose mark:
-    <input type="number" min="100" max="200" name="mark">
-    <input type="submit" value="Add">
-    ${examIsAdded}
-</form>
-<hr/>
-<a href="controller?command=logout">Logout</a>
+<!-- Header----------------------------------------------------------------------------------->
+<%@ include file="/jspf/loginedHeader.jspf" %>
+<!-- Body beginging--------------------------------------------------------------------------->
+
+<c:set var="candidate" value="${sessionScope['candidate']}"/>
+<c:set var="applList" value="${sessionScope['applicationsList']}"/>
+
+<div class="container indexMainCtr">
+    <div class="col-sm-12 col-sm-12-custom">
+        <h2><fmt:message key="candidateDash.Title"/></h2>
+        <hr>
+
+        <h3 id="table-header"><fmt:message key="candidateDash.YourDetails"/></h3>
+        <h3>${candidate.getSecondName += " " += candidate.getFirstName}</h3>
+        <h4>${candidate.getCity}</h4>
+        <h4><c:out
+                value="${candidate.isBlocked == true ? 'Candidate Status: Under Checking' : 'Candidate Status: Ddetails Approved'}"/></h4>
+
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th><fmt:message key="getCandidate.Priority"/></th>
+                <th><fmt:message key="getCandidate.Faculty"/></th>
+                <th><fmt:message key="getCandidate.AverageGrade"/></th>
+                <th><fmt:message key="getCandidate.Status"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${applList}" var="a" varStatus="loop">
+            <tr>
+                <td class="td-to-align">${a.getPriority}</td>
+                <td>${a.getFaculty.getNamesList.get(0)}</td>
+
+                    <c:set var="avaregeGrade" value="${0}"/>
+                <c:forEach var="g" items="${a.getGradesList()}">
+                    <c:set var="avaregeGrade" value="${avaregeGrade + g.getGrade()}"/>
+                </c:forEach>
+                    <c:set var="avaregeGrade" value="${avaregeGrade / a.getGradesList().size()}"/>
+                <td class="td-to-align">${fn:substringBefore(avaregeGrade, '.')}</td>
+
+                <td class="td-to-align">${a.getApplicationStatus()}</td>
+                <c:forEach items="${a.getGradesList()}" var="g" varStatus="loop">
+            <tr>
+            <thead>
+            <th>${g.getSubject().getNameList().get(0)}</th>
+            </thead>
+            </tr>
+            <tr>
+                <td>${g.getGrade()}</td>
+
+            </tr>
+            </c:forEach>
+            </tr>
+            </c:forEach>
+
+            </tbody>
+        </table>
+        <br/><br/>
+        <button class="btn btn-primary" type="button" id="getCertbtnEnrlProfile" onclick="getCertCandidateProfile(this)"><fmt:message
+                key="candidateDash.ShowCertificate"/></button>
+        <a href="${pageContext.request.contextPath}/controller?command=logout">
+            <button type="button" class="btn btn-primary"><fmt:message key="candidatesControlDash.return"/></button>
+        </a><br>
+        <hr>
+        <div id="certDiv" style="display:none">
+            <h1><fmt:message key="candidateDash.CertCopy"/></h1>
+            <img src="data:image/jpg;base64,${certImage}" width="600"/>
+        </div>
+    </div>
+</div>
+
+<!-- Footer ----------------------------------------->
+<%@ include file="/jspf/footer.jspf" %>
+
+<!-- JavaScript functions ---------------------------->
+<%--<%@ include file="/js/javascript.jspf" %>--%>
+
 </body>
 </html>

@@ -17,13 +17,12 @@ import java.util.*;
  * Allow access to resources by roles
  */
 @WebFilter(urlPatterns = "/controller",
-        initParams = {@WebInitParam(name = "ADMIN", value = "admin_profile exams add_exam edit_exam faculties" +
-                " add_faculty edit_faculty"),
-                @WebInitParam(name = "CANDIDATE", value ="candidate_profile add_candidate_exam"),
-        @WebInitParam(name = "COMMON", value = "logout"),
-        @WebInitParam(name = "OUT_OF_CONTROL", value = "login signup init_signup")})
+        initParams = {@WebInitParam(name = "ADMIN", value = "adminProfile subjects addSubjects faculties" +
+                " addFaculty editFaculty"),
+                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication"),
+                @WebInitParam(name = "COMMON", value = "logout"),
+                @WebInitParam(name = "OUT_OF_CONTROL", value = "login signupStart initSignup nullCommand")})
 public class CommandAccessFilter implements Filter {
-
     private static final Logger log = Logger.getLogger(CommandAccessFilter.class);
     // commands access
     private static Map<Role, List<String>> accessMap = new HashMap<>();
@@ -76,7 +75,9 @@ public class CommandAccessFilter implements Filter {
         log.debug("Check access for command ==> " + commandName);
         if (commandName == null || commandName.isEmpty()) {
             log.trace("Command is null or empty");
-            return false;
+//            17.08.22
+//            commandName = "nullCommand";
+//            log.trace("Initialize command by value 'nullCommand' to access user do safe action");
         }
 
         if (outOfControl.contains(commandName)) {
@@ -90,7 +91,7 @@ public class CommandAccessFilter implements Filter {
             return false;
         }
 
-        Role userRole = (Role)session.getAttribute("userRole");
+        Role userRole = (Role)session.getAttribute("role");
         log.trace("User have role ==> " + userRole);
         if (userRole == null){
             log.trace("Don`t sat role at session attributes");

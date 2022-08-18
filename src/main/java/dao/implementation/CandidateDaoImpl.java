@@ -1,14 +1,19 @@
 package dao.implementation;
 
-import dao.*;
+import dao.AlreadyExistException;
+import dao.ColumnLabel;
+import dao.DaoException;
+import dao.WrongExecutedQueryException;
 import dao.interfaces.CandidateDao;
 import models.Candidate;
+import models.City;
 import models.Role;
 import org.apache.log4j.Logger;
 import util.EntityMapper;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +37,14 @@ public class CandidateDaoImpl implements CandidateDao {
             "c.school_name, , c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities " +
             "WHERE c.login_id = l.id AND cities.id = с.city_id AND " +
-            "r.name = `CANDIDATE` ";
+            "r.name = 'CANDIDATE' ";
 
     private static final String FIND_FACULTY_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name, " +
             "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name, " +
             "c.school_name, , c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities, applications a " +
             "WHERE c.login_id = l.id AND cities.id = с.city_id AND " +
-            "AND c.login_id = a.login_id AND r.name = `CANDIDATE` " +
+            "AND c.login_id = a.login_id AND r.name = 'CANDIDATE' " +
             "AND a.faculties_id = ? LIMIT ? OFFSET ?";
 
     private static final String COUNT_CANDIDATES_BY_FACULTY_QUERY =
@@ -50,15 +55,11 @@ public class CandidateDaoImpl implements CandidateDao {
 
     private final static String INSERT_CANDIDATE_INIT_QUERY =
             "INSERT INTO logins (`email`, `password`, `role_id`) " +
-                    "VALUES (?, ?, id)" +
-                    "FROM roles" +
-                    "WHERE name = 'CANDIDATE'";
+                    "VALUES (?, ?, 2) ";
 
     private static final String INSERT_CANDIDATE_FINAL_QUERY =
-            "INSERT INTO candidates(login_id, first_name, father_name, second_name, certificate_url, city_id, school_name, is_blocked, appl_date)" +
-                    "VALUES (?, ?, ?, ?, ?, c.id, ?, ?, ?)" +
-                    "FROM cities c " +
-                    "WHERE name = ?";
+            "INSERT INTO candidates(login_id, first_name, father_name, second_name, certificate_url, city_id, school_name, is_blocked, appl_date) " +
+                    "VALUES (?, ?, ?, ?, ?, (SELECT id FROM cities WHERE name = ?), ?, ?, ?) ";
 
     private static final String UPDATE_CANDIDATE_QUERY =
             "UPDATE candidates SET first_name = ?, father_name = ?, " +
@@ -67,7 +68,7 @@ public class CandidateDaoImpl implements CandidateDao {
                     "WHERE user_logins_id = ?";
 
     private static final String BLOCK_CANDIDATE_BY_ADMIN_QUERY =
-            "UPDATE CANDIDATE SET is_blocked = ?" +
+            "UPDATE CANDIDATE SET is_blocked = ? " +
                     "WHERE login_id = ?";
     private static final String DELETE_CANDIDATE_QUERY = "DELETE FROM user_logins WHERE id = ?";
 
@@ -193,11 +194,12 @@ public class CandidateDaoImpl implements CandidateDao {
             prStatement.setString(2, candidate.getFirstName());
             prStatement.setString(3, candidate.getFatherName());
             prStatement.setString(4, candidate.getSecondName());
-            prStatement.setString(5, candidate.getCertificate_url());
-            prStatement.setString(6, candidate.getCity());
+            prStatement.setString(5, "refactor");
+            prStatement.setString(6, candidate.getCity().name());
             prStatement.setString(7, candidate.getSchoolName());
             prStatement.setObject(8, candidate.isBlocked());
-            prStatement.setDate(9, candidate.getApplicationDate());
+            prStatement.setString(9, candidate.getApplicationDate().toString());
+
 
             boolean saved = prStatement.executeUpdate() == 1;
             LOG.debug("Candidate " + candidate + " is saved ? ==>" + saved);
@@ -365,10 +367,11 @@ public class CandidateDaoImpl implements CandidateDao {
                         .fatherName(rs.getString(ColumnLabel.CANDIDATE_FATHER_NAME.getName()))
                         .secondName(rs.getString(ColumnLabel.CANDIDATE_SECOND_NAME.getName()))
                         .certificate_url(rs.getString(ColumnLabel.CANDIDATE_CERTIFICATE_URL.getName()))
-                        .city(rs.getString(ColumnLabel.CITY_NAME.name()))
+                        .city(Enum.valueOf(City.class, rs.getString(ColumnLabel.CITY_NAME
+                                        .getName())))
                         .schoolName(rs.getString(ColumnLabel.CANDIDATE_SCHOOL.getName()))
                         .isBlocked(rs.getObject(ColumnLabel.CANDIDATE_IS_BLOCKED.getName(), Boolean.class))
-                        .applicationDate(rs.getDate(ColumnLabel.CANDIDATE_APPL_DATE.getName()))
+                        .applicationDate(LocalDate.parse(rs.getString(ColumnLabel.CANDIDATE_APPL_DATE.getName())))
                         .build();
             } catch (SQLException e) {
                 LOG.error("Cannot extract candidate from ResultSet", e);

@@ -1,7 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,12 +14,12 @@ public class Candidate implements Serializable {
     private String fatherName;
     private String secondName;
     private String certificate_url;
-    private String city;
+    private City city;
     private String schoolName;
     private byte[] schoolCertificate;
     private boolean isBlocked;
     private List<Application> applicationsList;
-    private Date applicationDate;
+    private LocalDate applicationDate;
 
     public int getId() {
         return id;
@@ -53,7 +53,7 @@ public class Candidate implements Serializable {
         return certificate_url;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
@@ -74,7 +74,7 @@ public class Candidate implements Serializable {
         return applicationsList;
     }
 
-    public Date getApplicationDate() {
+    public LocalDate getApplicationDate() {
         return applicationDate;
     }
 
@@ -106,22 +106,11 @@ public class Candidate implements Serializable {
         return new CandidateBuilder(candidate);
     }
 
-
-    public static void main(String[] args) {
-        Candidate candidate = new CandidateBuilder()
-                .city("loh")
-                .password("loh").build();
-        System.out.println(candidate);
-        Candidate candidate1 = new CandidateBuilder()
-                .email("111").build();
-        System.out.println(candidate1);
-        Candidate candidate3 = new CandidateBuilder().id('2').build();
-        System.out.println(candidate3);
-    }
     /**
      * Builder
      */
     public static  class CandidateBuilder{
+
         private Candidate candidate;
 
         private CandidateBuilder(){
@@ -172,7 +161,7 @@ public class Candidate implements Serializable {
             return this;
         }
 
-        public CandidateBuilder city(String city){
+        public CandidateBuilder city(City city){
             candidate.city = city;
             return this;
         }
@@ -193,7 +182,7 @@ public class Candidate implements Serializable {
             candidate.applicationsList = applicationsList;
             return this;
         }
-        public CandidateBuilder applicationDate(Date applicationDate){
+        public CandidateBuilder applicationDate(LocalDate applicationDate){
             candidate.applicationDate = applicationDate;
             return this;
         }

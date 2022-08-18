@@ -1,7 +1,7 @@
 package servlet;
 
 import command.ActionCommand;
-import command.factory.ActionFactory;
+import command.CommandContainer;
 import managers.ConfigurationManager;
 import managers.MessageManager;
 
@@ -26,7 +26,7 @@ public class Controller  extends HttpServlet {
 
     private void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = null;
-        ActionCommand command = new ActionFactory().defineCommand(req);
+        ActionCommand command = CommandContainer.get(req.getParameter("command"));
         page = command.execute(req);
         if(page != null) {
             getServletContext().getRequestDispatcher(page).forward(req, resp);

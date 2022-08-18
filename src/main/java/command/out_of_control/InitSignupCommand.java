@@ -11,7 +11,7 @@ public class InitSignupCommand implements ActionCommand {
 
     @Override
     public String execute(HttpServletRequest req) {
-        LOG.debug("InitSignupCommand redirect user to signup.jsp");
-        return ConfigurationManager.getProperty("path.common.signup");
+        LOG.debug("InitSignupCommand redirect user to signupStart.jsp");
+        return ConfigurationManager.getProperty("path.common.signupStart");
     }
 }

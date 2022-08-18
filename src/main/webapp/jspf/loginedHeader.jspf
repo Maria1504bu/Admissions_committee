@@ -1,0 +1,20 @@
+<!-- Header beginging--------------------------------------------------------------------------->
+<nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+    <!-- Brand -->
+    <a class="navbar-brand" href=""><span class="logo"><fmt:message key="header.TitleUni"/></span></a>
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item px-3">
+            <label class="link" style="margin-bottom: 0px;"><fmt:message key="adminDash.loggedIn"/>:</label><br>
+            <a class="link" href=""><c:out value="${user.getEmail()}"/></a><br>
+            <a class="link" href="${pageContext.request.contextPath}/controller?command=logout">
+                <fmt:message key="adminDash.logout"/>
+            </a><br>
+        </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" style="margin-top: 5px;" href="#">${fn:toUpperCase(language)}</a>
+        </li>
+    </ul>
+</nav>
+<br>
+<!-- Header end--------------------------------------------------------------------------->

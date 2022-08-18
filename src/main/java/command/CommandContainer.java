@@ -1,12 +1,13 @@
 package command;
 
 import command.admin.*;
-import command.candidate.AddApplicationCommand;
+import command.candidate.CreateApplicationCommand;
 import command.candidate.CandidateProfileCommand;
+import command.candidate.SignupFinalCommand;
 import command.common.LogoutCommand;
 import command.out_of_control.InitSignupCommand;
 import command.out_of_control.LoginCommand;
-import command.out_of_control.SignupCommand;
+import command.out_of_control.SignupStartCommand;
 import dao.implementation.*;
 import dao.interfaces.*;
 import org.apache.log4j.Logger;
@@ -26,24 +27,26 @@ public class CommandContainer {
         GradeDao gradeDao = new GradeDaoImpl(dataSource);
         SubjectDao subjectDao = new SubjectDaoImpl(dataSource);
 
-        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao);
+        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao, facultyDao);
         CandidateService candidateService = new CandidateServiceImpl(candidateDao);
         FacultyService facultyService = new FacultyServiceImpl(facultyDao);
         GradeService gradeService = new GradeServiceImpl(gradeDao);
         SubjectService examService = new SubjectServiceImpl(subjectDao);
 
 
+        commands = new TreeMap<>();
         // out_of_control
         commands.put("login", new LoginCommand(candidateService));
-        commands.put("signup", new SignupCommand(candidateService));
+        commands.put("signupStart", new SignupStartCommand(candidateService));
+        commands.put("signupFinal", new SignupFinalCommand(candidateService));
         commands.put("initSignup", new InitSignupCommand());
         // candidate
-        commands.put("candidateProfile", new CandidateProfileCommand(candidateService));
-        commands.put("addApplication", new AddApplicationCommand(applicationService));
+        commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
+        commands.put("createApplication", new CreateApplicationCommand(applicationService));
         // admin
         commands.put("adminProfile", new AdminProfileCommand());
-        commands.put("exams", new SubjectCommand(examService));
-        commands.put("addExam", new AddSubjectCommand(examService));
+        commands.put("subjects", new SubjectCommand(examService));
+        commands.put("addSubject", new AddSubjectCommand(examService));
         commands.put("faculties", new FacultiesCommand(facultyService));
         commands.put("addFaculty", new AddFacultyCommand(facultyService));
         commands.put("editFaculties", new EditFacultyCommand(facultyService));
@@ -57,12 +60,16 @@ public class CommandContainer {
      * @return Command object.
      */
     public static ActionCommand get(String commandName) {
+        //TODO: redirect for PRG?!
+        if (commandName == null){
+
+        }
         if(commandName.contains("?")){
             String commandToProceed = commandName.substring(0, commandName.indexOf("?"));
             LOG.debug("Command updated name --> " + commandToProceed);
             return commands.get(commandToProceed);
         }
-        if (commandName == null || !commands.containsKey(commandName)) {
+        if(!commands.containsKey(commandName)) {
             LOG.trace("Command not found, name --> " + commandName);
             return commands.get("noCommand");
         }

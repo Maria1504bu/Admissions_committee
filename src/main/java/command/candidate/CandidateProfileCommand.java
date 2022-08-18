@@ -2,48 +2,44 @@ package command.candidate;
 
 import command.ActionCommand;
 import managers.ConfigurationManager;
+import models.Application;
 import models.Candidate;
 import org.apache.log4j.Logger;
-import services.interfaces.CandidateService;
+import services.interfaces.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.List;
 
 public class CandidateProfileCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(CandidateProfileCommand.class);
-    private CandidateService candidateService;
-    public CandidateProfileCommand(CandidateService candidateService){
-        this.candidateService = candidateService;
+    private ApplicationService applicationService;
+
+    public CandidateProfileCommand(ApplicationService applicationService) {
+        this.applicationService = applicationService;
     }
 
     @Override
     public String execute(HttpServletRequest req) {
         LOG.debug("Start candidateProfileCommand");
         Candidate candidate = (Candidate) req.getSession().getAttribute("candidate");
-        int candidatesId = candidate.getId();
+        LOG.trace("Candidate from session ==>" + candidate);
+        String lang = req.getLocale().getLanguage();
+        LOG.trace("Locale language ==> " + lang);
 
-        Map<String, Integer> candidatesSubjects = null;
-//        try {
-//            candidatesSubjects = new SubjectDaoImpl().findAllByCandidatesId(candidatesId);
-//        } catch (DaoException e) {
-//            throw new RuntimeException(e);
-//        }
-//        req.getSession().setAttribute("candidatesSubjects", candidatesSubjects);
-//        LOG.debug("set subjects passed by candidate to session attribute candidatesSubjects => " + candidatesSubjects);
-//
-//        List<Subject> notPassedSubjects = null;
-//        try {
-//            notPassedSubjects = new SubjectDaoImpl().findAll();
-//            for(String subjectName : candidatesSubjects.keySet()) {
-//                notPassedSubjects.removeIf(subject -> subject.getName().equals(subjectName));
-//            }} catch (DaoException e) {
-//            throw new RuntimeException(e);
-//        }
-//        req.getSession().setAttribute("notPassedSubjects", notPassedSubjects);
-//        LOG.debug("set not passed subjects by this candidate for select it to add to session attribute notPassedSubjects => " + notPassedSubjects);
+        String page = ConfigurationManager.getProperty("path.command.createApplication");
 
-        String page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
-        LOG.debug("Go to candidateProfile.jsp");
+        List<Application> candidateAplls = applicationService.getCandidatesAppls(candidate.getId(), lang);
+        if (candidateAplls != null && candidateAplls.size() > 0) {
+            req.getSession().setAttribute("applicationsList", candidateAplls);
+            //TODO: Get certificate
+//            byte[] certificate = new CandidateDao().getCertificate(candidate.getId());
+//            if (certificate.length > 0) {
+//                String certImage = Base64.getEncoder().encodeToString(certificate);
+//                session.setAttribute("certImage", certImage);
+//            }
+            page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
+        }
+        LOG.debug("Go to ==> " + page);
         return page;
     }
 }

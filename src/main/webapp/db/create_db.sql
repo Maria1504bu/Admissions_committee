@@ -15,12 +15,12 @@ CREATE TABLE logins
     `id`            INT                               NOT NULL AUTO_INCREMENT,
     `email`         VARCHAR(45) CHARACTER SET 'utf8'  NOT NULL,
     `password`      VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
-    `roles_id` INT                               NOT NULL,
+    `role_id` INT                               NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-    INDEX `fk_logins_roles_idx` (`roles_id` ASC) VISIBLE,
+    INDEX `fk_logins_role_idx` (`role_id` ASC) VISIBLE,
     CONSTRAINT `fk_logins_roles`
-        FOREIGN KEY (`roles_id`)
+        FOREIGN KEY (`role_id`)
             REFERENCES roles (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE

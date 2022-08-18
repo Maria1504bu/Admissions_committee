@@ -1,12 +1,12 @@
 
-INSERT INTO roles (name) VALUES ('admin'), ('candidate');
-INSERT INTO users (email, password, role_id) VALUE ('admin@gmail', '11111', 1);
-INSERT INTO users (email, password, role_id) VALUE ('candidate@gmail', '11111', 2);
-INSERT INTO candidates VALUES (1, 'Sofia', 'Dudar', 'Stepanivna', 'Ternopil', 'Berezhany',
- 'school 23');
-INSERT INTO languages (`name`, `lang_code`) VALUES ('English', 'en'), ('Українська', 'uk'), ('Русский', 'ru');
-INSERT INTO exams (name) VALUES ('Math'), ('English'), ('Biology'), ('Chemistry');
-INSERT INTO candidates_exams VALUES (1, 1, 145), (1, 2, 157), (1, 3, 124);
+INSERT INTO roles (name) VALUES ('ADMIN'), ('CANDIDATE');
+INSERT INTO logins (email, password, role_id) VALUE ('admin@gmail', 'B0BAEE9D279D34FA1DFD71AADB908C3F', 1);
+INSERT INTO logins (email, password, role_id) VALUE ('candidate@gmail', 'B0BAEE9D279D34FA1DFD71AADB908C3F', 2);
+INSERT INTO candidates VALUES (2, 'Sofia', 'Dudar', 'Stepanivna', 'certificate_url', 3,
+ 'school 23', FALSE, '2022-08-14');
+# INSERT INTO languages (`name`, `lang_code`) VALUES ('English', 'en'), ('Українська', 'uk'), ('Русский', 'ru');
+# INSERT INTO subjects (name) VALUES ('Math'), ('English'), ('Biology'), ('Chemistry');
+# INSERT INTO candidates_exams VALUES (1, 1, 145), (1, 2, 157), (1, 3, 124);
 INSERT INTO cities (`name`)
 VALUES ('Cherkasy'),
        ('Chernihiv'),

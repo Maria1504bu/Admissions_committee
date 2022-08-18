@@ -25,10 +25,9 @@ public class ApplicationDaoImpl implements ApplicationDao {
 
     private static final String INSERT_APPL_QUERY =
             "INSERT INTO applications(user_logins_id, faculty_id, priority, status)VALUES(?, ?, ?, ?)";
-    private static final String GET_APPL_BY_ID_QUERY =
-            "SELECT * FROM applications WHERE id = ?;";
-    private static final String GET_ALL_APPLS_QUERY =
-            "SELECT * FROM applications";
+    private static final String GET_APPL_BY_ID_QUERY = "SELECT * FROM applications WHERE id = ?";
+    private static final String GET_CANDIDATES_APPLS_QUERY = "SELECT * FROM applications WHERE login_id = ?";
+    private static final String GET_ALL_APPLS_QUERY = "SELECT * FROM applications";
 
     private static final String UPDATE_APPL_QUERY =
             "UPDATE applications SET priority = ?, status = ? WHERE id = ?";
@@ -75,6 +74,30 @@ public class ApplicationDaoImpl implements ApplicationDao {
         return application;
     }
 
+    @Override
+    public List<Application> getCandidateAppls(int candidateId) {
+        LOG.debug("Start getting candidates applications by id ==> " + candidateId);
+        List<Application> applications = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(GET_CANDIDATES_APPLS_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setInt(1, candidateId);
+            LOG.trace("set parameter into prepareStatement" + candidateId);
+            try (ResultSet resultSet = prStatement.executeQuery()) {
+                ApplicationMapper mapper = new ApplicationMapper();
+                while (resultSet.next()) {
+                    applications.add(mapper.mapEntity(resultSet));
+                }
+            }
+            connection.commit();
+            LOG.trace("Changes  at db was committed");
+        } catch (SQLException e) {
+            throw new DaoException("Cannot find applications for candidate with id ==>" + candidateId, e);
+        }
+        LOG.debug("Searched application ==>" + applications);
+        return applications;
+    }
+
     /**
      * Get list of applications placed by candidate OR faculty
      *
@@ -117,7 +140,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
             prStatement.setInt(1, application.getCandidate().getId());
             prStatement.setInt(2, application.getFaculty().getId());
             prStatement.setInt(3, application.getPriority());
-            prStatement.setString(3, application.getApplicationStatus());
+            prStatement.setString(3, application.getApplicationStatus().toString());
 
             boolean saved = prStatement.executeUpdate() == 1;
             LOG.debug("application " + application + " is saved ? ==>" + saved);
@@ -148,7 +171,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
              PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_QUERY)) {
             LOG.trace("Resources are created");
             prStatement.setInt(1, application.getPriority());
-            prStatement.setString(2, application.getApplicationStatus());
+            prStatement.setString(2, application.getApplicationStatus().toString());
             prStatement.setInt(3, application.getId());
 
             boolean updated = prStatement.executeUpdate() == 1;
@@ -202,17 +225,17 @@ public class ApplicationDaoImpl implements ApplicationDao {
      */
     //TODO: in service find suitable candidate and faculty
     private static class ApplicationMapper implements EntityMapper<Application> {
+        private static final String LOGIN_ID_COLUMN = "login_id";
+        private static final String FACULTY_ID_COLUMN = "faculty_id";
         @Override
         public Application mapEntity(ResultSet rs) {
             Application application = new Application();
-            Candidate candidate = new Candidate();
-            application.setCandidate(candidate);
             Faculty faculty = new Faculty();
             application.setFaculty(faculty);
             try {
                 application.setId(rs.getInt(ColumnLabel.APPL_ID.getName()));
-                application.getFaculty().setId(rs.getInt(ColumnLabel.FACULTY_ID.getName()));
-                application.getFaculty().getNamesList().add(rs.getString(ColumnLabel.FACULTY_NAME.getName()));
+                application.setCandidate(Candidate.builder().id(rs.getInt(LOGIN_ID_COLUMN)).build());
+                application.getFaculty().setId(rs.getInt(FACULTY_ID_COLUMN));
                 application.setPriority(rs.getInt(ColumnLabel.APPL_PRIORITY.getName()));
                 application.setApplicationStatus(ApplicationStatus.values()[rs.getInt(ColumnLabel.APPL_STATUS.getName())]);
                 return application;

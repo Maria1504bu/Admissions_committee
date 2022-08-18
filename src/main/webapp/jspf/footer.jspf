@@ -1,0 +1,78 @@
+<!-- Footer -->
+<footer class="page-footer font-small">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+        <!-- Footer links -->
+        <div class="row text-center text-md-left mt-3 ">
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold footerHeader"><fmt:message key="footer.University"/></h6>
+                <p class="footerLink indexText"><fmt:message key="footer.UniverDescr"/></p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold footerHeader"><fmt:message key="footer.Information"/></h6>
+                <p class="footerLink indexText"><fmt:message key="footer.InfoDescr"/></p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="w-100 clearfix d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold footerHeader"><fmt:message key="footer.Science"/></h6>
+                <p class="footerLink indexText"><fmt:message key="footer.ScienceDescr"/></p>
+            </div>
+
+            <!-- Grid column -->
+            <hr class="w-100 clearfix d-md-none">
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                <h6 class="text-uppercase mb-4 font-weight-bold footerHeader"><fmt:message key="footer.Contacts"/></h6>
+                <p class="footerLink">
+                    </i><fmt:message key="footer.ContactsAddr"/></p>
+                <p class="footerLink">
+                    </i>info@university.com</p>
+                <p class="footerLink">
+                    </i>+ 38 044 234 567 88</p>
+                <p class="footerLink">
+                    </i>+ 38 044 234 567 89</p>
+            </div>
+            <!-- Grid column -->
+        </div>
+        <!-- Footer links -->
+        <hr>
+
+        <!-- Grid row -->
+        <div class="row align-items-center">
+
+            <!-- Grid column -->
+            <div class="col-md-12 col-lg-12">
+                <!--Copyright-->
+                <p class="text-center text-md-center footerLink">&copy; <fmt:message key="footer.CopyRights"/>
+                    <a href="" class="footerLink">
+                        <strong> www.university.com</strong>
+                    </a>
+                </p>
+
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+</footer>
+<!-- Footer -->

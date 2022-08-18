@@ -51,9 +51,9 @@ public class LoginCommand implements ActionCommand {
         logger.trace("Set the session attribute: role --> " + role);
 
         if (role == Role.CANDIDATE) {
-            page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
+            page = ConfigurationManager.getProperty("path.command.candidateProfile");
         } else if (role == Role.ADMIN) {
-            page = ConfigurationManager.getProperty("path.admin.adminProfile");
+            page = ConfigurationManager.getProperty("path.command.adminProfile");
         }
         logger.debug("Go to ==> " + page);
         return page;

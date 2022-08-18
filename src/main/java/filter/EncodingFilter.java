@@ -33,8 +33,8 @@ public class EncodingFilter implements Filter {
 			logger.debug("set encoding: ==> " + encoding);
 			req.setCharacterEncoding(encoding);
 		}
-		chain.doFilter(request, response);
 		logger.trace("Encoding filter finished");
+		chain.doFilter(request, response);
 	}
 
 	@Override

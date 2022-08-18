@@ -4,6 +4,7 @@ import command.ActionCommand;
 import managers.ConfigurationManager;
 import managers.MessageManager;
 import models.Candidate;
+import models.City;
 import models.Role;
 import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
@@ -11,40 +12,46 @@ import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.List;
 
-public class SignupCommand implements ActionCommand {
-    private final static String PARAM_NAME_LOGIN = "login";
+public class SignupStartCommand implements ActionCommand {
+    private final static String PARAM_NAME_EMAIL = "email";
     private final static String PARAM_NAME_PASS = "password";
 
-    private static final Logger LOG = Logger.getLogger(SignupCommand.class);
+    private static final Logger LOG = Logger.getLogger(SignupStartCommand.class);
 
     private CandidateService candidateService;
-    public SignupCommand(CandidateService candidateService) {
+    public SignupStartCommand(CandidateService candidateService) {
         this.candidateService = candidateService;
     }
 
     @Override
     public String execute(HttpServletRequest req) {
-        LOG.debug("SignupCommand starts");
+        LOG.debug("SignupStartCommand starts");
         HttpSession session = req.getSession();
-        String login = req.getParameter(PARAM_NAME_LOGIN);
+        String email = req.getParameter(PARAM_NAME_EMAIL);
         String password = req.getParameter(PARAM_NAME_PASS);
+        LOG.trace("Get parameters: email == " + email + " and password");
         Candidate candidate = null;
         String page = null;
         try {
-            candidate = candidateService.signInit(login, password);
+            candidate = candidateService.signInit(email, password);
         } catch (EmptyFieldsException e) {
             req.setAttribute("errorEmailAlreadyExist",
                     MessageManager.getProperty("message.alreadyExist"));
-            page = ConfigurationManager.getProperty("path.common.signup");
+            page = ConfigurationManager.getProperty("path.common.signupStart");
             return page;
         }
+        List cities = Arrays.asList(City.values());
+        req.setAttribute("cities", cities);
+        LOG.trace("Set the request attribute cities for select tag");
         req.getSession().setAttribute("user", candidate);
         LOG.trace("Set the session attribute: user --> " + candidate);
         session.setAttribute("role", Role.CANDIDATE);
         LOG.trace("Set the session attribute: role --> " + Role.CANDIDATE);
 
-        page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
+        page = ConfigurationManager.getProperty("path.candidate.signupFinal");
         LOG.debug("Go to ==> " + page);
         return page;
     }

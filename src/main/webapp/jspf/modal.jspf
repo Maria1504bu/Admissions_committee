@@ -1,0 +1,14 @@
+<!-- The Modal -->
+<div id="myModal" class="container-fluid modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="modal.title"/></h2></span>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p><fmt:message key="modal.firstSent"/></p>
+            <p><fmt:message key="modal.secondSent"/></p>
+        </div>
+    </div>
+</div>
