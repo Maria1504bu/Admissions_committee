@@ -111,7 +111,7 @@ public class CandidateServiceImpl implements CandidateService {
         final String UPLOAD_DIR = "/certificateUploads/";
         try {
             String certificatePath = UPLOAD_DIR + certificateName;
-            candidateDao.saveCertificate(candidate.getId(), certificatePath);
+            candidateDao.saveCertificate(candidate.getId(), certificateName);
         } catch (WrongExecutedQueryException e) {
             throw new ServiceException("Cannot save certificate into db", e);
         }

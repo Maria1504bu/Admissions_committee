@@ -84,7 +84,8 @@
         <hr>
         <div id="certDiv" style="display:none">
             <h1><fmt:message key="candidateDash.CertScan"/></h1>
-            <img src="${candidate.getCertificate()}" width="600" />
+            <img src="/certificateUploads/${candidate.getCertificate()}" width="600" />
+            ${candidate.getCertificate()}
         </div>
     </div>
 </div>
