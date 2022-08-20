@@ -4,6 +4,7 @@ import command.admin.*;
 import command.candidate.CreateApplicationCommand;
 import command.candidate.CandidateProfileCommand;
 import command.candidate.SignupFinalCommand;
+import command.candidate.UploadCertificateCommand;
 import command.common.LogoutCommand;
 import command.out_of_control.InitSignupCommand;
 import command.out_of_control.LoginCommand;
@@ -42,7 +43,8 @@ public class CommandContainer {
         commands.put("initSignup", new InitSignupCommand());
         // candidate
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
-        commands.put("createApplication", new CreateApplicationCommand(applicationService));
+        commands.put("createApplication", new CreateApplicationCommand(facultyService));
+        commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
         // admin
         commands.put("adminProfile", new AdminProfileCommand());
         commands.put("subjects", new SubjectCommand(examService));

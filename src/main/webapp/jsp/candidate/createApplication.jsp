@@ -65,15 +65,15 @@
                             ${faculty.getNamesList().get(0)}
                     </option>
                 </c:forEach>
-            </select>
-            <br>
-            <c:forEach items="${facultiesList.get(selectedFacultyId2 - 1).getSubjectList()}" var="s" varStatus="loop">
-                <div class="form-group was-validated">
-                    <label for="priority2subj${s.getId()}"><c:out value="${s.getNameList().get(0)}"/></label>
-                    <input type="text" class="form-control prioritySubjects" id="priority2subj${s.getId()}" placeholder="<fmt:message key="candidateInsertAppl.YourZNOGrade"/>" required>
-                    <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
-                </div>
-            </c:forEach>
+<%--            </select>--%>
+<%--            <br>--%>
+<%--            <c:forEach items="${facultiesList.get(selectedFacultyId2 - 1).getSubjectList()}" var="s" varStatus="loop">--%>
+<%--                <div class="form-group was-validated">--%>
+<%--                    <label for="priority2subj${s.getId()}"><c:out value="${s.getNameList().get(0)}"/></label>--%>
+<%--                    <input type="text" class="form-control prioritySubjects" id="priority2subj${s.getId()}" placeholder="<fmt:message key="candidateInsertAppl.YourZNOGrade"/>" required>--%>
+<%--                    <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>--%>
+<%--                </div>--%>
+<%--            </c:forEach>--%>
         </div>
 
         <div id="choice3" class="priorityAplication">
@@ -90,23 +90,15 @@
                     </option>
                 </c:forEach>
             </select>
-            <br>
-            <c:forEach items="${facultiesList.get(selectedFacultyId3 - 1).getSubjectList()}" var="s" varStatus="loop">
-                <div class="form-group was-validated">
-                    <label for="priority3subj${s.getId()}"><c:out value="${s.getNameList().get(0)}"/></label>
-                    <input type="text" class="form-control prioritySubjects" id="priority3subj${s.getId()}" placeholder="<fmt:message key="candidateInsertAppl.YourZNOGrade"/>" required>
-                    <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
-                </div>
-            </c:forEach>
-        </div>
-        <hr>
-        <form id="certUploadForm" name="certUploadForm" method="POST" action='${pageContext.request.contextPath}/controller?command=insertCandidateApplication'
-              enctype="multipart/form-data">
-            <label class="btn btn-primary" for="certificateFile"><fmt:message key="candidateInsertAppl.CertificateImage"/></label>
-            <input type="file" name="certificateFile" id="certificateFile" class="d-none"><br>
-            <input type="submit" class="btn btn-primary" value="<fmt:message key="candidateInsertAppl.RegisterApplications"/>" onclick="submitForm();"/>
-        </form>
-    </div>
+<%--            <br>--%>
+<%--            <c:forEach items="${facultiesList.get(selectedFacultyId3 - 1).getSubjectList()}" var="s" varStatus="loop">--%>
+<%--                <div class="form-group was-validated">--%>
+<%--                    <label for="priority3subj${s.getId()}"><c:out value="${s.getNameList().get(0)}"/></label>--%>
+<%--                    <input type="text" class="form-control prioritySubjects" id="priority3subj${s.getId()}" placeholder="<fmt:message key="candidateInsertAppl.YourZNOGrade"/>" required>--%>
+<%--                    <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>--%>
+<%--                </div>--%>
+<%--            </c:forEach>--%>
+
 </div>
 
 <!-- Footer ----------------------------------------->

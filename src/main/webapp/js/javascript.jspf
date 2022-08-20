@@ -1,0 +1,236 @@
+<script>
+    //initial language set
+    function setLanguage(clickedObj) {
+        let firstLink = document.getElementById('first-link-id');
+        let secondLink = document.getElementById('second-link-id');
+        let selectedLang = clickedObj.innerHTML;
+
+        let langsArr = ['EN', 'UK', 'RU'];
+        let linkIndex = langsArr.indexOf(firstLink.innerText);
+        if (linkIndex > -1) {
+            langsArr.splice(linkIndex, 1);
+        }
+
+        linkIndex = langsArr.indexOf(secondLink.innerText);
+        if (linkIndex > -1) {
+            langsArr.splice(linkIndex, 1);
+        }
+        clickedObj.innerHTML = langsArr[0];
+
+        let setLangLink = document.createElement('a');
+        setLangLink.href = '${pageContext.request.contextPath}/controller?command=setLanguage&language=' + convertLang(selectedLang);
+        setLangLink.click();
+    }
+
+    function convertLang(langInnerHtml) {
+        if (langInnerHtml == null) return 'ru';
+        if (langInnerHtml === 'EN') return 'en';
+        if (langInnerHtml === 'UK') return 'uk';
+        if (langInnerHtml === 'RU') return 'ru';
+    }
+
+    //faculties sort
+    function facultiesSort(linkObj) {
+        if (linkObj.id === 'nameSort') {
+            linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=nameAsc';
+        }
+        if (linkObj.id === 'budgetSort') {
+            linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=budgetDsc';
+        }
+        if (linkObj.id === 'totalSort') {
+            linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=totalDsc';
+        }
+    }
+
+    function setUILang(lang) {
+        let firstLink = document.getElementById('first-link-id');
+        let secondLink = document.getElementById('second-link-id');
+
+        let langsArr = ['EN', 'UK', 'RU'];
+        let linkIndex = langsArr.indexOf(lang.toUpperCase());
+        if (linkIndex > -1) {
+            langsArr.splice(linkIndex, 1);
+        }
+        firstLink.innerHTML = langsArr[0];
+        secondLink.innerHTML = langsArr[1];
+    }
+
+    function displayAbout() {
+        document.getElementById('facultiesTable').style.display = 'none';
+        document.getElementById('about-us-text-id').style.display = 'block';
+    }
+
+    window.onload = function () {
+        setUILang('${language}');
+
+        if (${fList.size() > 0}) {
+            document.getElementById('facultiesTable').style.display = 'block';
+            document.getElementById('about-us-text-id').style.display = 'none';
+        }
+    }
+
+    //------------------------------------------------------------------
+    //candidateInsert
+    //------------------------------------------------------------------
+    //select event handler
+    function selectRun() {
+        const selectEl1 = document.getElementById("selectFaculty1");
+        const selectEl2 = document.getElementById("selectFaculty2");
+        const selectEl3 = document.getElementById("selectFaculty3");
+        let selectedFaculty1 = selectEl1.options[selectEl1.selectedIndex].value;
+        let selectedFaculty2 = selectEl2.options[selectEl2.selectedIndex].value;
+        let selectedFaculty3 = selectEl3.options[selectEl3.selectedIndex].value;
+
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '${pageContext.request.contextPath}/controller?command=insertEnrolleApplication';
+        const hiddenField1 = document.createElement('input');
+        hiddenField1.type = 'hidden';
+        hiddenField1.name = 'selectedFaculty1';
+        hiddenField1.value = selectedFaculty1;
+        form.append(hiddenField1);
+
+        const hiddenField2 = document.createElement('input');
+        hiddenField2.type = 'hidden';
+        hiddenField2.name = 'selectedFaculty2';
+        hiddenField2.value = selectedFaculty2;
+        form.append(hiddenField2);
+
+        const hiddenField3 = document.createElement('input');
+        hiddenField3.type = 'hidden';
+        hiddenField3.name = 'selectedFaculty3';
+        hiddenField3.value = selectedFaculty3;
+        form.append(hiddenField3);
+
+        document.body.append(form);
+        form.submit();
+    }
+
+    function submitForm() {
+        const formToSubmit = document.getElementById("certUploadForm");
+
+        const selectEl1 = document.getElementById("selectFaculty1");
+        const selectEl2 = document.getElementById("selectFaculty2");
+        const selectEl3 = document.getElementById("selectFaculty3");
+        let selectedFaculty1 = selectEl1.options[selectEl1.selectedIndex].value;
+        let selectedFaculty2 = selectEl2.options[selectEl2.selectedIndex].value;
+        let selectedFaculty3 = selectEl3.options[selectEl3.selectedIndex].value;
+        let fileField = document.forms["certUploadForm"]["certificateFile"].value;
+        if (selectedFaculty1 === selectedFaculty2 || selectedFaculty2 === selectedFaculty3 || selectedFaculty1 === selectedFaculty3) {
+            alert("Duplicated faculties!");
+            return false;
+        }
+        if (fileField == "") {
+            alert("Please choose a file!");
+            return false;
+        }
+
+        let subjectsGradesList = document.getElementsByClassName("prioritySubjects");
+        for (let i = 0; i < subjectsGradesList.length; i++) {
+            const hiddenFieldGrade = document.createElement('input');
+            hiddenFieldGrade.type = 'hidden';
+            hiddenFieldGrade.name = subjectsGradesList[i].id;
+            hiddenFieldGrade.value = subjectsGradesList[i].value;
+            formToSubmit.append(hiddenFieldGrade);
+        }
+
+        const hFieldPriority1Faculty = document.createElement('input');
+        hFieldPriority1Faculty.type = 'hidden';
+        hFieldPriority1Faculty.name = 'Priority1Faculty';
+        hFieldPriority1Faculty.value = selectedFaculty1;
+        formToSubmit.append(hFieldPriority1Faculty);
+
+        const hFieldPriority2Faculty = document.createElement('input');
+        hFieldPriority2Faculty.type = 'hidden';
+        hFieldPriority2Faculty.name = 'Priority2Faculty';
+        hFieldPriority2Faculty.value = selectedFaculty2;
+        formToSubmit.append(hFieldPriority2Faculty);
+
+        const hFieldPriority3Faculty = document.createElement('input');
+        hFieldPriority3Faculty.type = 'hidden';
+        hFieldPriority3Faculty.name = 'Priority3Faculty';
+        hFieldPriority3Faculty.value = selectedFaculty3;
+        formToSubmit.append(hFieldPriority3Faculty);
+    }
+
+    //------------------------------------------------------------------
+    //candidateDisplayProfile
+    //------------------------------------------------------------------
+    function getCertCandidateProfile(buttonCertCan) {
+        let div = document.getElementById('certDiv');
+        if (div.style.display !== 'block') {
+            div.style.display = 'block';
+            buttonCertCan.innerHTML = '<fmt:message key="candidateDash.HideCertificate"/>';
+        } else {
+            div.style.display = 'none';
+            buttonCertCan.innerHTML = '<fmt:message key="candidateDash.ShowCertificate"/>';
+        }
+    }
+    //--------------------------------------------
+    //getCandidate
+    //--------------------------------------------
+    const inputs = document.querySelectorAll('.rgCandidates');
+    const clickHandler = i => {
+        document.getElementById("updateStatusId").value = i.getAttribute("value");
+    };
+    inputs.forEach(i => i.onclick = () => clickHandler(i));
+
+    //--------------------------------------------
+    //login
+    //--------------------------------------------
+    function loginFormValidation(){
+        let loginInput = document.getElementById('login');
+        let passInput = document.getElementById('password');
+
+        if(loginInput.value.trim() === '' || validateEmail(loginInput.value.trim()) === false){
+            modalAlert();
+            loginInput.focus();
+            return false;
+        }
+        if(passInput.value.trim() === '' ){
+            modalAlert();
+            passInput.focus();
+            return false;
+        }
+    }
+    function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    function modalAlert() {
+        // Get the modal
+        let modal = document.getElementById("myModal");
+        modal.style.display = "block";
+        let span = document.getElementsByClassName("close")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+    //--------------------------------------------
+    //initial registration validation
+    //--------------------------------------------
+
+    function initialFormRegistValidation(){
+        let loginInput = document.getElementById('email');
+        let passInput = document.getElementById('password');
+        let confirmPassInput = document.getElementById('confirm-password');
+
+        if(loginInput.value.trim() === '' || validateEmail(loginInput.value.trim()) === false){
+            modalAlert();
+            return false;
+        }
+
+        if(passInput.value.trim() != confirmPassInput.value.trim()){
+            modalAlert();
+            return false;
+        }
+    }
+
+
+</script>

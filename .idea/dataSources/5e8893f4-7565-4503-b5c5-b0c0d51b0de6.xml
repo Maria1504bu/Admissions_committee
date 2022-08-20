@@ -1208,9 +1208,8 @@ grade_id</ColNames>
       <Position>4</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="326" parent="292" name="certificate_url">
+    <column id="326" parent="292" name="certificate">
       <DataType>varchar(80)|0s</DataType>
-      <NotNull>1</NotNull>
       <Position>5</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>

@@ -23,14 +23,12 @@ public class FacultyDaoImpl implements FacultyDao {
     private static final String GET_FACULTY_BY_ID_QUERY = "SELECT f.id, f.budget_places, f.total_places, GROUP_CONCAT(fl.name SEPARATOR '; ') AS name " +
             "FROM faculties f " +
             "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
-            "INNER JOIN languages l ON l.id = fl.languages_id " +
+            //"INNER JOIN languages l ON l.id = fl.languages_id " +
             "WHERE f.id = ?";
 
-    private static final String GET_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, f.total_places, GROUP_CONCAT(fl.name SEPARATOR '; ') AS name" +
+    private static final String GET_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, f.total_places, GROUP_CONCAT(fl.name SEPARATOR '; ') AS name " +
             "FROM faculties f " +
-            "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
-            "INNER JOIN languages l ON l.id = fl.languages_id " +
-            "WHERE l.name = ?";
+            "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id ";
     private final static String INSERT_FACULTY_QUERY = "INSERT INTO faculties (budget_places_qty, total_places_qty) VALUES (?, ?); " +
             "INSERT INTO faculties_languages (faculties_id, languages_id, name) " +
             "VALUES " +

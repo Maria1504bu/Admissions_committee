@@ -10,7 +10,7 @@ public enum ColumnLabel {
     CANDIDATE_FIRSTNAME("first_name"),
     CANDIDATE_FATHER_NAME("father_name"),
     CANDIDATE_SECOND_NAME("second_name"),
-    CANDIDATE_CERTIFICATE_URL("certificate_url"),
+    CANDIDATE_CERTIFICATE("certificate"),
     CANDIDATE_CITY_ID("city_id"),
     CANDIDATE_SCHOOL("school_name"),
     CANDIDATE_IS_BLOCKED("is_blocked"),

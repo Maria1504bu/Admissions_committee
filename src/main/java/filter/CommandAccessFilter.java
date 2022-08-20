@@ -16,10 +16,10 @@ import java.util.*;
 /**
  * Allow access to resources by roles
  */
-@WebFilter(urlPatterns = "/controller",
+@WebFilter(urlPatterns = "/controller?",
         initParams = {@WebInitParam(name = "ADMIN", value = "adminProfile subjects addSubjects faculties" +
                 " addFaculty editFaculty"),
-                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication"),
+                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication uploadCertificate"),
                 @WebInitParam(name = "COMMON", value = "logout"),
                 @WebInitParam(name = "OUT_OF_CONTROL", value = "login signupStart initSignup nullCommand")})
 public class CommandAccessFilter implements Filter {

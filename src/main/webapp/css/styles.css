@@ -1,7 +1,11 @@
 
 /*Header begining*/
 body{
-    background-color: #f2f2f2;
+    background-image:url("/css/background_image.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-color: beige;
 }
 .navbar {
     padding-top: 20px;

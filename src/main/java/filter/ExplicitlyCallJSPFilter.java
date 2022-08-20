@@ -11,11 +11,11 @@ import java.io.IOException;
 
 @WebFilter( urlPatterns = { "/jsp/*"},
 initParams = { @WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
-public class PageRedirectSecurity implements Filter {
-    private static final Logger LOG = Logger.getLogger(PageRedirectSecurity.class);
+public class ExplicitlyCallJSPFilter implements Filter {
+    private static final Logger LOG = Logger.getLogger(ExplicitlyCallJSPFilter.class);
     private String indexPath;
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         LOG.debug("PageRedirectFilter initialization");
         indexPath = filterConfig.getInitParameter("INDEX_PATH");
     }

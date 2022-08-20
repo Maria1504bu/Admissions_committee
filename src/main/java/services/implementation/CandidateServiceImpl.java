@@ -106,6 +106,19 @@ public class CandidateServiceImpl implements CandidateService {
         return candidate;
     }
 
+    @Override
+    public Candidate saveCertificate(Candidate candidate, String certificateName) {
+        final String UPLOAD_DIR = "/certificateUploads/";
+        try {
+            String certificatePath = UPLOAD_DIR + certificateName;
+            candidateDao.saveCertificate(candidate.getId(), certificatePath);
+        } catch (WrongExecutedQueryException e) {
+            throw new ServiceException("Cannot save certificate into db", e);
+        }
+        Candidate.modify(candidate).certificate(certificateName).build();
+        return candidate;
+    }
+
     private Candidate authorizeCandidate(int id) {
         LOG.debug("Find all information about candidate");
         Candidate candidate = candidateDao.getById(id);

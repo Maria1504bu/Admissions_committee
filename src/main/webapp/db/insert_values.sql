@@ -28,7 +28,7 @@ VALUES ('Cherkasy'),
        ('Zakarpattia'),
        ('Zaporizhia'),
        ('Zhytomyr');
-INSERT INTO candidates VALUES (2, 'Sofia', 'Dudar', 'Stepanivna', 'certificate_url', 3,
+INSERT INTO candidates VALUES (2, 'Sofia', 'Dudar', 'Stepanivna', 'havenot', 3,
                                'school 23', FALSE, '2022-08-14');
 INSERT INTO faculties (budget_places, total_places) VALUE (5, 10);
 INSERT INTO faculties_languages (faculties_id, languages_id, name) VALUES (1, 1, 'Managment'),

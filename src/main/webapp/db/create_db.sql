@@ -39,7 +39,7 @@ CREATE TABLE candidates
     `first_name`     VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `father_name`    VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `second_name`    VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
-    `certificate_url` VARCHAR(80) CHARACTER SET 'utf8' NOT NULL,
+    `certificate` VARCHAR(80) CHARACTER SET 'utf8',
     `city_id`        INT                               NOT NULL,
     `school_name`    VARCHAR(150) CHARACTER SET 'utf8' NOT NULL,
     `is_blocked`     BOOLEAN                           NOT NULL,

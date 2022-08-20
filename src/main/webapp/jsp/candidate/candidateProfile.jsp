@@ -14,7 +14,7 @@
 <%@ include file="/jspf/loginedHeader.jspf" %>
 <!-- Body beginging--------------------------------------------------------------------------->
 
-<c:set var="candidate" value="${sessionScope['candidate']}"/>
+<c:set var="candidate" value="${sessionScope['user']}"/>
 <c:set var="applList" value="${sessionScope['applicationsList']}"/>
 
 <div class="container indexMainCtr">
@@ -23,10 +23,10 @@
         <hr>
 
         <h3 id="table-header"><fmt:message key="candidateDash.YourDetails"/></h3>
-        <h3>${candidate.getSecondName += " " += candidate.getFirstName}</h3>
-        <h4>${candidate.getCity}</h4>
+        <h3>${candidate.getSecondName() += " " += candidate.getFirstName()}</h3>
+        <h4>${candidate.getCity()}</h4>
         <h4><c:out
-                value="${candidate.isBlocked == true ? 'Candidate Status: Under Checking' : 'Candidate Status: Ddetails Approved'}"/></h4>
+                value="${candidate.isBlocked() == true ? 'Candidate Status: Under Checking' : 'Candidate Status: Ddetails Approved'}"/></h4>
 
         <hr>
         <table class="table table-hover">
@@ -70,16 +70,21 @@
 
             </tbody>
         </table>
+    </div>
+    <hr>
+    <form method="POST" action="controller" enctype="multipart/form-data">
+        <label class="btn btn-primary" for="certificateFile"><fmt:message key="candidateDash.CertificateImage"/></label>
+        <input type="file" name="certificateFile" id="certificateFile" class="d-none"><br>
+        <input type="submit" class="btn btn-primary" value="<fmt:message key="candidateDash.UploadCertificate"/>"/>
+    </form>
+          ${message}
         <br/><br/>
-        <button class="btn btn-primary" type="button" id="getCertbtnEnrlProfile" onclick="getCertCandidateProfile(this)"><fmt:message
-                key="candidateDash.ShowCertificate"/></button>
-        <a href="${pageContext.request.contextPath}/controller?command=logout">
-            <button type="button" class="btn btn-primary"><fmt:message key="candidatesControlDash.return"/></button>
-        </a><br>
+        <button class="btn btn-primary" type="button" id="getCertbtnEnrlProfile" onclick="getCertCandidateProfile(this)">
+            <fmt:message key="candidateDash.ShowCertificate"/></button>
         <hr>
         <div id="certDiv" style="display:none">
-            <h1><fmt:message key="candidateDash.CertCopy"/></h1>
-            <img src="data:image/jpg;base64,${certImage}" width="600"/>
+            <h1><fmt:message key="candidateDash.CertScan"/></h1>
+            <img src="${candidate.getCertificate()}" width="600" />
         </div>
     </div>
 </div>
@@ -88,7 +93,7 @@
 <%@ include file="/jspf/footer.jspf" %>
 
 <!-- JavaScript functions ---------------------------->
-<%--<%@ include file="/js/javascript.jspf" %>--%>
+<%@ include file="/js/javascript.jspf" %>
 
 </body>
 </html>

@@ -13,7 +13,7 @@ public class Candidate implements Serializable {
     private String firstName;
     private String fatherName;
     private String secondName;
-    private String certificate_url;
+    private String certificate;
     private City city;
     private String schoolName;
     private byte[] schoolCertificate;
@@ -49,8 +49,8 @@ public class Candidate implements Serializable {
         return secondName;
     }
 
-    public String getCertificate_url() {
-        return certificate_url;
+    public String getCertificate() {
+        return certificate;
     }
 
     public City getCity() {
@@ -88,7 +88,7 @@ public class Candidate implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", fatherName='" + fatherName + '\'' +
                 ", secondName='" + secondName + '\'' +
-                ", certificate_url'" + certificate_url + '\'' +
+                ", certificate'" + certificate + '\'' +
                 ", city='" + city + '\'' +
                 ", schoolName='" + schoolName + '\'' +
                 ", schoolCertificate=" + Arrays.toString(schoolCertificate) +
@@ -111,7 +111,7 @@ public class Candidate implements Serializable {
      */
     public static  class CandidateBuilder{
 
-        private Candidate candidate;
+        private final Candidate candidate;
 
         private CandidateBuilder(){
             this.candidate = new Candidate();
@@ -156,8 +156,8 @@ public class Candidate implements Serializable {
             return this;
         }
 
-        public CandidateBuilder certificate_url(String certificate_url){
-            candidate.certificate_url = certificate_url;
+        public CandidateBuilder certificate(String certificate){
+            candidate.certificate = certificate;
             return this;
         }
 

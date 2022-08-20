@@ -34,7 +34,6 @@ Data source and connection pool configuration
     NONE  READ_COMMITTED  READ_UNCOMMITTED  REPEATABLE_READ SERIALIZABLE
     (default - driver default)
     =============================================================-->
-
     <!-- MySQL -->
     <Resource name="jdbc/admissions_committee"
               auth="Container"

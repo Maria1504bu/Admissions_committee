@@ -81,7 +81,6 @@ public class Application implements Serializable {
     public void setApplicationStatus(ApplicationStatus applicationStatus) {
         this.applicationStatus = applicationStatus;
     }
-
     public List<Grade> getGradesList() {
         return gradesList;
     }

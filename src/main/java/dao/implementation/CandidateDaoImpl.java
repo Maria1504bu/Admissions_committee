@@ -24,7 +24,7 @@ public class CandidateDaoImpl implements CandidateDao {
             "WHERE l.role_id = r.id AND l.email=?";
 
     private static final String FIND_CANDIDATE_BY_ID_QUERY = "SELECT l.id, l.email, l.password, r.name AS role, c.first_name, " +
-            "c.father_name, c.second_name, c.certificate_url, cities.name AS city, " +
+            "c.father_name, c.second_name, c.certificate, cities.name AS city, " +
             "c.school_name, c.is_blocked, c.appl_date " +
             "FROM logins l " +
             "INNER JOIN roles r ON l.role_id = r.id " +
@@ -33,14 +33,14 @@ public class CandidateDaoImpl implements CandidateDao {
             "WHERE l.id = ?";
 
     private static final String FIND_ALL_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name AS role, " +
-            "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name AS city, " +
+            "c.first_name, c.father_name, c.second_name, c.certificate, cities.name AS city, " +
             "c.school_name, , c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities " +
             "WHERE c.login_id = l.id AND cities.id = с.city_id AND " +
             "r.name = 'CANDIDATE' ";
 
     private static final String FIND_FACULTY_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name AS role, " +
-            "c.first_name, c.father_name, c.second_name, c.certificate_url, cities.name AS city, " +
+            "c.first_name, c.father_name, c.second_name, c.certificate, cities.name AS city, " +
             "c.school_name, , c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities, applications a " +
             "WHERE c.login_id = l.id AND cities.id = с.city_id " +
@@ -58,12 +58,14 @@ public class CandidateDaoImpl implements CandidateDao {
                     "VALUES (?, ?, 2) ";
 
     private static final String INSERT_CANDIDATE_FINAL_QUERY =
-            "INSERT INTO candidates(login_id, first_name, father_name, second_name, certificate_url, city_id, school_name, is_blocked, appl_date) " +
-                    "VALUES (?, ?, ?, ?, ?, (SELECT id FROM cities WHERE name = ?), ?, ?, ?) ";
+            "INSERT INTO candidates(login_id, first_name, father_name, second_name, city_id, school_name, is_blocked, appl_date) " +
+                    "VALUES (?, ?, ?, ?, (SELECT id FROM cities WHERE name = ?), ?, ?, ?) ";
+    private static final String INSERT_CERTIFICATE_QUERY = "UPDATE candidates SET certificate = ? " +
+            "WHERE login_id = ?";
 
     private static final String UPDATE_CANDIDATE_QUERY =
             "UPDATE candidates SET first_name = ?, father_name = ?, " +
-                    "second_name = ?, certificate_url = ?, city_id = (SELECT id FROM cities WHERE name = ?), " +
+                    "second_name = ?, certificate = ?, city_id = (SELECT id FROM cities WHERE name = ?), " +
                     "school_name = ?, appl_date = ?, is_blocked = ? " +
                     "WHERE user_logins_id = ?";
 
@@ -194,11 +196,10 @@ public class CandidateDaoImpl implements CandidateDao {
             prStatement.setString(2, candidate.getFirstName());
             prStatement.setString(3, candidate.getFatherName());
             prStatement.setString(4, candidate.getSecondName());
-            prStatement.setString(5, "refactor");
-            prStatement.setString(6, candidate.getCity().name());
-            prStatement.setString(7, candidate.getSchoolName());
-            prStatement.setObject(8, candidate.isBlocked());
-            prStatement.setString(9, candidate.getApplicationDate().toString());
+            prStatement.setString(5, candidate.getCity().name());
+            prStatement.setString(6, candidate.getSchoolName());
+            prStatement.setObject(7, candidate.isBlocked());
+            prStatement.setString(8, candidate.getApplicationDate().toString());
 
 
             boolean saved = prStatement.executeUpdate() == 1;
@@ -215,6 +216,30 @@ public class CandidateDaoImpl implements CandidateDao {
             throw new AlreadyExistException("Candidate is already exist", e);
         } catch (SQLException e) {
             throw new DaoException("Cannot save candidate ==> " + candidate, e);
+        }
+    }
+
+    @Override
+    public void saveCertificate(int id, String certificateName) throws WrongExecutedQueryException{
+        LOG.debug("Start saving certificate for candidate with id ==> " + id);
+        try (Connection connection = getConnection();
+             PreparedStatement prStatement = connection.prepareStatement(INSERT_CERTIFICATE_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setString(1,certificateName);
+            prStatement.setInt(2, id);
+
+            boolean saved = prStatement.executeUpdate() == 1;
+            LOG.debug("Certificate " + certificateName + " is saved ? ==>" + saved);
+            if (saved) {
+                connection.commit();
+                LOG.trace("Changes at db was committed");
+            } else {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate ");
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot save certificate ==> " + certificateName, e);
         }
     }
 
@@ -294,7 +319,7 @@ public class CandidateDaoImpl implements CandidateDao {
     @Override
     public int getCandidateListSize(int facultyId) {
         LOG.debug("Start getting candidateList size to faculty with id ==>" + facultyId);
-        int candidateListSize = 0;
+        int candidateListSize;
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(COUNT_CANDIDATES_BY_FACULTY_QUERY)) {
             LOG.trace("Resources are created");
@@ -367,7 +392,7 @@ public class CandidateDaoImpl implements CandidateDao {
                         .firstName(rs.getString(ColumnLabel.CANDIDATE_FIRSTNAME.getName()))
                         .fatherName(rs.getString(ColumnLabel.CANDIDATE_FATHER_NAME.getName()))
                         .secondName(rs.getString(ColumnLabel.CANDIDATE_SECOND_NAME.getName()))
-                        .certificate_url(rs.getString(ColumnLabel.CANDIDATE_CERTIFICATE_URL.getName()))
+                        .certificate(rs.getString(ColumnLabel.CANDIDATE_CERTIFICATE.getName()))
                         .city(Enum.valueOf(City.class, rs.getString(CITY_COLUMN)))
                         .schoolName(rs.getString(ColumnLabel.CANDIDATE_SCHOOL.getName()))
                         .isBlocked(rs.getObject(ColumnLabel.CANDIDATE_IS_BLOCKED.getName(), Boolean.class))
