@@ -1,129 +1,78 @@
 
-/*Header begining*/
-body{
-    background-image:url("/css/background_image.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-color: beige;
+/*header*/
+.logo{
+    font-size: 2.5em;
+    font-size: 4vw;
+    letter-spacing: .5rem;
+    color: lightgoldenrodyellow;
+    font-weight: bold;
 }
+hr { display: block; height: 1px;
+    border: 0; border-top: 1px solid #ccc;
+    margin: 1em 0; padding: 0; }
+
 .navbar {
     padding-top: 20px;
     padding-bottom: 20px;
 }
 .navbar-custom{
-    background-color: #668cff;
+    background-color: cadetblue;
 }
-/*Header end*/
-/*Footer begining*/
-.footerLink{
+
+.navbar-custom .navbar-nav .nav-link{
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.link{
     color: #b3d7ff;
 }
-.footerHeader{
-    color: white
+
+.nav-pills .nav-link.active {
+    background-color: #668cff!important;
+    font-weight: bold!important;
 }
-.page-footer{
-    background-color: #668cff;
+
+
+
+/*Body*/
+body{
+    background-image:url("/committee/css/background_image.png");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position:  center;
+    /*background-color: lightblue;*/
 }
-/*Footer end*/
-/*Body begining*/
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 .indexText{
     text-align: justify;
 }
 .indexMainCtr{
-    background-color: #f2f2f2;
+    background-color: rgba(255, 228, 196, 70%);
     padding-bottom: 10px;
     padding-top: 10px;
     min-height: 500px;
+    border-radius: 10px 10px 10px 0;
 }
 
-/*Body end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
-
-/*****************************/
-        /*Login*/
-/*****************************/
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
 .container-fluid {
     min-height: 600px;
 }
 
 .col-sm-9-custom {
     padding-left: 20px;
+    border-left: 1px solid #ccc;
 }
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
 
-/*Form begining*/
+/*Form*/
 .form-div {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 20px;
+    background-color: rgba(204, 255, 255, 50%);
+    padding: 30px 30px 20px;
     height: 450px;
     margin-bottom: 30px;
     margin-top: 30px;
@@ -142,579 +91,23 @@ button{
 .form-input{
     height: 30px !important;
 }
-/*Form end*/
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
 
-        /************************/
-        /*Registration*/
-        /************************/
-
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-}
-/*Body end*/
-/*Table begining*/
+/*Table*/
 th, .td-to-align{
     text-align: center;
 }
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #cce5ff;
 }
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
 
-/*Form begining*/
-.form-div {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    padding-bottom: 20px;
-    height: 450px;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    -webkit-box-shadow:inset 1px 2px 5px 0 #D3D4F5;
-    box-shadow:inset 1px 2px 5px 0 #D3D4F5;
-    -webkit-border-radius: 10px 10px 10px 0;
-    border-radius: 10px 10px 10px 0;
-}
-.title-div{
-    text-align: center;
-}
-button{
-    padding: 10px 50px !important;
-    margin-top: 40px;
-}
-.form-input{
-    height: 30px !important;
-}
-/*Form end*/
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
 
-            /********************************/
-            /*Final Registration*/
-            /********************************/
-
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
+/*footer*/
 .footerLink{
-    color: #b3d7ff;
+    color: whitesmoke;
 }
 .footerHeader{
     color: white
 }
 .page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-    border-left: 1px solid #ccc;
-}
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
-
-
-            /****************************/
-            /*Candidate Insert*/
-            /****************************/
-
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-}
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
-
-            /*****************************/
-            /*CandidateDisplayProfile*/
-            /*****************************/
-
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-}
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
-
-            /*****************************/
-            /*CandidateDashBoard*/
-            /*****************************/
-
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-    border-left: 1px solid #ccc;
-}
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
-
-            /********************/
-            /*getCandidate*/
-            /********************/
-
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body beginning*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-}
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
-}
-
-            /*************************/
-            /*FacultiesDash*/
-            /*************************/
-      /*Header begining*/
-  .navbar {
-      padding-top: 20px;
-      padding-bottom: 20px;
-  }
-.navbar-custom{
-    background-color: #668cff;
-}
-.navbar-custom .navbar-nav .nav-link{
-    margin-bottom: 0px;
-    margin-top: 0px;
-}
-.link{
-    color: #b3d7ff;
-}
-/*Header end*/
-.nav-pills .nav-link.active {
-    background-color: #668cff!important;
-    font-weight: bold!important;
-}
-/*Footer begining*/
-.footerLink{
-    color: #b3d7ff;
-}
-.footerHeader{
-    color: white
-}
-.page-footer{
-    background-color: #668cff;
-}
-/*Footer end*/
-/*Body begining*/
-.indexText{
-    text-align: justify;
-}
-.indexMainCtr{
-    background-color: #f2f2f2;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-body{
-    background-color: #f2f2f2;
-}
-html, body {
-    height: 100%;
-}
-.container-fluid {
-    min-height: 600px;
-}
-
-.col-sm-9-custom {
-    padding-left: 20px;
-    border-left: 1px solid #ccc;
-}
-/*Body end*/
-/*Table begining*/
-th, .td-to-align{
-    text-align: center;
-}
-.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-    background-color: #cce5ff;
-}
-/*Table end*/
-hr { display: block; height: 1px;
-    border: 0; border-top: 1px solid #ccc;
-    margin: 1em 0; padding: 0; }
-.logo{
-    font-size: 2.5em;
-    font-size: 4vw;
-    letter-spacing: .5rem;
-    color: #ffff00;
-    font-weight: bold;
+    background-color: cadetblue;
 }

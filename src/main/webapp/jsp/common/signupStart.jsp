@@ -1,9 +1,8 @@
 <%@ include file="/jspf/directives.jspf" %>
-<%@ include file="/jspf/lang.jspf" %>
 <html>
 <head>
     <title>User DashBoard</title>
-<%--    <%@ include file="/view/jspf/headDirectives.jspf" %>--%>
+    <%@ include file="/jspf/headDirectives.jspf" %>
     <style>
         <%@ include file="/css/styles.css" %>
         <%@ include file="/css/modalStyle.css" %>
@@ -11,7 +10,7 @@
 </head>
 <body>
 <!-- Login Header beginging------------------------------------------------------------------->
-<%@ include file="/jspf/loginHeader.jspf" %>
+<%@ include file="/jspf/guestHeader.jspf" %>
 <!-- Body beginging--------------------------------------------------------------------------->
 <div class="container">
     <div class="row justify-content-center align-items-center">

@@ -53,7 +53,7 @@ public class SignupFinalCommand implements ActionCommand {
         }
         session.setAttribute("user", candidate);
         LOG.trace("Reset user attribute ==> " + candidate);
-        String page = ConfigurationManager.getProperty("path.command.candidateProfile");
+        String page = ConfigurationManager.getProperty("redirect") + ConfigurationManager.getProperty("path.command.candidateProfile");
         LOG.debug("Go to ==> " + page);
         return page;
     }

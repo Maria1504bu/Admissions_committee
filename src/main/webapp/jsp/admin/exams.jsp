@@ -9,6 +9,10 @@
 <html>
 <head>
     <title>Exams</title>
+    <%@ include file="/jspf/headDirectives.jspf" %>
+    <style>
+        <%@ include file="/css/styles.css" %>
+    </style>
 </head>
 <body>
 <h2> All exams:</h2>
