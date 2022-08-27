@@ -3,14 +3,12 @@ package filter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter( urlPatterns = { "/jsp/*"},
-initParams = { @WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
+//@WebFilter( urlPatterns = { "/jsp/*"},
+//initParams = { @WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 public class ExplicitlyCallJSPFilter implements Filter {
     private static final Logger LOG = Logger.getLogger(ExplicitlyCallJSPFilter.class);
     private String indexPath;

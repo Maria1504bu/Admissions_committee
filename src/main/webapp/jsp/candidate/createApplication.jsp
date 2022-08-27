@@ -1,10 +1,8 @@
 <%@ include file="/jspf/directives.jspf" %>
-<%@ include file="/jspf/lang.jspf" %>
-
 <html>
 <head>
     <title>User DashBoard</title>
-<%--    <%@ include file="/jspf/headDirectives.jspf" %>--%>
+    <%@ include file="/jspf/headDirectives.jspf" %>
     <style>
         <%@ include file="/css/styles.css" %>
     </style>

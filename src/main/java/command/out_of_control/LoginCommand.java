@@ -54,7 +54,7 @@ public class LoginCommand implements ActionCommand {
         if (role == Role.CANDIDATE) {
             page = ConfigurationManager.getProperty("path.command.candidateProfile");
         } else if (role == Role.ADMIN) {
-            page = ConfigurationManager.getProperty("path.command.adminProfile");
+            page = ConfigurationManager.getProperty("path.command.faculties");
         }
         logger.debug("Go to ==> " + page);
         return page;

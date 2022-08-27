@@ -46,7 +46,6 @@ public class CommandContainer {
         commands.put("createApplication", new CreateApplicationCommand(facultyService));
         commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
         // admin
-        commands.put("adminProfile", new AdminProfileCommand());
         commands.put("subjects", new SubjectCommand(examService));
         commands.put("addSubject", new AddSubjectCommand(examService));
         commands.put("faculties", new FacultiesCommand(facultyService));
@@ -62,16 +61,7 @@ public class CommandContainer {
      * @return Command object.
      */
     public static ActionCommand get(String commandName) {
-        //TODO: redirect for PRG?!
-        if (commandName == null){
-
-        }
-        if(commandName.contains("?")){
-            String commandToProceed = commandName.substring(0, commandName.indexOf("?"));
-            LOG.debug("Command updated name --> " + commandToProceed);
-            return commands.get(commandToProceed);
-        }
-        if(!commands.containsKey(commandName)) {
+        if(commandName == null || !commands.containsKey(commandName)) {
             LOG.trace("Command not found, name --> " + commandName);
             return commands.get("noCommand");
         }

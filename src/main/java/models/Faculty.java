@@ -19,18 +19,18 @@ public class Faculty implements Serializable {
     public Faculty(int id){
         this.id = id;
     }
-    public Faculty(int id, String[] names, int budgetPlacesQty, int totalPlacesQty){
+    public Faculty(int id, String[] names, int budgetPlaces, int totalPlaces){
         this.id = id;
         this.namesList = new ArrayList<>();
-        this.budgetPlaces = budgetPlacesQty;
-        this.totalPlaces = totalPlacesQty;
+        this.budgetPlaces = budgetPlaces;
+        this.totalPlaces = totalPlaces;
         this.subjectList = new ArrayList<>();
         listInitialize(names);
     }
-    public Faculty(String[] names, int budgetPlacesQty, int totalPlacesQty){
+    public Faculty(String[] names, int budgetPlaces, int totalPlaces){
         this.namesList = new ArrayList<>();
-        this.budgetPlaces = budgetPlacesQty;
-        this.totalPlaces = totalPlacesQty;
+        this.budgetPlaces = budgetPlaces;
+        this.totalPlaces = totalPlaces;
         this.subjectList = new ArrayList<>();
         listInitialize(names);
     }
@@ -97,8 +97,8 @@ public class Faculty implements Serializable {
         return "Faculty{" +
                 "id=" + id +
                 ", namesList=" + namesList +
-                ", budgetPlacesQty=" + budgetPlaces +
-                ", totalPlacesQty=" + totalPlaces +
+                ", budgetPlaces=" + budgetPlaces +
+                ", totalPlaces=" + totalPlaces +
                 ", subjectList=" + subjectList +
                 '}';
     }

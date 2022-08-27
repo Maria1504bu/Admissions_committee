@@ -44,14 +44,15 @@ public class SignupStartCommand implements ActionCommand {
             return page;
         }
         List cities = Arrays.asList(City.values());
-        req.setAttribute("cities", cities);
-        LOG.trace("Set the request attribute cities for select tag");
+        req.getServletContext().setAttribute("cities", cities);
+        LOG.trace("Set attribute cities for select tag and other tables on application scope");
         req.getSession().setAttribute("user", candidate);
         LOG.trace("Set the session attribute: user --> " + candidate);
         session.setAttribute("role", Role.CANDIDATE);
         LOG.trace("Set the session attribute: role --> " + Role.CANDIDATE);
 
-        page = ConfigurationManager.getProperty("path.candidate.signupFinal");
+        page = ConfigurationManager.getProperty("redirect") +
+                ConfigurationManager.getProperty("path.candidate.signupFinal");
         LOG.debug("Go to ==> " + page);
         return page;
     }

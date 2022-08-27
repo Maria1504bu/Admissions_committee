@@ -11,11 +11,10 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSessionListener;
 import javax.sql.DataSource;
 
 @WebListener
-public class ContextListener implements ServletContextListener, HttpSessionListener {
+public class ContextListener implements ServletContextListener {
 	private static final Logger LOG = Logger.getLogger(ContextListener.class);
 
 	// bootstrap of the application
@@ -63,7 +62,7 @@ public class ContextListener implements ServletContextListener, HttpSessionListe
 	private void initLog4J(ServletContext servletContext) {
 		LOG.debug("Log4J initialization started");
 		try {
-			PropertyConfigurator.configure(servletContext.getRealPath("log4j.properties"));
+			PropertyConfigurator.configure("D:\\Final Project\\Admissions_committee\\target\\classes\\log4j.properties");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

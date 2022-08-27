@@ -997,14 +997,14 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     <schema id="280" parent="1" name="sys">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="281" parent="1" name="university">
+    <schema id="281" parent="1" name="user_team">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="282" parent="1" name="world">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="283" parent="1" name="university">
       <CollationName>ascii_general_ci</CollationName>
-    </schema>
-    <schema id="282" parent="1" name="user_team">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="283" parent="1" name="world">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="284" parent="1" name="Maria1504">
       <Plugin>caching_sha2_password</Plugin>

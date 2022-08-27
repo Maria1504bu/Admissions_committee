@@ -4,14 +4,12 @@ package filter;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/*",
-	initParams = {@WebInitParam(name = "encoding", value = "UTF-8")}
-)
+//@WebFilter(urlPatterns = "/*",
+//	initParams = {@WebInitParam(name = "encoding", value = "UTF-8")}
+//)
 public class EncodingFilter implements Filter {
 	public static final Logger logger = Logger.getLogger(EncodingFilter.class);
 	private String encoding;

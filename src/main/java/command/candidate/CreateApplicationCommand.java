@@ -3,13 +3,11 @@ package command.candidate;
 import command.ActionCommand;
 import managers.ConfigurationManager;
 import models.Candidate;
-import models.Faculty;
 import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 public class CreateApplicationCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(CreateApplicationCommand.class);
@@ -29,11 +27,11 @@ public class CreateApplicationCommand implements ActionCommand {
         LOG.trace("CreateApplicationCommand get language --> " + language);
 
 
-        List<Faculty> facultiesList = facultyService.findAll();
-        LOG.debug("CreateApplicationCommand to board facultiesList size --> " + facultiesList.size());
-    //    LOG.debug("CreateApplicationCommand getSubjectList().get(0) --> " + facultiesList.get(0).getSubjectList().get(0));
-        session.setAttribute("facultiesList", facultiesList);
-        LOG.trace("Set session attribute facultiesList ==> " + facultiesList);
+//        List<Faculty> facultiesList = facultyService.findAll();
+//        LOG.debug("CreateApplicationCommand to board facultiesList size --> " + facultiesList.size());
+//    //    LOG.debug("CreateApplicationCommand getSubjectList().get(0) --> " + facultiesList.get(0).getSubjectList().get(0));
+//        session.setAttribute("facultiesList", facultiesList);
+//        LOG.trace("Set session attribute facultiesList ==> " + facultiesList);
 
         String selectFacultyPriority1 = req.getParameter("selectedFaculty1");
         String selectFacultyPriority2 = req.getParameter("selectedFaculty2");

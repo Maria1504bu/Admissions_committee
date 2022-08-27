@@ -3,12 +3,14 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/js/sortTableJS.jspf" value="file://$PROJECT_DIR$/src/main/webapp/js" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/admin/adminProfile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/admin/candidates.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/main.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/headDirectives.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
       </map>
     </option>

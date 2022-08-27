@@ -33,7 +33,8 @@ public class UploadCertificateCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest request) {
         LOG.debug("UploadCertificateCommand starts");
-        String page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
+        String page = ConfigurationManager.getProperty("redirect") +
+                ConfigurationManager.getProperty("path.candidate.candidateProfile");
 
         // creates the save directory if it does not exist
         File fileSaveDir = new File(UPLOAD_DIR);

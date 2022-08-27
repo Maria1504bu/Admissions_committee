@@ -10,5 +10,5 @@ public interface FacultyService {
     void save(Faculty faculty);
     void update (Faculty faculty);
     void delete (int id);
-    List<Faculty> findAll();
+    List<Faculty> getSortedList(String lang, String orderBy, String order);
 }

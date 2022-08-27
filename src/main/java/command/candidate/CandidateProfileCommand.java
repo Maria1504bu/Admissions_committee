@@ -31,13 +31,7 @@ public class CandidateProfileCommand implements ActionCommand {
         List<Application> candidateAplls = applicationService.getCandidatesAppls(candidate.getId(), lang);
         if (candidateAplls != null && candidateAplls.size() > 0) {
             req.getSession().setAttribute("applicationsList", candidateAplls);
-            //TODO: Get certificate
-//            byte[] certificate = new CandidateDao().getCertificate(candidate.getId());
-//            if (certificate.length > 0) {
-//                String certImage = Base64.getEncoder().encodeToString(certificate);
-//                session.setAttribute("certImage", certImage);
-//            }
-            page = ConfigurationManager.getProperty("path.candidate.candidateProfile");
+            page = ConfigurationManager.getProperty("redirect") + ConfigurationManager.getProperty("path.candidate.candidateProfile");
         }
         LOG.debug("Go to ==> " + page);
         return page;

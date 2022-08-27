@@ -48,14 +48,13 @@ public class FacultyServiceImpl implements FacultyService {
 
     }
 
+
     @Override
-    public List<Faculty> findAll() throws ServiceException{
-        List<Faculty> faculties;
-        try {
-            faculties = facultyDao.findAll();
-        } catch (NotValidException | DaoException e) {
-            throw new ServiceException("Can`t get  all faculties", e);
-        }
-        return faculties;
+    public List<Faculty> getSortedList(String lang, String orderBy, String order) {
+        if(orderBy == null || order.isEmpty()) orderBy = "name";
+        if(order == null || order.isEmpty()) order = "ASC";
+        orderBy += " " + order;
+        List<Faculty> sortedList = facultyDao.getAllOrderBy(lang, orderBy);
+        return sortedList;
     }
 }

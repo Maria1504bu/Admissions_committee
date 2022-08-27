@@ -6,8 +6,6 @@ import models.Role;
 import org.apache.log4j.Logger;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -16,12 +14,12 @@ import java.util.*;
 /**
  * Allow access to resources by roles
  */
-@WebFilter(urlPatterns = "/controller?",
-        initParams = {@WebInitParam(name = "ADMIN", value = "adminProfile subjects addSubjects faculties" +
-                " addFaculty editFaculty"),
-                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication uploadCertificate"),
-                @WebInitParam(name = "COMMON", value = "logout"),
-                @WebInitParam(name = "OUT_OF_CONTROL", value = "login signupStart initSignup nullCommand")})
+//@WebFilter(urlPatterns = "/controller?",
+//        initParams = {@WebInitParam(name = "ADMIN", value = "subjects addSubjects faculties" +
+//                " addFaculty editFaculty"),
+//                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication uploadCertificate"),
+//                @WebInitParam(name = "COMMON", value = "logout"),
+//                @WebInitParam(name = "OUT_OF_CONTROL", value = "login signupStart initSignup nullCommand")})
 public class CommandAccessFilter implements Filter {
     private static final Logger log = Logger.getLogger(CommandAccessFilter.class);
     // commands access

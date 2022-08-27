@@ -9,6 +9,10 @@
 <html>
 <head>
     <title>Candidates</title>
+    <%@ include file="/jspf/headDirectives.jspf" %>
+    <style>
+        <%@ include file="/css/styles.css" %>
+    </style>
     </head>
 <body>
 <h2> All candidates:</h2>

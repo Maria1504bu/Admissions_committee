@@ -1,9 +1,8 @@
 <%@ include file="/jspf/directives.jspf" %>
-<%@ include file="/jspf/lang.jspf" %>
 <html>
 <head>
     <title>Final Registration</title>
-<%--    <%@ include file="/jspf/headDirectives.jspf" %>--%>
+    <%@ include file="/jspf/headDirectives.jspf" %>
     <style>
         <%@ include file="/css/styles.css" %>
     </style>
@@ -20,7 +19,7 @@
         <div class="col-sm-12 col-sm-12-custom">
             <h3 id="table-header"><fmt:message key="registrationFinal.CandidateDetails"/></h3>
 
-            <form method="POST" action="controller" class="was-validated">
+            <form method="POST" action="/committee/controller" class="was-validated">
                 <input type="hidden" name="command" value="signupFinal"/>
                 <div class="form-group">
                     <label for="firstName"><fmt:message key="candidatesControlDash.tableThFirstName"/></label>
@@ -61,7 +60,7 @@
                         <div class="invalid-feedback"><fmt:message key="registrationFinal.CheckBox"/></div>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary"><fmt:message key="registrationFinal.RegisterProfile"/></button>
+                <input type="submit" class="btn btn-primary"><fmt:message key="registrationFinal.RegisterProfile"/></input>
             </form>
 
         </div>

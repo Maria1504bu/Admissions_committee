@@ -1,20 +1,20 @@
 <%@ include file="/jspf/directives.jspf" %>
-<%@ include file="/jspf/lang.jspf" %>
 <html>
 <head>
     <title>User DashBoard</title>
-<%--    <%@ include file="/jspf/headDirectives.jspf" %>--%>
+    <%@ include file="/jspf/headDirectives.jspf" %>
     <style>
         <%@ include file="/css/styles.css" %>
         <%@ include file="/css/modalStyle.css" %>
     </style>
 </head>
 <body>
-<!-- Login Header beginging------------------------------------------------------------------->
-<%@ include file="/jspf/loginHeader.jspf" %>
-
-<!-- Body beginging--------------------------------------------------------------------------->
-<div class="container">
+<header>
+    <!-- Login Header beginning------------------------------------------------------------------->
+    <%@ include file="/jspf/guestHeader.jspf" %>
+</header>
+<!-- Body beginning--------------------------------------------------------------------------->
+<div class="container indexMainCtr">
     <div class="row justify-content-center align-items-center">
         <div class="col-sm-12 title-div">
             <h2 class="text-xs-center"><fmt:message key="login.SignIn"/></h2>

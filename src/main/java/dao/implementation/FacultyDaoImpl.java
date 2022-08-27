@@ -26,9 +26,11 @@ public class FacultyDaoImpl implements FacultyDao {
             //"INNER JOIN languages l ON l.id = fl.languages_id " +
             "WHERE f.id = ?";
 
-    private static final String GET_ALL_FACULTIES_QUERY = "SELECT f.id, f.budget_places, f.total_places, GROUP_CONCAT(fl.name SEPARATOR '; ') AS name " +
+    private static final String GET_ALL_FACULTIES_ORDER_BY_QUERY = "SELECT f.id, f.budget_places, f.total_places, fl.name " +
             "FROM faculties f " +
-            "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id ";
+            "INNER JOIN faculties_languages fl ON f.id = fl.faculties_id " +
+            "INNER JOIN languages l ON l.id = fl.languages_id WHERE l.lang_code = ? " +
+            "ORDER BY ";
     private final static String INSERT_FACULTY_QUERY = "INSERT INTO faculties (budget_places_qty, total_places_qty) VALUES (?, ?); " +
             "INSERT INTO faculties_languages (faculties_id, languages_id, name) " +
             "VALUES " +
@@ -83,13 +85,15 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
     @Override
-    public List<Faculty> findAll() throws DaoException {
+    public List<Faculty> getAllOrderBy(String lang, String orderBy) throws DaoException {
         List<Faculty> faculties = new ArrayList<>();
-        LOG.debug("Finding all faculties ...");
+        LOG.debug("Start to find all faculties with name by language ==> " + lang + " and sort it by ==> " + orderBy);
         try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(GET_ALL_FACULTIES_QUERY)) {
+             PreparedStatement prStatement = connection.prepareStatement(GET_ALL_FACULTIES_ORDER_BY_QUERY + orderBy)) {
             LOG.trace("Resources are created");
+            prStatement.setString(1, lang);
+            LOG.trace("Set language to prepareStatement ==> " + lang);
+            ResultSet resultSet = prStatement.executeQuery();
 
             FacultyMapper mapper = new FacultyMapper();
             while (resultSet.next()) {

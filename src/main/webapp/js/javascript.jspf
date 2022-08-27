@@ -1,59 +1,59 @@
 <script>
-    //initial language set
-    function setLanguage(clickedObj) {
-        let firstLink = document.getElementById('first-link-id');
-        let secondLink = document.getElementById('second-link-id');
-        let selectedLang = clickedObj.innerHTML;
+    <%--//initial language set--%>
+    <%--function setLanguage(clickedObj) {--%>
+    <%--    let firstLink = document.getElementById('first-link-id');--%>
+    <%--    let secondLink = document.getElementById('second-link-id');--%>
+    <%--    let selectedLang = clickedObj.innerHTML;--%>
 
-        let langsArr = ['EN', 'UK', 'RU'];
-        let linkIndex = langsArr.indexOf(firstLink.innerText);
-        if (linkIndex > -1) {
-            langsArr.splice(linkIndex, 1);
-        }
+    <%--    let langsArr = ['EN', 'UK', 'RU'];--%>
+    <%--    let linkIndex = langsArr.indexOf(firstLink.innerText);--%>
+    <%--    if (linkIndex > -1) {--%>
+    <%--        langsArr.splice(linkIndex, 1);--%>
+    <%--    }--%>
 
-        linkIndex = langsArr.indexOf(secondLink.innerText);
-        if (linkIndex > -1) {
-            langsArr.splice(linkIndex, 1);
-        }
-        clickedObj.innerHTML = langsArr[0];
+    <%--    linkIndex = langsArr.indexOf(secondLink.innerText);--%>
+    <%--    if (linkIndex > -1) {--%>
+    <%--        langsArr.splice(linkIndex, 1);--%>
+    <%--    }--%>
+    <%--    clickedObj.innerHTML = langsArr[0];--%>
 
-        let setLangLink = document.createElement('a');
-        setLangLink.href = '${pageContext.request.contextPath}/controller?command=setLanguage&language=' + convertLang(selectedLang);
-        setLangLink.click();
-    }
+    <%--    let setLangLink = document.createElement('a');--%>
+    <%--    setLangLink.href = '${pageContext.request.contextPath}/controller?command=setLanguage&language=' + convertLang(selectedLang);--%>
+    <%--    setLangLink.click();--%>
+    <%--}--%>
 
-    function convertLang(langInnerHtml) {
-        if (langInnerHtml == null) return 'ru';
-        if (langInnerHtml === 'EN') return 'en';
-        if (langInnerHtml === 'UK') return 'uk';
-        if (langInnerHtml === 'RU') return 'ru';
-    }
+    <%--function convertLang(langInnerHtml) {--%>
+    <%--    if (langInnerHtml == null) return 'ru';--%>
+    <%--    if (langInnerHtml === 'EN') return 'en';--%>
+    <%--    if (langInnerHtml === 'UK') return 'uk';--%>
+    <%--    if (langInnerHtml === 'RU') return 'ru';--%>
+    <%--}--%>
 
-    //faculties sort
-    function facultiesSort(linkObj) {
-        if (linkObj.id === 'nameSort') {
-            linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=nameAsc';
-        }
-        if (linkObj.id === 'budgetSort') {
-            linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=budgetDsc';
-        }
-        if (linkObj.id === 'totalSort') {
-            linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=totalDsc';
-        }
-    }
+    <%--//faculties sort--%>
+    <%--function facultiesSort(linkObj) {--%>
+    <%--    if (linkObj.id === 'nameSort') {--%>
+    <%--        linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=nameAsc';--%>
+    <%--    }--%>
+    <%--    if (linkObj.id === 'budgetSort') {--%>
+    <%--        linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=budgetDsc';--%>
+    <%--    }--%>
+    <%--    if (linkObj.id === 'totalSort') {--%>
+    <%--        linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=totalDsc';--%>
+    <%--    }--%>
+    <%--}--%>
 
-    function setUILang(lang) {
-        let firstLink = document.getElementById('first-link-id');
-        let secondLink = document.getElementById('second-link-id');
+    <%--function setUILang(lang) {--%>
+    <%--    let firstLink = document.getElementById('first-link-id');--%>
+    <%--    let secondLink = document.getElementById('second-link-id');--%>
 
-        let langsArr = ['EN', 'UK', 'RU'];
-        let linkIndex = langsArr.indexOf(lang.toUpperCase());
-        if (linkIndex > -1) {
-            langsArr.splice(linkIndex, 1);
-        }
-        firstLink.innerHTML = langsArr[0];
-        secondLink.innerHTML = langsArr[1];
-    }
+    <%--    let langsArr = ['EN', 'UK', 'RU'];--%>
+    <%--    let linkIndex = langsArr.indexOf(lang.toUpperCase());--%>
+    <%--    if (linkIndex > -1) {--%>
+    <%--        langsArr.splice(linkIndex, 1);--%>
+    <%--    }--%>
+    <%--    firstLink.innerHTML = langsArr[0];--%>
+    <%--    secondLink.innerHTML = langsArr[1];--%>
+    <%--}--%>
 
     function displayAbout() {
         document.getElementById('facultiesTable').style.display = 'none';
