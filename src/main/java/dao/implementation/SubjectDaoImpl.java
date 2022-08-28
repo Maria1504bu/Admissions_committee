@@ -19,18 +19,18 @@ public class SubjectDaoImpl implements SubjectDao {
 
     private static final String GET_SUBJECT_BY_ID_QUERY = "SELECT su.id, su.duration, sl.name " +
             "FROM subjects su " +
-            "INNER JOIN subjects_languages sl ON su.id = sl.subjects_id " +
-            "INNER JOIN languages la ON la.id = sl.languages_id " +
+            "INNER JOIN subjects_languages sl ON su.id = sl.subject_id " +
+            "INNER JOIN languages la ON la.id = sl.language_id " +
             "WHERE su.id = ?";
 
     private static final String GET_SUBJECT_BY_FACULTY_ID_QUERY = "SELECT su.id, su.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') as name " +
             "FROM faculties fa, faculties_subjects fs, subjects su, subjects_languages sl, languages la " +
-            "WHERE fa.id = fs.faculties_id AND fs.subjects_id = su.id AND su.id = sl.subjects_id AND sl.languages_id = la.id " +
+            "WHERE fa.id = fs.faculty_id AND fs.subject_id = su.id AND su.id = sl.subject_id AND sl.language_id = la.id " +
             "AND la.lang_code = ? AND fa.id = ?;";
     private static final String GET_ALL_SUBJECTS_QUERY = "SELECT su.id, su.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') as name " +
             "FROM subjects su " +
-            "INNER JOIN subjects_languages sl ON su.id = sl.subjects_id " +
-            "INNER JOIN languages la ON la.id = sl.languages_id ";
+            "INNER JOIN subjects_languages sl ON su.id = sl.subject_id " +
+            "INNER JOIN languages la ON la.id = sl.language_id ";
     private final static String INSERT_SUBJECT_QUERY = "INSERT INTO subjects (duration)" +
             "VALUE (?); INSERT INTO subjects_languages (`subjects_id`, `languages_id`, `name`) " +
             "VALUES " +
@@ -41,7 +41,7 @@ public class SubjectDaoImpl implements SubjectDao {
             " WHERE id = ?";
 
     private static final String UPDATE_SUBJECT_LANG_SET_QUERY = "UPDATE subjects_languages SET name = ? " +
-            "WHERE subjects_id = ? AND languages_id = ?";
+            "WHERE subject_id = ? AND language_id = ?";
     private static final String DELETE_SUBJECT_QUERY = "DELETE FROM subjects WHERE id = ?";
 
 

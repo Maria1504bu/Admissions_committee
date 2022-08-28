@@ -10,9 +10,9 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/loginedHeader.jspf" %>
+<%@ include file="/jspf/adminHeader.jspf" %>
 <!-- Body begining--------------------------------------------------------------------------->
-<div class="container-fluid indexMainCtr">
+<div class="container indexMainCtr">
     <h2><fmt:message key="facultiesDash.Title"/></h2>
     <hr>
     <div class="row">
@@ -20,19 +20,19 @@
             <p style="font-weight: bold;"><fmt:message key="candidatesControlDash.navTitle"/></p>
             <ul class="nav nav-pills flex-column custom">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=showNewFacultyForm"><fmt:message key="facultiesDash.CreatePill"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=prepareFacultyForm"><fmt:message key="facultiesDash.CreatePill"/></a>
                 </li>
                 <li class="nav-item">
                     <form action="${pageContext.request.contextPath}/controller" method="POST" id="updateIdForm">
                         <input type="hidden" name="command" value="updateFaculty"/>
-                        <input type="hidden" name="updateFacultyValue" id="updateF" value="">
+                        <input type="hidden" name="updateFacultyId" id="updateF" value="">
                         <a class="nav-link" href="javascript:{}" onclick="updateFaculty();"><fmt:message key="facultiesDash.UpdatePill"/></a>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form action="${pageContext.request.contextPath}/controller" method="POST" id="deleteIdForm">
                         <input type="hidden" name="command" value="deleteFaculty"/>
-                        <input type="hidden" name="deleteFacultyValue" id="deleteF" value="">
+                        <input type="hidden" name="deleteFacultyId" id="deleteF" value="">
                         <a class="nav-link" href="javascript:{}" onclick="deleteFaculty();"><fmt:message key="facultiesDash.DeletePill"/></a>
                     </form>
                 </li>
@@ -64,7 +64,7 @@
                         <td class="td-to-align">${f.getBudgetPlaces()}</td>
                         <td class="td-to-align">${f.getTotalPlaces()}</td>
                         <td>
-                            <INPUT type="radio" class="radiogroup" name="radiogroup" value="${f.getId()}"/>
+                            <INPUT type="radio" class="radioGroup" name="radioGroup" value="${f.getId()}"/>
                         </td>
                     </tr>
                 </c:forEach>

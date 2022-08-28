@@ -1,10 +1,14 @@
 package services.implementation;
 
 
+import dao.AlreadyExistException;
 import dao.DaoException;
+import dao.WrongExecutedQueryException;
 import dao.interfaces.FacultyDao;
 import models.Faculty;
+import models.Subject;
 import org.apache.log4j.Logger;
+import services.EmptyFieldsException;
 import services.ServiceException;
 import services.interfaces.FacultyService;
 import util.NotValidException;
@@ -34,13 +38,39 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public void save(Faculty faculty) {
+    public void save(String englishName, String ukrainianName, String budgetQty, String totalQty, String[] subjectsIds) throws EmptyFieldsException {
+        Faculty faculty = new Faculty();
+        if (englishName == null || ukrainianName == null || budgetQty == null || totalQty == null ||
+                subjectsIds.length == 0 || englishName.isEmpty() || ukrainianName.isEmpty() || budgetQty.isEmpty() || totalQty.isEmpty()) {
+            throw new EmptyFieldsException();
+        }
 
+        faculty.getNamesList().add(englishName);
+        faculty.getNamesList().add(ukrainianName);
+        faculty.setBudgetPlaces(Integer.parseInt(budgetQty));
+        faculty.setTotalPlaces(Integer.parseInt(totalQty));
+        for (String id : subjectsIds) {
+            Subject s = new Subject();
+            s.setId(Integer.parseInt(id));
+            faculty.getSubjectList().add(s);
+        }
+
+        try {
+            facultyDao.save(faculty);
+        } catch (AlreadyExistException | WrongExecutedQueryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        LOG.debug("FacultyService finish saving faculty with englishName " + englishName);
     }
 
     @Override
     public void update(Faculty faculty) {
-
+        try {
+            facultyDao.update(faculty);
+        } catch (AlreadyExistException | WrongExecutedQueryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+        LOG.debug("FacultyService finish update faculty ==> " + faculty);
     }
 
     @Override
@@ -57,4 +87,5 @@ public class FacultyServiceImpl implements FacultyService {
         List<Faculty> sortedList = facultyDao.getAllOrderBy(lang, orderBy);
         return sortedList;
     }
+
 }

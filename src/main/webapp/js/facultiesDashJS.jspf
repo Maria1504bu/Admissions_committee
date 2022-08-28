@@ -2,7 +2,7 @@
 //faculties DashBoard
 //--------------------------------------------
 <script>
-    const inputs = document.querySelectorAll('.radiogroup');
+    const inputs = document.querySelectorAll('.radioGroup');
     const clickHandler = i => {
         document.getElementById("updateF").value = i.getAttribute("value");
         document.getElementById("deleteF").value = i.getAttribute("value");
@@ -29,22 +29,4 @@
             document.getElementById('deleteIdForm').submit();
         }
     }
-
-    //facultiesSortDash sort
-    function facultiesSortDash(linkObj) {
-        if (linkObj.id === 'nameSort') {
-            linkObj.href = '${pageContext.request.contextPath}/controller?command=faculties&facultySort=nameAsc';
-        }
-        if (linkObj.id === 'budgetSort') {
-            linkObj.href = '${pageContext.request.contextPath}/controller?command=faculties&facultySort=budgetDsc';
-        }
-        if (linkObj.id === 'totalSort') {
-            linkObj.href = '${pageContext.request.contextPath}/controller?command=faculties&facultySort=totalDsc';
-        }
-    }
-
-    ${'th'}.on('cklick', function () {
-        console.log('Col was clicked')
-    })
-
 </script>

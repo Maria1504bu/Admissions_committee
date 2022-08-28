@@ -1,9 +1,10 @@
 <!-- Login, Registration Header -->
 
 <nav class="navbar navbar-expand-sm navbar-dark navbar-custom d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
+    <%@ include file="/jspf/lang.jspf" %>
     <div class="navbar-header">
         <%--        if i set it to another place localization don`t work for navbar--%>
-        <%@ include file="/jspf/lang.jspf" %>
+
         <!-- Brand -->
         <a class="navbar-brand" href=""><span class="logo"><fmt:message key="header.TitleCom"/></span></a>
     </div>

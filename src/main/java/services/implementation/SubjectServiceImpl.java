@@ -19,6 +19,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Override
     public List findAll() {
-        return null;
+        return subjectDao.findAll();
     }
 }

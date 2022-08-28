@@ -18,8 +18,4 @@ public interface FacultyDao {
     void delete(int id) throws DaoException, WrongExecutedQueryException;
 
     List<Faculty> getAllOrderBy(String lang, String orderBy) throws DaoException;
-
-    public void addSubjectsToFaculty(Faculty faculty) throws WrongExecutedQueryException;
-    
-    public void updateLangSet(Faculty faculty);
 }

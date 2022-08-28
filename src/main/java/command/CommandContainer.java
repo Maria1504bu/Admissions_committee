@@ -32,7 +32,7 @@ public class CommandContainer {
         CandidateService candidateService = new CandidateServiceImpl(candidateDao);
         FacultyService facultyService = new FacultyServiceImpl(facultyDao);
         GradeService gradeService = new GradeServiceImpl(gradeDao);
-        SubjectService examService = new SubjectServiceImpl(subjectDao);
+        SubjectService subjectService = new SubjectServiceImpl(subjectDao);
 
 
         commands = new TreeMap<>();
@@ -46,10 +46,13 @@ public class CommandContainer {
         commands.put("createApplication", new CreateApplicationCommand(facultyService));
         commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
         // admin
-        commands.put("subjects", new SubjectCommand(examService));
-        commands.put("addSubject", new AddSubjectCommand(examService));
+        commands.put("subjects", new SubjectCommand(subjectService));
+        commands.put("addSubject", new AddSubjectCommand(subjectService));
         commands.put("faculties", new FacultiesCommand(facultyService));
-        commands.put("addFaculty", new AddFacultyCommand(facultyService));
+        commands.put("prepareFacultyForm", new PrepareFacultyFormCommand(subjectService));
+        commands.put("saveFaculty", new SaveFacultyCommand(facultyService));
+        commands.put("updateFaculty", new UpdateFacultyCommand(facultyService));
+
         commands.put("editFaculties", new EditFacultyCommand(facultyService));
         // common
         commands.put("logout", new LogoutCommand());

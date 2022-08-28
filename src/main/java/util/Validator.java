@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
-    private static final String REGEX_FOR_ID ="/d+";
+    private static final String REGEX_FOR_ID ="\\d+";
 
 
     public static void validateId(int id) throws NotValidException{

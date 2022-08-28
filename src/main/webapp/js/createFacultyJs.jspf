@@ -1,0 +1,29 @@
+<script>
+    let counter = 1;
+    let dynamicInput = [];
+
+    function addInput(){
+        let newdiv = document.createElement('div');
+        newdiv.id = dynamicInput[counter];
+        newdiv.innerHTML =
+            "<hr><label><fmt:message key='createFaculty.SubjectName'/></label>" +
+            "<select class=\"browser-default custom-select\" name=\"subject\">\n" +
+            "        <c:forEach items='${subjects}' var='subject'>\n" +
+            "            <option value='${subject.getId()}'\n" +
+            "                    <c:if test='${subject.getId() eq selectedSubjId}'>selected='selected'</c:if>\n" +
+            "            >\n" +
+            "                    ${subject.getNameList().get(0)}\n" +
+            "            </option>\n" +
+            "        </c:forEach>\n" +
+            "    </select>"+
+            "<input type='button' class='btn btn-primary' value='-' onClick='removeInput("+dynamicInput[counter]+");'>";
+        document.getElementById('optionDiv').appendChild(newdiv);
+        counter++;
+    }
+
+    function removeInput(id){
+        let elem = document.getElementById(id);
+        return elem.parentNode.removeChild(elem);
+    }
+
+</script>
