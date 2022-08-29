@@ -124,7 +124,7 @@ public class FacultyDaoImpl implements FacultyDao {
                 LOG.trace("Changes at db is rollback");
                 throw new WrongExecutedQueryException("Operation is rollback! Wrong data of faculty places " + faculty);
             }
-
+            LOG.trace("First query went successful");
 
             langStatement.setString(1, faculty.getNamesList().get(0));
             langStatement.setString(2, faculty.getNamesList().get(1));

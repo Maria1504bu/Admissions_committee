@@ -50,4 +50,6 @@ INSERT INTO faculties (budget_places, total_places) VALUES (?, ?);
 INSERT INTO faculties_languages (faculty_id, language_id, name) VALUES
     ((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'en'), ?),
            ((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'uk'), ?);
+SELECT su.id, su.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') as name FROM subjects su, subjects_languages sl
+            GROUP BY su.id
 

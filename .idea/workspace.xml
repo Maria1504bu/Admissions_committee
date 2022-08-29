@@ -9,34 +9,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create add faculty form">
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/PrepareFacultyFormCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/SaveFacultyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/createFacultyJs.jspf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createFaculty.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateFaculty.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create edit faculty command">
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteSubjectCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/SaveSubjectCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateSubjectCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/subjectsJS.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createSubject.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/subjects.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateSubject.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/ActionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/ActionCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/AddFacultyCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/AddSubjectCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/SubjectCommand.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/FacultyDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/FacultyDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/SubjectDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/SubjectDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/FacultyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/FacultyDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/SubjectDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/SubjectDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Faculty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Faculty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Subject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/FacultyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Validator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/facultiesDashJS.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/facultiesDashJS.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/sortTableJS.jspf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,8 +51,8 @@
         <option value="XML Properties File" />
         <option value="Interface" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -90,35 +88,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Final Project/Admissions_committee/src/main/webapp/js&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
+    "last_opened_file_path": "D:/Final Project/Admissions_committee/src/main/webapp/jsp/admin",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="command.admin" />
       <recent name="command.out_of_control" />
       <recent name="models" />
       <recent name="dao" />
       <recent name="services" />
-      <recent name="command.admin" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Final Project\Admissions_committee\src\main\webapp\jsp\admin" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\js" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\css" />
       <recent name="D:\Admissions_committee\src" />
@@ -534,7 +533,7 @@
       <workItem from="1660419632863" duration="67865000" />
       <workItem from="1660741137687" duration="45511000" />
       <workItem from="1660888592608" duration="96875000" />
-      <workItem from="1661499798211" duration="69478000" />
+      <workItem from="1661499798211" duration="83864000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -732,7 +731,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661618409764</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="create edit faculty command">
+      <created>1661706358233</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1661706358233</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -750,7 +756,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change dependencies from jakarta to javax, because new needed dependency javax.jstl corrupt with jakarta" />
     <MESSAGE value="display and add exams candidateProfile.jsp" />
     <MESSAGE value="replace column mark from table exams to candidates_exams in order to candidate can`t create exams_name themself, also refactor ExamDao, candidateProfile.jsp and create CandidateProfileCommand" />
     <MESSAGE value="create adminProfile" />
@@ -775,7 +780,8 @@
     <MESSAGE value="change styles" />
     <MESSAGE value="refactor admin page" />
     <MESSAGE value="create add faculty form" />
-    <option name="LAST_COMMIT_MESSAGE" value="create add faculty form" />
+    <MESSAGE value="create edit faculty command" />
+    <option name="LAST_COMMIT_MESSAGE" value="create edit faculty command" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

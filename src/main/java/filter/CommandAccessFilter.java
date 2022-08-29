@@ -15,8 +15,8 @@ import java.util.*;
  * Allow access to resources by roles
  */
 //@WebFilter(urlPatterns = "/controller?",
-//        initParams = {@WebInitParam(name = "ADMIN", value = "subjects addSubjects faculties" +
-//                " prepareFacultyForm saveFaculty editFaculty"),
+//        initParams = {@WebInitParam(name = "ADMIN", value = "subjects saveSubject updateSubject deleteSubject faculties" +
+//                " prepareFacultyForm saveFaculty updateFaculty deleteFaculty"),
 //                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication uploadCertificate"),
 //                @WebInitParam(name = "COMMON", value = "logout"),
 //                @WebInitParam(name = "OUT_OF_CONTROL", value = "login signupStart initSignup nullCommand")})

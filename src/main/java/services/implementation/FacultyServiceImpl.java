@@ -75,6 +75,12 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public void delete(int id) {
+        try {
+            Validator.validateId(id);
+            facultyDao.delete(id);
+        } catch (NotValidException| WrongExecutedQueryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
 
     }
 

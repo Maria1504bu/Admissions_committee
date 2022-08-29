@@ -1,0 +1,29 @@
+<script>
+    const inputs = document.querySelectorAll('.rgSubjects');
+    const clickHandler = i => {
+        document.getElementById("updateS").value = i.getAttribute("value");
+        document.getElementById("deleteS").value = i.getAttribute("value");
+    };
+    inputs.forEach(i => i.onclick = () => clickHandler(i));
+
+    function updateSubj(){
+        let subjToUpdate = document.getElementById('updateS');
+        if(subjToUpdate.value == ''){
+            modalAlert();
+            return false;
+        }else {
+            document.getElementById('updateIdForm').submit();
+        }
+    }
+
+    function deleteSubj(){
+        let subjToUpdate = document.getElementById('deleteS');
+        if(subjToUpdate.value == ''){
+            modalAlert();
+            return false;
+        }else {
+            document.getElementById('deleteIdForm').submit();
+        }
+    }
+
+</script>

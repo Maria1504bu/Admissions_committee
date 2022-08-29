@@ -2,7 +2,6 @@ package models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,29 +12,23 @@ public class Subject implements Serializable {
     private int courseDuration;
 
     public Subject() {
-        nameList = new ArrayList<>();
+        this.nameList = new ArrayList<>();
     }
 
     public Subject(int id) {
         this.id = id;
-        nameList = new ArrayList<>();
+        this.nameList = new ArrayList<>();
     }
 
-    public Subject(int courseDuration, String[] localesNames) {
+    public Subject(int courseDuration, List<String> nameList) {
         this.courseDuration = courseDuration;
-        nameList = new ArrayList<>();
-        listInitialize(localesNames);
+        this.nameList = nameList;
     }
 
-    public Subject(int id, String[] localesNames, int courseDuration) {
+    public Subject(int id, List<String> nameList, int courseDuration) {
         this.id = id;
         this.courseDuration = courseDuration;
-        nameList = new ArrayList<>();
-        listInitialize(localesNames);
-    }
-
-    private void listInitialize(String[] localesNames) {
-        nameList.addAll(Arrays.asList(localesNames));
+        this.nameList = nameList;
     }
 
     public int getId() {

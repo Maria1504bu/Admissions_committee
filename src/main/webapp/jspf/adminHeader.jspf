@@ -12,19 +12,19 @@
     <!-- Links -->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=subjectDashBoard"><fmt:message key="adminHeader.Subjects"/></a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=subjects"><fmt:message key="adminHeader.Subjects"/></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=faculties"><fmt:message key="adminHeader.Faculties"/></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getEnrolleesControlDash"><fmt:message key="adminHeader.Candidates"/></a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getEnrollees"><fmt:message key="adminHeader.Candidates"/></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getStatementDash"><fmt:message key="adminHeader.Register"/></a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getStatement"><fmt:message key="adminHeader.Register"/></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getReportsDash"><fmt:message key="adminHeader.Reports"/></a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getReports"><fmt:message key="adminHeader.Reports"/></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="adminHeader.logout"/></a>

@@ -64,7 +64,8 @@ public class UpdateFacultyCommand implements ActionCommand {
         LOG.debug("Faculty with new data, which need to update at db ==> " + facultyToUpdate);
         facultyService.update(facultyToUpdate);
 
-        page = ConfigurationManager.getProperty("path.command.faculties");
+        page = ConfigurationManager.getProperty("redirect") +
+                ConfigurationManager.getProperty("path.command.faculties");
         LOG.debug("Go to ==> " + page);
         return page;
     }

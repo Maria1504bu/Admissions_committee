@@ -69,12 +69,6 @@ public class Faculty implements Serializable {
         return subjectList;
     }
 
-    public static Comparator<Faculty> COMPARE_BY_NAME = (one, other) -> one.getNamesList().get(0).compareTo(other.getNamesList().get(0));
-
-    public static Comparator<Faculty> COMPARE_BY_BUDGET_PLACES = (one, other) -> one.getBudgetPlaces() - other.getBudgetPlaces();
-
-    public static Comparator<Faculty> COMPARE_BY_TOTAL_PLACES = (one, other) -> one.getTotalPlaces() - other.getTotalPlaces();
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

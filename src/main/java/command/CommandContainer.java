@@ -46,12 +46,15 @@ public class CommandContainer {
         commands.put("createApplication", new CreateApplicationCommand(facultyService));
         commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
         // admin
-        commands.put("subjects", new SubjectCommand(subjectService));
-        commands.put("addSubject", new AddSubjectCommand(subjectService));
+        commands.put("subjects", new SubjectsCommand(subjectService));
+        commands.put("saveSubject", new SaveSubjectCommand(subjectService));
+        commands.put("updateSubject", new UpdateSubjectCommand(subjectService));
+        commands.put("deleteSubject", new DeleteSubjectCommand(subjectService));
         commands.put("faculties", new FacultiesCommand(facultyService));
         commands.put("prepareFacultyForm", new PrepareFacultyFormCommand(subjectService));
         commands.put("saveFaculty", new SaveFacultyCommand(facultyService));
         commands.put("updateFaculty", new UpdateFacultyCommand(facultyService));
+        commands.put("deleteFaculty", new DeleteFacultyCommand(facultyService));
 
         commands.put("editFaculties", new EditFacultyCommand(facultyService));
         // common

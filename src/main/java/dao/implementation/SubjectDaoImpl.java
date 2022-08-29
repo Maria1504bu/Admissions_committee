@@ -11,13 +11,15 @@ import util.EntityMapper;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class SubjectDaoImpl implements SubjectDao {
     private static final Logger LOG = Logger.getLogger(SubjectDaoImpl.class);
 
-    private static final String GET_SUBJECT_BY_ID_QUERY = "SELECT su.id, su.duration, sl.name " +
+    private static final String GET_SUBJECT_BY_ID_QUERY = "SELECT su.id, su.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') as name " +
             "FROM subjects su " +
             "INNER JOIN subjects_languages sl ON su.id = sl.subject_id " +
             "INNER JOIN languages la ON la.id = sl.language_id " +
@@ -28,14 +30,14 @@ public class SubjectDaoImpl implements SubjectDao {
             "WHERE fa.id = fs.faculty_id AND fs.subject_id = su.id AND su.id = sl.subject_id AND sl.language_id = la.id " +
             "AND la.lang_code = ? AND fa.id = ?;";
     private static final String GET_ALL_SUBJECTS_QUERY = "SELECT su.id, su.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') as name " +
-            "FROM subjects su " +
-            "INNER JOIN subjects_languages sl ON su.id = sl.subject_id " +
-            "INNER JOIN languages la ON la.id = sl.language_id ";
-    private final static String INSERT_SUBJECT_QUERY = "INSERT INTO subjects (duration)" +
-            "VALUE (?); INSERT INTO subjects_languages (`subjects_id`, `languages_id`, `name`) " +
+            "FROM subjects su, subjects_languages sl " +
+            "WHERE su.id = sl.subject_id GROUP BY su.id";
+    private final static String INSERT_SUBJECT_QUERY = "INSERT INTO subjects (duration) VALUE (?); ";
+
+    private final static String INSERT_SUBJECT_LANG_QUERY = "INSERT INTO subjects_languages (`subject_id`, `language_id`, `name`) " +
             "VALUES " +
             "((SELECT MAX(id) FROM subjects), (SELECT id FROM languages WHERE lang_code = 'en'), ?), " +
-            "((SELECT MAX(id) FROM subjects), (SELECT id FROM languages WHERE lang_code = 'uk'), ?]) ";
+            "((SELECT MAX(id) FROM subjects), (SELECT id FROM languages WHERE lang_code = 'uk'), ?) ";
 
     private static final String UPDATE_SUBJECT_QUERY = "UPDATE subjects SET duration = ? " +
             " WHERE id = ?";
@@ -156,15 +158,22 @@ public class SubjectDaoImpl implements SubjectDao {
     public void save(Subject subject) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving subject ==> " + subject);
         try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_SUBJECT_QUERY)) {
+             PreparedStatement subjStatement = connection.prepareStatement(INSERT_SUBJECT_QUERY);
+             PreparedStatement langStatement = connection.prepareStatement(INSERT_SUBJECT_LANG_QUERY)) {
             LOG.trace("Resources are created");
-            prStatement.setInt(1, subject.getCourseDuration());
-            prStatement.setString(2, subject.getNameList().get(0));
-            prStatement.setString(3, subject.getNameList().get(1));
+            subjStatement.setInt(1, subject.getCourseDuration());
 
-            boolean saved = prStatement.executeUpdate() == 3;
-            LOG.debug("subject " + subject + " is saved ? ==>" + saved);
-            if (saved) {
+            if (subjStatement.executeUpdate() != 1) {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of subject " + subject);
+            }
+            LOG.trace("First query went successful");
+
+            langStatement.setString(1, subject.getNameList().get(0));
+            langStatement.setString(2, subject.getNameList().get(1));
+
+            if (langStatement.executeUpdate() == 2) {
                 connection.commit();
                 LOG.trace("Changes at db was committed");
             } else {
@@ -191,14 +200,12 @@ public class SubjectDaoImpl implements SubjectDao {
             boolean updated = prStatement.executeUpdate() == 1;
             LOG.debug("Subject " + subject + " is updated ? ==>" + updated);
 
-            if (updated) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
+            if (!updated) {
                 connection.rollback();
                 LOG.trace("Changes at db is rollback");
                 throw new WrongExecutedQueryException("Operation is rollback! Wrong data of subject " + subject);
             }
+            updateLangSet(connection, subject);
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new AlreadyExistException("Similar subject already exist", e);
         } catch (SQLException e) {
@@ -206,11 +213,9 @@ public class SubjectDaoImpl implements SubjectDao {
         }
     }
 
-    @Override
-    public void updateLangSet(Subject subject) throws DaoException {
+   private void updateLangSet(Connection connection, Subject subject) throws DaoException {
         LOG.debug("Start updating subject");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(UPDATE_SUBJECT_LANG_SET_QUERY)) {
+        try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_SUBJECT_LANG_SET_QUERY)) {
             LOG.trace("Resources are created");
             int i = 0;
             for (String subjectName : subject.getNameList()) {
