@@ -117,7 +117,7 @@ public class Application implements Serializable {
                 Objects.equals(candidate, that.candidate) &&
                 Objects.equals(faculty, that.faculty) &&
                 Objects.equals(gradesList, that.gradesList) &&
-                applicationStatus == that.applicationStatus;
+                Objects.equals(applicationStatus, that.applicationStatus);
     }
 
     @Override

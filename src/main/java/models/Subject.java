@@ -58,7 +58,7 @@ public class Subject implements Serializable {
         Subject subject = (Subject) o;
         return id == subject.id &&
                 courseDuration == subject.courseDuration &&
-                nameList.equals(subject.nameList);
+                Objects.equals(subject, subject.nameList);
     }
 
     @Override

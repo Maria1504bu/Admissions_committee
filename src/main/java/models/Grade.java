@@ -5,7 +5,6 @@ import java.util.Objects;
 
 
 public class Grade implements Serializable {
-    private static final long serialVersionUID = 5756682016585614006L;
     private int id;
     private Subject subject;
     private int grade;
@@ -57,7 +56,7 @@ public class Grade implements Serializable {
         Grade grade1 = (Grade) o;
         return id == grade1.id &&
                 grade == grade1.grade &&
-                subject.equals(grade1.subject);
+                Objects.equals(subject, grade1.subject);
     }
 
     @Override
