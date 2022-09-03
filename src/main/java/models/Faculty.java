@@ -19,24 +19,20 @@ public class Faculty implements Serializable {
     public Faculty(int id){
         this.id = id;
     }
-    public Faculty(int id, String[] names, int budgetPlaces, int totalPlaces){
+    public Faculty(int id, List<String> namesList, int budgetPlaces, int totalPlaces){
         this.id = id;
-        this.namesList = new ArrayList<>();
+        this.namesList = namesList;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
         this.subjectList = new ArrayList<>();
-        listInitialize(names);
     }
-    public Faculty(String[] names, int budgetPlaces, int totalPlaces){
-        this.namesList = new ArrayList<>();
+    public Faculty(List<String> namesList, int budgetPlaces, int totalPlaces){
+        this.namesList = namesList;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
         this.subjectList = new ArrayList<>();
-        listInitialize(names);
     }
-    private void listInitialize(String[] localesNames) {
-        namesList.addAll(Arrays.asList(localesNames));
-    }
+
     public int getId() {
         return id;
     }
@@ -77,7 +73,7 @@ public class Faculty implements Serializable {
         return id == faculty.id &&
                 budgetPlaces == faculty.budgetPlaces &&
                 totalPlaces == faculty.totalPlaces &&
-                namesList.equals(faculty.namesList) &&
+                Objects.equals(namesList, faculty.namesList) &&
                 Objects.equals(subjectList, faculty.subjectList);
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface CandidateDao extends CrudDao<Candidate> {
      void saveLogin(String email, String password) throws WrongExecutedQueryException, AlreadyExistException, DaoException;
-     void blockCandidate(int id, boolean toBlock) throws WrongExecutedQueryException;
+     void blockCandidate(int id) throws WrongExecutedQueryException;
      int getCandidateListSize(int facultyId);
      List<Candidate> getCandidatesForFaculty(int facultyId, int limit, int offset);
 

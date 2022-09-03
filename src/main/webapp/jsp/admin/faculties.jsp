@@ -11,13 +11,13 @@
 <body>
 <!-- Header----------------------------------------------------------------------------------->
 <%@ include file="/jspf/adminHeader.jspf" %>
-<!-- Body begining--------------------------------------------------------------------------->
+<!-- Body beginning--------------------------------------------------------------------------->
 <div class="container indexMainCtr">
     <h2><fmt:message key="facultiesDash.Title"/></h2>
     <hr>
     <div class="row">
         <div class="col-sm-3">
-            <p style="font-weight: bold;"><fmt:message key="candidatesControlDash.navTitle"/></p>
+            <p style="font-weight: bold;"><fmt:message key="candidates.navTitle"/></p>
             <ul class="nav nav-pills flex-column custom">
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=prepareFacultyForm"><fmt:message key="facultiesDash.CreatePill"/></a>
@@ -53,7 +53,7 @@
                     <th><fmt:message key="faculties.TotalPlaces"/>
                         <a href="${pageContext.request.contextPath}/controller?command=faculties&order=DESC&by=total_places">&#9650</a>
                         <a href="${pageContext.request.contextPath}/controller?command=faculties&order=ASC&by=total_places">&#9660</a></th>
-                    <th><fmt:message key="candidatesControlDash.tableThSelect"/></th>
+                    <th><fmt:message key="candidates.tableThSelect"/></th>
                 </tr>
                 </thead>
                 <tbody>

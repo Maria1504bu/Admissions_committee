@@ -39,19 +39,19 @@ public class CandidateDaoImpl implements CandidateDao {
             "WHERE c.login_id = l.id AND cities.id = с.city_id AND " +
             "r.name = 'CANDIDATE' ";
 
-    private static final String FIND_FACULTY_CANDIDATES_QUERY = "SELECT c.login_id, l.email, l.password, r.name AS role, " +
+    private static final String FIND_FACULTY_CANDIDATES_QUERY = "SELECT l.id, l.email, l.password, r.name AS role, " +
             "c.first_name, c.father_name, c.second_name, c.certificate, cities.name AS city, " +
-            "c.school_name, , c.is_blocked, c.appl_date " +
+            "c.school_name, c.is_blocked, c.appl_date " +
             "FROM candidates c, logins l, roles r, cities, applications a " +
-            "WHERE c.login_id = l.id AND cities.id = с.city_id " +
+            "WHERE c.login_id = l.id AND c.city_id = cities.id " +
             "AND c.login_id = a.login_id AND r.name = 'CANDIDATE' " +
-            "AND a.faculties_id = ? LIMIT ? OFFSET ?";
+            "AND a.faculty_id = ? LIMIT ? OFFSET ?";
 
     private static final String COUNT_CANDIDATES_BY_FACULTY_QUERY =
-            "SELECT COUNT(c.login_id) " +
-                    "FROM candidates c, logins l, applications a " +
-                    "WHERE c.login_id = l.id AND l.id = a.login_id " +
-                    "and a.faculties_id = ?";
+            "SELECT COUNT(l.id) " +
+                    "FROM logins l, applications a " +
+                    "WHERE l.id AND l.id = a.login_id " +
+                    "AND a.faculty_id = ?";
 
     private final static String INSERT_CANDIDATE_INIT_QUERY =
             "INSERT INTO logins (`email`, `password`, `role_id`) " +
@@ -70,7 +70,7 @@ public class CandidateDaoImpl implements CandidateDao {
                     "WHERE user_logins_id = ?";
 
     private static final String BLOCK_CANDIDATE_BY_ADMIN_QUERY =
-            "UPDATE CANDIDATE SET is_blocked = ? " +
+            "UPDATE CANDIDATE SET is_blocked = NOT is_blocked " +
                     "WHERE login_id = ?";
     private static final String DELETE_CANDIDATE_QUERY = "DELETE FROM user_logins WHERE id = ?";
 
@@ -193,8 +193,8 @@ public class CandidateDaoImpl implements CandidateDao {
              PreparedStatement prStatement = connection.prepareStatement(INSERT_CANDIDATE_FINAL_QUERY)) {
             LOG.trace("Resources are created");
             prStatement.setInt(1, candidate.getId());
-            prStatement.setString(2, candidate.getFirstName());
             prStatement.setString(3, candidate.getFatherName());
+            prStatement.setString(2, candidate.getFirstName());
             prStatement.setString(4, candidate.getSecondName());
             prStatement.setString(5, candidate.getCity().name());
             prStatement.setString(6, candidate.getSchoolName());
@@ -271,13 +271,12 @@ public class CandidateDaoImpl implements CandidateDao {
     }
 
     @Override
-    public void blockCandidate(int id, boolean toBlock) throws WrongExecutedQueryException, DaoException {
+    public void blockCandidate(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start to block candidate");
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(BLOCK_CANDIDATE_BY_ADMIN_QUERY)) {
             LOG.debug("Resources are created");
-            prStatement.setObject(1, toBlock);
-            prStatement.setInt(2, id);
+            prStatement.setInt(1, id);
             boolean executed = prStatement.executeUpdate() == 1;
             LOG.debug("Candidate with id =" + id + " is blocked/unblocked ? ==>" + executed);
             if (executed) {
@@ -319,14 +318,17 @@ public class CandidateDaoImpl implements CandidateDao {
     @Override
     public int getCandidateListSize(int facultyId) {
         LOG.debug("Start getting candidateList size to faculty with id ==>" + facultyId);
-        int candidateListSize;
+        int candidateListSize = 0;
         try (Connection connection = getConnection();
              PreparedStatement prStatement = connection.prepareStatement(COUNT_CANDIDATES_BY_FACULTY_QUERY)) {
             LOG.trace("Resources are created");
             prStatement.setInt(1, facultyId);
 
             ResultSet resultSet = prStatement.executeQuery();
-            candidateListSize = resultSet.getInt(1);
+
+            while (resultSet.next()){
+                candidateListSize = resultSet.getInt(1);
+            }
             LOG.debug("CandidateList size = " + candidateListSize);
 
             if (candidateListSize != 0) {

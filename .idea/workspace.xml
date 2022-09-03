@@ -9,41 +9,73 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create edit faculty command">
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteSubjectCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/SaveSubjectCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateSubjectCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/subjectsJS.jspf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createSubject.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/subjects.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateSubject.jsp" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="to main">
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/BlockCandidateCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidateDetailsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidatesCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/candidatesJS.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidateDetails.jsp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/command/admin/BlockCandidateCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/command/admin/CandidateDetailsCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/command/admin/CandidatesCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/command/admin/DeleteFacultyCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/command/admin/DeleteSubjectCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/command/admin/FacultiesCommandTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/dao/implementation/FacultyDaoImplTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/ApplicationTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/GradeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/models/SubjectTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/ActionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/ActionCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/AddSubjectCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/SubjectCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/FacultyDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/FacultyDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/SubjectDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/SubjectDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/SubjectDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/SubjectDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/FacultiesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/FacultiesCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/CandidateDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/CandidateDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/GradeDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/GradeDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/CandidateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/CandidateDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/filter/EncodingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/EncodingFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Candidate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Candidate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Faculty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Faculty.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/modalStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/modalStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidates.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidates.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createSubject.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createSubject.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateSubject.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateSubject.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/loginedHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/candidateHeader.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/apps/dao/mysql/FacultyDaoImplTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
+  </component>
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="CoverageOptionsProvider">
+    <option name="myAddOrReplace" value="0" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -53,6 +85,7 @@
         <option value="Enum" />
         <option value="Jsp File" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -94,13 +127,15 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "extract.method.default.visibility": "private",
-    "last_opened_file_path": "D:/Final Project/Admissions_committee/src/main/webapp/jsp/admin",
+    "last_opened_file_path": "D:/Final Project/Admissions_committee/src/main/webapp/js",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler"
+    "settings.editor.selected.configurable": "vcs.Git"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -117,8 +152,8 @@
       <recent name="services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Final Project\Admissions_committee\src\main\webapp\jsp\admin" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\js" />
+      <recent name="D:\Final Project\Admissions_committee\src\main\webapp\jsp\admin" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\css" />
       <recent name="D:\Admissions_committee\src" />
       <recent name="D:\Admissions_committee\src\main\webapp\WEB-INF\lib" />
@@ -130,8 +165,16 @@
       <recent name="D:\Final Project\Admissions_committee\src\main\resources" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\jsp\candidate" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="command.admin" />
+      <recent name="models" />
+      <recent name="dao.implementation" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="command.admin" />
@@ -140,73 +183,88 @@
       <recent name="listener" />
     </key>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat  8.5.81">
-    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="models.Application" />
+  <component name="RunManager" selected="JUnit.FacultiesCommandTest.execute">
+    <configuration name="CandidatesCommandTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="models.*" />
+          <option name="PATTERN" value="command.admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="command.admin" />
+      <option name="MAIN_CLASS_NAME" value="command.admin.CandidatesCommandTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Candidate$CandidateBuilder" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="models.Candidate$CandidateBuilder" />
+    <configuration name="CandidatesCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="models.*" />
+          <option name="PATTERN" value="command.admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="command.admin" />
+      <option name="MAIN_CLASS_NAME" value="command.admin.CandidatesCommandTest" />
+      <option name="METHOD_NAME" value="execute" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Candidate" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="models.Candidate" />
+    <configuration name="DeleteFacultyCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="models.*" />
+          <option name="PATTERN" value="command.admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="command.admin" />
+      <option name="MAIN_CLASS_NAME" value="command.admin.DeleteFacultyCommandTest" />
+      <option name="METHOD_NAME" value="execute" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CreateApplicationCommand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="command.candidate.CreateApplicationCommand" />
+    <configuration name="DeleteSubjectCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.candidate.*" />
+          <option name="PATTERN" value="command.admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="command.admin" />
+      <option name="MAIN_CLASS_NAME" value="command.admin.DeleteSubjectCommandTest" />
+      <option name="METHOD_NAME" value="execute" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SetLanguageCommand" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="command.out_of_control.SetLanguageCommand" />
+    <configuration name="FacultiesCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.out_of_control.*" />
+          <option name="PATTERN" value="command.admin.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="command.admin" />
+      <option name="MAIN_CLASS_NAME" value="command.admin.FacultiesCommandTest" />
+      <option name="METHOD_NAME" value="execute" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Tomcat  8.5.81" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.81" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="BROWSER_ID" value="37cae5b9-e8b2-4949-9172-aafa37fbc09c" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -218,7 +276,6 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="35afffac-d4a0-4a3f-81e1-f3e62177735f" />
-        <option name="HTTP_PORT" value="8090" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -490,21 +547,21 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Application" />
-      <item itemvalue="Application.CreateApplicationCommand" />
-      <item itemvalue="Application.Candidate$CandidateBuilder" />
-      <item itemvalue="Application.SetLanguageCommand" />
-      <item itemvalue="Application.Candidate" />
+      <item itemvalue="JUnit.CandidatesCommandTest" />
+      <item itemvalue="JUnit.CandidatesCommandTest.execute" />
+      <item itemvalue="JUnit.DeleteFacultyCommandTest.execute" />
+      <item itemvalue="JUnit.DeleteSubjectCommandTest.execute" />
+      <item itemvalue="JUnit.FacultiesCommandTest.execute" />
       <item itemvalue="Tomcat Server.Tomcat 10.0.22" />
       <item itemvalue="Tomcat Server.Tomcat  8.5.81" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Application" />
-        <item itemvalue="Application.CreateApplicationCommand" />
-        <item itemvalue="Application.Candidate$CandidateBuilder" />
-        <item itemvalue="Application.SetLanguageCommand" />
-        <item itemvalue="Application.Candidate" />
+        <item itemvalue="JUnit.FacultiesCommandTest.execute" />
+        <item itemvalue="JUnit.DeleteSubjectCommandTest.execute" />
+        <item itemvalue="JUnit.DeleteFacultyCommandTest.execute" />
+        <item itemvalue="JUnit.CandidatesCommandTest.execute" />
+        <item itemvalue="JUnit.CandidatesCommandTest" />
       </list>
     </recent_temporary>
   </component>
@@ -533,7 +590,8 @@
       <workItem from="1660419632863" duration="67865000" />
       <workItem from="1660741137687" duration="45511000" />
       <workItem from="1660888592608" duration="96875000" />
-      <workItem from="1661499798211" duration="83864000" />
+      <workItem from="1661499798211" duration="128696000" />
+      <workItem from="1661872610712" duration="88872000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -738,7 +796,28 @@
       <option name="project" value="LOCAL" />
       <updated>1661706358233</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="create crud commands and pages for subjects">
+      <created>1661754712116</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1661754712116</updated>
+    </task>
+    <task id="LOCAL-00031" summary="create subj tag">
+      <created>1662024489664</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1662024489664</updated>
+    </task>
+    <task id="LOCAL-00032" summary="override equals and hashcode to prepare for tests">
+      <created>1662038976742</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1662038976742</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -756,10 +835,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="display and add exams candidateProfile.jsp" />
-    <MESSAGE value="replace column mark from table exams to candidates_exams in order to candidate can`t create exams_name themself, also refactor ExamDao, candidateProfile.jsp and create CandidateProfileCommand" />
-    <MESSAGE value="create adminProfile" />
-    <MESSAGE value="create EncodingFilter and CommandAccessFilter" />
     <MESSAGE value="create services, include him to constructor commands, which needed certain service" />
     <MESSAGE value="change dao classes because of new usage datasource, create exceptions to show user that request of change db went wrong" />
     <MESSAGE value="fix db" />
@@ -781,10 +856,32 @@
     <MESSAGE value="refactor admin page" />
     <MESSAGE value="create add faculty form" />
     <MESSAGE value="create edit faculty command" />
-    <option name="LAST_COMMIT_MESSAGE" value="create edit faculty command" />
+    <MESSAGE value="create crud commands and pages for subjects" />
+    <MESSAGE value="create subj tag" />
+    <MESSAGE value="override equals and hashcode to prepare for tests" />
+    <MESSAGE value="to main" />
+    <option name="LAST_COMMIT_MESSAGE" value="to main" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Admissions_committee$ApplicationTest.ic" NAME="ApplicationTest Coverage Results" MODIFIED="1662217360251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>models.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Admissions_committee$command_admin_in_Admissions_committee.ic" NAME="command.admin in Admissions_committee Coverage Results" MODIFIED="1662222468322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>command.admin.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Admissions_committee$SubjectTest.ic" NAME="SubjectTest Coverage Results" MODIFIED="1662198554113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>models.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Admissions_committee$GradeTest.ic" NAME="GradeTest Coverage Results" MODIFIED="1662219081810" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>models.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Admissions_committee$apps_dao_mysql_in_Admissions_committee.ic" NAME="apps.dao.mysql in Admissions_committee Coverage Results" MODIFIED="1661973051369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>apps.dao.mysql.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/Admissions_committee$All_in_Admissions_committee.ic" NAME="All in Admissions_committee Coverage Results" MODIFIED="1662219141940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

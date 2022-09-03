@@ -1,0 +1,158 @@
+<script>
+    const inputs = document.querySelectorAll('.rgCandidates');
+    const clickHandler = i => {
+        document.getElementById("candidateId").value = i.getAttribute("value");
+        document.getElementById("candidateToDeleteId").value = i.getAttribute("value");
+    };
+    inputs.forEach(i => i.onclick = () => clickHandler(i));
+
+    function displayCandidate(){
+        let candidateToUpdate = document.getElementById('candidateId');
+        if(candidateToUpdate.value == ''){
+            modalAlert();
+            return false;
+        }else {
+            document.getElementById('showCandidateForm').submit();
+        }
+    }
+
+    function blockCandidate(){
+        let candidateToDelete = document.getElementById('candidateToBlockId');
+        if(candidateToDelete.value == ''){
+            modalAlert();
+            return false;
+        }else {
+            document.getElementById('blockCandidateForm').submit();
+        }
+    }
+
+
+
+    //puts into the pagination form value of selected faculty id and submit it
+    function selectFaculty() {
+        const selectEl = document.getElementById("selectFaculty");
+        let selectedFaculty = selectEl.options[selectEl.selectedIndex].value;
+
+        const form = document.getElementById('paginationForm');
+        const facultyField = document.getElementById('selFacultyId');
+        facultyField.value = selectedFaculty;
+        form.submit();
+    }
+
+
+    function selectLimit(){
+        const limSelect = document.getElementById("limSelect");
+        let selectedLimit = limSelect.options[limSelect.selectedIndex].value;
+        records_per_page = selectedLimit;
+
+        const form = document.getElementById('paginationForm');
+        const limitField = document.getElementById('limitItemsId');
+        limitField.value = selectedLimit;
+        const offsetField = document.getElementById('offsetId');
+        offsetField.value = 0;
+        form.submit();
+    }
+
+    function prevPage()
+    {
+        let offset =${offset};
+        <%--prev_page =  ==0 ? 0 : ${offset}/${limit};--%>
+        if (${offset} > 0) {
+            offset--;
+            selectOffset(offset);
+            changePage(prev_page);
+        }
+    }
+
+    function nextPage()
+    {
+        let offset = ${offset};
+        current_page = ${offset}==0 ? 1 : (${offset}/${limit}) + 1;
+        console.log("start offset" + ${offset});
+        console.log(current_page);
+        if (current_page < numOfPages()) {
+            console.log("end" + ${offset});
+            current_page++;
+             offset++;
+            selectOffset(offset);
+            changePage(current_page);
+        }
+    }
+
+    function selectOffset(offset){
+        const form = document.getElementById('paginationForm');
+        const offsetField = document.getElementById('offsetId');
+        offsetField.value = offset;
+        form.submit();
+    }
+
+    $('.pagination').on('click', 'li:not(.prev):not(.next)', function() {
+        console.log($('li.active').id);
+        $('.pagination li').removeClass('active');
+        $(this).addClass('active');
+        console.log($(this).outerHTML);
+        console.log($('li.active').id);
+        console.log($(this).parentNode().innerHtml);
+        // console.log($(this).parent().innerHTML);
+        // selectOffset($(this));
+    });
+
+    $('.pagination').on('click', 'li.prev', function() {
+            $('li.active').removeClass('active').prev().addClass('active');
+
+    });
+
+    $('.pagination').on('click', 'li.next', function() {
+        $('li.active').removeClass('active').next().addClass('active');
+    });
+
+    function drawPagination(numOfPages) {
+        $('#pag_nav ul').empty();
+        $('#pag_nav ul').append('<li id="btn_prev" class="prev"><a class="page-link" href=javascript:prevPage()>Previous</a></li>');
+        for (var i = 1; i <= numOfPages; i++) {
+            $('#pag_nav ul').append('<li class="page-item" id="' + i + '"><a class="page-link" id="' + i + '" href="${pageContext.request.contextPath}/controller?command=candidates&selectedFacultyId=${selectedFacultyId}&limitItems=${limit}&offset=' + ${limit}*(i-1) + '"> ' + i + '</a></li>');
+        }
+        $('#pag_nav ul').append('<li id="btn_next" class="next"><a class="page-link" href="javascript:nextPage()">Next</a></li>');
+    }
+
+    function changePage(page) {
+        let btn_next = document.getElementById("btn_next");
+        let btn_prev = document.getElementById("btn_prev");
+
+        if (page == 1) {
+            btn_prev.style.visibility = "hidden";
+        } else {
+            btn_prev.style.visibility = "visible";
+        }
+
+        if (page == numPages()) {
+            btn_next.style.visibility = "hidden";
+        } else {
+            btn_next.style.visibility = "visible";
+        }
+    }
+//make proper value of records per page selected
+    function recordsPerPage(){
+        const limitSelect = document.getElementById('limSelect');
+        for (let i = 0; i < limitSelect.length; i++) {
+            let option = limitSelect.options[i];
+            if (option.value == parseInt(${limit}))
+                option.selected = true;
+        }
+    }
+
+    //
+    // let current_page = 1;
+    // let records_per_page = 2;
+
+    function numOfPages(){
+        let initLimit = ${limit};
+        let totalSize = ${totalCandidates};
+        return Math.ceil(parseInt(totalSize) / parseInt(initLimit));
+    }
+    window.onload = function () {
+        drawPagination(numOfPages());
+        recordsPerPage();
+    };
+
+</script>

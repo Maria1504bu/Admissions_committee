@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/loginedHeader.jspf" %>
+<%@ include file="/jspf/candidateHeader.jspf" %>
 <!-- Body begining--------------------------------------------------------------------------->
 
 <div class="container-fluid indexMainCtr">
@@ -22,16 +22,16 @@
             <form method="POST" action="/committee/controller" class="was-validated">
                 <input type="hidden" name="command" value="signupFinal"/>
                 <div class="form-group">
-                    <label for="firstName"><fmt:message key="candidatesControlDash.tableThFirstName"/></label>
-                    <input type="text" class="form-control" id="firstName" placeholder="<fmt:message key="candidatesControlDash.tableThFirstName"/>" name="firstName"
-                           required>
-                    <div class="invalid-feedback">Please fill out first Name</div>
-                </div>
-                <div class="form-group">
                     <label for="fatherName"><fmt:message key="registrationFinal.FatherName"/></label>
                     <input type="text" class="form-control" id="fatherName" placeholder="<fmt:message key="registrationFinal.FatherNamePlch"/>"
                            name="fatherName" required>
                     <div class="invalid-feedback">Please fill out Father Name</div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName"><fmt:message key="candidatesControlDash.tableThFirstName"/></label>
+                    <input type="text" class="form-control" id="firstName" placeholder="<fmt:message key="candidatesControlDash.tableThFirstName"/>" name="firstName"
+                           required>
+                    <div class="invalid-feedback">Please fill out first Name</div>
                 </div>
                 <div class="form-group">
                     <label for="secondName"><fmt:message key="candidatesControlDash.tableThSecondName"/></label>

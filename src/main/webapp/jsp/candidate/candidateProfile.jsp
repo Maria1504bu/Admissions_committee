@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/loginedHeader.jspf" %>
+<%@ include file="/jspf/candidateHeader.jspf" %>
 <!-- Body beginning--------------------------------------------------------------------------->
 
 <c:set var="candidate" value="${sessionScope['user']}"/>
@@ -84,7 +84,6 @@
     <div id="certDiv" style="display:none">
         <h1><fmt:message key="candidateDash.CertScan"/></h1>
         <img src="${pageContext.request.contextPath}/certificateUploads/${candidate.getCertificate()}" width="600"/>
-        ${candidate.getCertificate()}
     </div>
 </div>
 </div>

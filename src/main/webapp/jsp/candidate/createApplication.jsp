@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/loginedHeader.jspf" %>
+<%@ include file="/jspf/candidateHeader.jspf" %>
 <!-- Body beginging--------------------------------------------------------------------------->
 <c:set var="selectedFacultyId1" value="${sessionScope['priority1Subjects']}" />
 <c:set var="selectedFacultyId2" value="${sessionScope['priority2Subjects']}" />

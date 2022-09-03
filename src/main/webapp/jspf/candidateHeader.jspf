@@ -9,12 +9,12 @@
     <!-- Links -->
     <ul class="nav navbar-nav ml-auto">
         <li class="nav-item px-3">
-            <label class="link" style="margin-bottom: 0px;"><fmt:message key="adminDash.loggedIn"/>:</label><br>
+            <label class="link" style="margin-bottom: 0px;"><fmt:message key="candidateHeader.loggedIn"/>:</label><br>
             <a class="link" href=""><c:out value="${user.getEmail()}"/></a><br>
         </li>
         <li>
             <a class="link" href="${pageContext.request.contextPath}/controller?command=logout">
-                <fmt:message key="adminDash.logout"/>
+                <fmt:message key="adminHeader.logout"/>
             </a>
         </li>
     </ul>

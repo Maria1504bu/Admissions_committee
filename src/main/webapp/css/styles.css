@@ -104,7 +104,7 @@ button{
 
 /*Table*/
 th, .td-to-align{
-    text-align: center;
+    text-align: center !important;
 }
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
     background-color: #cce5ff;

@@ -19,27 +19,21 @@ public class Application implements Serializable {
         this.gradesList = new ArrayList<>();
     }
 
-    public Application(int id, Candidate candidate, Faculty faculty, List<Grade> grList, int priority, ApplicationStatus applicationStatus) {
+    public Application(int id, Candidate candidate, Faculty faculty, List<Grade> gradeList, int priority, ApplicationStatus applicationStatus) {
         this.id = id;
         this.candidate = candidate;
         this.faculty = faculty;
         this.priority = priority;
         this.applicationStatus = applicationStatus;
-        this.gradesList = new ArrayList<>();
-        listInitialize(grList);
+        this.gradesList = gradeList;
     }
 
-    public Application(Candidate candidate, Faculty faculty, List<Grade> grList, int priority, ApplicationStatus applicationStatus) {
+    public Application(Candidate candidate, Faculty faculty, List<Grade> gradeList, int priority, ApplicationStatus applicationStatus) {
         this.candidate = candidate;
         this.faculty = faculty;
         this.priority = priority;
         this.applicationStatus = applicationStatus;
-        this.gradesList = new ArrayList<>();
-        listInitialize(grList);
-    }
-
-    private void listInitialize(List<Grade> grList) {
-        gradesList.addAll(grList);
+        this.gradesList = gradeList;
     }
 
     public int getId() {

@@ -36,8 +36,8 @@ CREATE TABLE cities
 CREATE TABLE candidates
 (
     `login_id`    INT                               NOT NULL,
-    `first_name`  VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `father_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
+    `first_name`  VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `second_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `certificate` VARCHAR(80) CHARACTER SET 'utf8',
     `city_id`     INT                               NOT NULL,
@@ -103,8 +103,8 @@ CREATE TABLE subjects
 
 CREATE TABLE faculties_subjects
 (
-    `subject_id` INT NOT NULL,
     faculty_id   INT NOT NULL,
+    subject_id INT NOT NULL,
     INDEX `fk_subjects_has_faculties_faculties1_idx` (faculty_id ASC) VISIBLE,
     INDEX `fk_subjects_has_faculties_subjects1_idx` (`subject_id` ASC) VISIBLE,
     CONSTRAINT `fk_subjects_has_faculties_faculties1`
@@ -160,7 +160,8 @@ CREATE TABLE applications
         FOREIGN KEY (`login_id`)
             REFERENCES logins (`id`)
             ON DELETE CASCADE
-            ON UPDATE CASCADE
+            ON UPDATE CASCADE,
+            CONSTRAINT UNIQUE (login_id, faculty_id)
 )
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;

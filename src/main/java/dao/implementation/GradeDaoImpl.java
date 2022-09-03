@@ -263,6 +263,7 @@ public class GradeDaoImpl implements GradeDao {
                 subject.setCourseDuration(rs.getInt(ColumnLabel.SUBJECT_DURATION.getName()));
                 subject.getNameList().addAll(Arrays.asList(rs.getString(ColumnLabel.FACULTY_NAME.getName()).split(Pattern.quote("; "))));
                 grade.setSubject(subject);
+                LOG.debug("Extracted grade ==> " + grade);
             } catch (SQLException e) {
                 LOG.error("Cannot extract grade from ResultSet", e);
             }

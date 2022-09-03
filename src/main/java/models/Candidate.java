@@ -95,21 +95,8 @@ public class Candidate implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + id;
-        result = 31 * result + email.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + role.hashCode();
-        result = 31 * result + fatherName.hashCode();
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + secondName.hashCode();
-        result = 31 * result + certificate.hashCode();
-        result = 31 * result + city.hashCode();
-        result = 31 * result + schoolName.hashCode();
-        result = 31 * result + (isBlocked ? 1 : 0);
-        result = 31 * result + applicationsList.hashCode();
-        result = 31 * result + applicationDate.hashCode();
-        return result;
+        return Objects.hash(id, email, password, role, fatherName, firstName, secondName, certificate,
+        city, schoolName, isBlocked, applicationsList, applicationDate);
     }
 
     @Override
