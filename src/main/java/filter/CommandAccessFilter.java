@@ -16,7 +16,7 @@ import java.util.*;
  */
 //@WebFilter(urlPatterns = "/controller?",
 //        initParams = {@WebInitParam(name = "ADMIN", value = "subjects saveSubject updateSubject deleteSubject faculties" +
-//                " prepareFacultyForm saveFaculty updateFaculty deleteFaculty"),
+//                " prepareFacultyForm saveFaculty updateFaculty deleteFaculty candidates candidateDetails"),
 //                @WebInitParam(name = "CANDIDATE", value = "signupFinal candidateProfile createApplication uploadCertificate"),
 //                @WebInitParam(name = "COMMON", value = "logout"),
 //                @WebInitParam(name = "OUT_OF_CONTROL", value = "login signupStart initSignup nullCommand")})

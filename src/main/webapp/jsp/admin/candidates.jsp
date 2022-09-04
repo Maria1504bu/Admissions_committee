@@ -44,12 +44,6 @@
         </div>
         <div class="col-sm-9 col-sm-9-custom">
             <h3 id="table-header"><fmt:message key="candidates.tableTile"/></h3>
-            <hr>
-            <h1 >${param.command}
-                ${param.selectedFacultyId}
-                ${param.limitItems}
-                ${param.offset}
-            </h1>
             <select  class="browser-default custom-select" name="faculty" id="selectFaculty" onchange="selectFaculty()">
                 <c:forEach items="${faculties}" var="faculty">
                     <option value="${faculty.getId()}"
@@ -61,10 +55,6 @@
             </select><br>
             <hr>
             <div id="limSelectDiv">
-                <div id="listingTable"></div>
-<%--                <a href="javascript:prevPage()" id="btn_prev">Prev</a>--%>
-<%--                <a href="javascript:nextPage()" id="btn_next">Next</a>--%>
-                page: <span id="page"></span>
                 <select class="browser-default custom-select" id="limSelect" onchange="selectLimit(this)">
                     <option value="1">1</option>
                     <option value="2">2</option>

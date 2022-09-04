@@ -37,7 +37,7 @@ public class FacultiesCommand implements ActionCommand {
 
         List<Faculty> faculties = facultyService.getSortedList(lang, orderBy, order);
 
-        req.getSession().setAttribute("faculties", faculties);
+        req.setAttribute("faculties", faculties);
         LOG.debug("Set session attribute faculties => " + faculties + " sorted by ==> " + facultySort);
 
         LOG.debug("Go to ==> " + page);

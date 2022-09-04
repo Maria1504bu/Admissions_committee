@@ -10,11 +10,13 @@ import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
 import services.ServiceException;
 import services.interfaces.CandidateService;
+import util.Validator;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CandidateServiceImpl implements CandidateService {
     private static final Logger LOG = Logger.getLogger(CandidateServiceImpl.class);
@@ -124,5 +126,41 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidate = candidateDao.getById(id);
         LOG.debug("Searched candidate ==> " + candidate);
         return candidate;
+    }
+
+    @Override
+    public void blockCandidate(int candidateId) {
+        try {
+            candidateDao.blockCandidate(candidateId);
+        } catch (WrongExecutedQueryException e) {
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public int getCandidatesListSize(String facultyId) {
+        int id = facultyId == null || facultyId.isEmpty() ? 1 : Integer.parseInt(facultyId);
+        int candidatesForFaculty;
+        try {
+            candidatesForFaculty = candidateDao.getCandidateListSize(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return candidatesForFaculty;
+
+    }
+
+    @Override
+    public List<Candidate> getAll(String selectedFacultyId, String limitItems, String offset) {
+        int idFaculty = selectedFacultyId == null || selectedFacultyId.isEmpty() ? 1 : Integer.parseInt(selectedFacultyId);
+        int limit = limitItems == null || limitItems.isEmpty() ? 2 : Integer.parseInt(limitItems);
+        int offSet = offset == null || offset.isEmpty() ? 0 : Integer.parseInt(offset);
+        return candidateDao.getCandidatesForFaculty(idFaculty, limit, offSet);
+    }
+
+    @Override
+    public Candidate getById(int id) {
+        Validator.validateId(id);
+        return candidateDao.getById(id);
     }
 }

@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class DeleteFacultyCommand implements ActionCommand {
 
@@ -22,7 +21,6 @@ public class DeleteFacultyCommand implements ActionCommand {
         LOG.debug("DeleteFacultyCommand starts");
         String page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("path.command.faculties");
-        HttpSession session = request.getSession();
 
         // obtain id to delete from the request
         String facultyId = request.getParameter("deleteFacultyId");
