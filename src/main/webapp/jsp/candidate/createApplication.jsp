@@ -41,10 +41,10 @@
                 </c:forEach>
             </select>
             <br>
-            <c:forEach items="${facultiesList.get(selectedFacultyId1 - 1).getSubjectList()}" var="s" varStatus="loop">
+            <c:forEach items="${facultiesList.get(selectedFacultyId1 - 1).getSubjectList()}" var="f" varStatus="loop">
                 <div class="form-group was-validated">
-                    <label for="priority1subj${s.getId()}"><c:out value="${s.getNameList().get(0)}"/>:</label>
-                    <input type="text" class="form-control prioritySubjects" id="priority1subj${s.getId()}" placeholder="<fmt:message key="candidateInsertAppl.YourZNOGrade"/>" required>
+                    <label for="priority1subj${f.getId()}"><c:out value="${f.getNameList().get(0)}"/>:</label>
+                    <input type="text" class="form-control prioritySubjects" id="priority1subj${f.getId()}" placeholder="<fmt:message key="candidateInsertAppl.YourZNOGrade"/>" required>
                     <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
                 </div>
             </c:forEach>

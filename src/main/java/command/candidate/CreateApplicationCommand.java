@@ -41,7 +41,7 @@ public class CreateApplicationCommand implements ActionCommand {
         LOG.debug("selectFacultyPriority2 --> " + selectFacultyPriority2);
         LOG.debug("selectFacultyPriority3 --> " + selectFacultyPriority3);
 
-        String page = ConfigurationManager.getProperty("path.candidate.createApplication");
+        String page = ConfigurationManager.getProperty("candidate.createApplication");
 
         if (selectFacultyPriority1 == null && selectFacultyPriority2 == null &&
                 selectFacultyPriority3 == null) {
