@@ -53,7 +53,7 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidate = candidateDao.getByLogin(email);
         LOG.trace("User from db ==> " + candidate);
 
-        if (!candidate.getPassword().equals(encodedPass)){
+        if (!candidate.getPassword().equals(encodedPass)) {
             LOG.trace("Password don't match");
             throw new ServiceException("Password don`t match");
         }
@@ -162,5 +162,10 @@ public class CandidateServiceImpl implements CandidateService {
     public Candidate getById(int id) {
         Validator.validateId(id);
         return candidateDao.getById(id);
+    }
+
+    @Override
+    public void update(Candidate candidate) throws AlreadyExistException, WrongExecutedQueryException {
+        candidateDao.update(candidate);
     }
 }

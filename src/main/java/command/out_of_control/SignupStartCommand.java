@@ -40,7 +40,7 @@ public class SignupStartCommand implements ActionCommand {
         } catch (EmptyFieldsException e) {
             req.setAttribute("errorEmailAlreadyExist",
                     MessageManager.getProperty("message.alreadyExist"));
-            page = ConfigurationManager.getProperty("path.common.signupStart");
+            page = ConfigurationManager.getProperty("common.signupStart");
             return page;
         }
         List cities = Arrays.asList(City.values());
@@ -52,7 +52,7 @@ public class SignupStartCommand implements ActionCommand {
         LOG.trace("Set the session attribute: role --> " + Role.CANDIDATE);
 
         page = ConfigurationManager.getProperty("redirect") +
-                ConfigurationManager.getProperty("path.candidate.signupFinal");
+                ConfigurationManager.getProperty("candidate.signupFinal");
         LOG.debug("Go to ==> " + page);
         return page;
     }

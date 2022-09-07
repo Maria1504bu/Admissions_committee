@@ -12,15 +12,29 @@
 <%@ include file="/jspf/candidateHeader.jspf" %>
 <!-- Body begining--------------------------------------------------------------------------->
 
-<div class="container-fluid indexMainCtr">
-    <h2><fmt:message key="registrationFinal.Title"/></h2>
-    <hr>
-    <div class="row">
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 title-div">
+            <h2 class="text-xs-center"><fmt:message key="registrationFinal.Title"/></h2>
+            <hr>
+        </div>
         <div class="col-sm-12 col-sm-12-custom">
             <h3 id="table-header"><fmt:message key="registrationFinal.CandidateDetails"/></h3>
 
             <form method="POST" action="/committee/controller" class="was-validated">
                 <input type="hidden" name="command" value="signupFinal"/>
+                <div class="form-group">
+                    <label for="secondName"><fmt:message key="candidate.secondName"/></label>
+                    <input type="text" class="form-control" id="secondName" placeholder="<fmt:message key="candidate.secondName"/>"
+                           name="secondName" required>
+                    <div class="invalid-feedback">Please fill out Second Name</div>
+                    <div class="form-group">
+                        <label for="firstName"><fmt:message key="candidate.firstName"/></label>
+                        <input type="text" class="form-control" id="firstName" placeholder="<fmt:message key="candidate.firstName"/>" name="firstName"
+                        required>
+                        <div class="invalid-feedback">Please fill out first Name</div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="fatherName"><fmt:message key="registrationFinal.FatherName"/></label>
                     <input type="text" class="form-control" id="fatherName" placeholder="<fmt:message key="registrationFinal.FatherNamePlch"/>"
@@ -28,19 +42,7 @@
                     <div class="invalid-feedback">Please fill out Father Name</div>
                 </div>
                 <div class="form-group">
-                    <label for="firstName"><fmt:message key="candidatesControlDash.tableThFirstName"/></label>
-                    <input type="text" class="form-control" id="firstName" placeholder="<fmt:message key="candidatesControlDash.tableThFirstName"/>" name="firstName"
-                           required>
-                    <div class="invalid-feedback">Please fill out first Name</div>
-                </div>
-                <div class="form-group">
-                    <label for="secondName"><fmt:message key="candidatesControlDash.tableThSecondName"/></label>
-                    <input type="text" class="form-control" id="secondName" placeholder="<fmt:message key="candidatesControlDash.tableThSecondName"/>"
-                           name="secondName" required>
-                    <div class="invalid-feedback">Please fill out Second Name</div>
-                </div>
-                <div class="form-group">
-                    <label for="city"><fmt:message key="candidatesControlDash.tableThCity"/></label>
+                    <label for="city"><fmt:message key="candidate.city"/></label>
                     <select class="form-control" id="city" name="city" required>
                         <c:forEach items="${cities}" var="city">
                             <option value="${city}" >${city}</option>
@@ -60,7 +62,7 @@
                         <div class="invalid-feedback"><fmt:message key="registrationFinal.CheckBox"/></div>
                     </label>
                 </div>
-                <input type="submit" class="btn btn-primary"><fmt:message key="registrationFinal.RegisterProfile"/></input>
+                <input type="submit" class="btn btn-primary"><fmt:message key="registrationFinal.RegisterProfile"/>
             </form>
 
         </div>

@@ -5,9 +5,11 @@ import command.candidate.CreateApplicationCommand;
 import command.candidate.CandidateProfileCommand;
 import command.candidate.SignupFinalCommand;
 import command.candidate.UploadCertificateCommand;
+import command.common.FacultiesCommand;
 import command.common.LogoutCommand;
 import command.out_of_control.InitSignupCommand;
 import command.out_of_control.LoginCommand;
+import command.out_of_control.SetLocaleCommand;
 import command.out_of_control.SignupStartCommand;
 import dao.implementation.*;
 import dao.interfaces.*;
@@ -61,6 +63,7 @@ public class CommandContainer {
         commands.put("editFaculties", new EditFacultyCommand(facultyService));
         // common
         commands.put("logout", new LogoutCommand());
+        commands.put("setLocale", new SetLocaleCommand());
     }
 
     /**

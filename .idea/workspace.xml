@@ -9,20 +9,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="write tests">
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/BlockCandidateCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidateDetailsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidatesCommand.java" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="add pagination to candidates.jsp">
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/candidate/UpdateCandidateCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/SetLocaleCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/filter/LocaleFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/updateCandidate.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/FacultiesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/FacultiesCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/CommandAccessFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/filter/EncodingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/filter/EncodingFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/FacultiesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/common/FacultiesCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/CandidateProfileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CandidateProfileCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/UploadCertificateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/UploadCertificateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/common/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/common/LogoutCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/InitSignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/InitSignupCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/LoginCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/SignupStartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/SignupStartCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/candidatesJS.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/candidatesJS.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/subjects.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/subjects.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/guestHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/guestHeader.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/FacultiesCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/FacultiesCommandTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,9 +62,9 @@
         <option value="XML Properties File" />
         <option value="Interface" />
         <option value="Enum" />
+        <option value="JUnit5 Test Class" />
         <option value="Jsp File" />
         <option value="Class" />
-        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -146,12 +162,12 @@
       <recent name="listener" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FacultiesCommandTest.execute">
+  <component name="RunManager" selected="Tomcat Server.Tomcat  8.5.81">
     <configuration name="CandidatesCommandTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.admin.*" />
+          <option name="PATTERN" value="command.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -166,7 +182,7 @@
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.admin.*" />
+          <option name="PATTERN" value="command.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -182,7 +198,7 @@
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.admin.*" />
+          <option name="PATTERN" value="command.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -198,7 +214,7 @@
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.admin.*" />
+          <option name="PATTERN" value="command.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -214,7 +230,7 @@
       <module name="Admissions_committee" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="command.admin.*" />
+          <option name="PATTERN" value="command.common.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -554,7 +570,7 @@
       <workItem from="1660741137687" duration="45511000" />
       <workItem from="1660888592608" duration="96875000" />
       <workItem from="1661499798211" duration="128696000" />
-      <workItem from="1661872610712" duration="92792000" />
+      <workItem from="1661872610712" duration="113916000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -787,7 +803,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662230111178</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="add pagination to candidates.jsp">
+      <created>1662285169647</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1662285169647</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -805,7 +828,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change dao classes because of new usage datasource, create exceptions to show user that request of change db went wrong" />
     <MESSAGE value="fix db" />
     <MESSAGE value="create candidateBuilder" />
     <MESSAGE value="refactor candidateDao and facultyDao" />
@@ -830,14 +852,15 @@
     <MESSAGE value="override equals and hashcode to prepare for tests" />
     <MESSAGE value="to main" />
     <MESSAGE value="write tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="write tests" />
+    <MESSAGE value="add pagination to candidates.jsp" />
+    <option name="LAST_COMMIT_MESSAGE" value="add pagination to candidates.jsp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/command/admin/FacultiesCommandTest.java</url>
-          <line>24</line>
+          <line>25</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

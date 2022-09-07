@@ -60,9 +60,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${subjects}" var="s" varStatus="loop">
-                    <tags:subj index="${loop.index + 1}" name="${s.getNameList().get(0)}"
-                               courseDuration="${s.getCourseDuration()}"/>
+                <c:forEach items="${subjects}" var="f" varStatus="loop">
+                    <tags:subj index="${loop.index + 1}" name="${f.getNameList().get(0)}"
+                               courseDuration="${f.getCourseDuration()}"/>
                 </c:forEach>
                 </tbody>
             </table>

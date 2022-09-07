@@ -1,5 +1,7 @@
 package services.interfaces;
 
+import dao.AlreadyExistException;
+import dao.WrongExecutedQueryException;
 import models.Candidate;
 import models.City;
 import services.EmptyFieldsException;
@@ -19,4 +21,5 @@ public interface CandidateService {
 
     List<Candidate> getAll(String selectedFaculty, String limitItemsQty, String offSetValueCandidates);
     Candidate getById(int id);
+    void update(Candidate candidate) throws AlreadyExistException, WrongExecutedQueryException;
 }

@@ -29,18 +29,18 @@
     <%--    if (langInnerHtml === 'RU') return 'ru';--%>
     <%--}--%>
 
-    <%--//faculties sort--%>
-    <%--function facultiesSort(linkObj) {--%>
-    <%--    if (linkObj.id === 'nameSort') {--%>
-    <%--        linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=nameAsc';--%>
-    <%--    }--%>
-    <%--    if (linkObj.id === 'budgetSort') {--%>
-    <%--        linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=budgetDsc';--%>
-    <%--    }--%>
-    <%--    if (linkObj.id === 'totalSort') {--%>
-    <%--        linkObj.href = '${pageContext.request.contextPath}/controller?command=getFaculties&facultySort=totalDsc';--%>
-    <%--    }--%>
-    <%--}--%>
+    //faculties sort
+    function facultiesSort(linkObj) {
+        if (linkObj.id === 'nameSort') {
+            linkObj.href = '${pageContext.request.contextPath}/controller?command=faculties&facultySort=nameAsc';
+        }
+        if (linkObj.id === 'budgetSort') {
+            linkObj.href = '${pageContext.request.contextPath}/controller?command=faculties&facultySort=budgetDsc';
+        }
+        if (linkObj.id === 'totalSort') {
+            linkObj.href = '${pageContext.request.contextPath}/controller?command=faculties&facultySort=totalDsc';
+        }
+    }
 
     <%--function setUILang(lang) {--%>
     <%--    let firstLink = document.getElementById('first-link-id');--%>
@@ -61,9 +61,9 @@
     }
 
     window.onload = function () {
-        setUILang('${language}');
+        <%--setUILang('${language}');--%>
 
-        if (${fList.size() > 0}) {
+        if (${faculties.size() > 0}) {
             document.getElementById('facultiesTable').style.display = 'block';
             document.getElementById('about-us-text-id').style.display = 'none';
         }

@@ -1,8 +1,9 @@
-package command.admin;
+package command.common;
 
 import command.ActionCommand;
 import managers.ConfigurationManager;
 import models.Faculty;
+import models.Role;
 import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
@@ -22,9 +23,17 @@ public class FacultiesCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
         LOG.debug("Start facultiesCommand");
-        String page = ConfigurationManager.getProperty("admin.faculties");
+        String page = null;
         String lang = req.getLocale().getLanguage();
         LOG.debug("Language from locale ==> " + lang);
+
+        Role role = (Role) req.getAttribute("role");
+        LOG.debug("Attribute role ==> " + role);
+        if(role == null || role == Role.CANDIDATE){
+            page = ConfigurationManager.getProperty("common.index");
+        } else if (role == Role.ADMIN){
+            page = ConfigurationManager.getProperty("admin.faculties");
+        }
 
         String facultySort = req.getParameter("facultySort");
         LOG.debug("facultySort value ==> " + facultySort);

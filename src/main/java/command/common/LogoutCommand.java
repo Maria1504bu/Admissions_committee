@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LogoutCommand implements ActionCommand {
     @Override
     public String execute(HttpServletRequest req) {
-        String page = ConfigurationManager.getProperty("path.common.index");
+        String page = ConfigurationManager.getProperty("common.index");
         req.getSession().invalidate();
         return page;
     }

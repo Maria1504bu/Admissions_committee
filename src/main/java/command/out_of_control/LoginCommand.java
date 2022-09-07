@@ -39,7 +39,7 @@ public class LoginCommand implements ActionCommand {
                  ServiceException e) {
             req.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginError"));
-            page = ConfigurationManager.getProperty("path.common.login");
+            page = ConfigurationManager.getProperty("common.login");
             logger.trace("Error. go to ==>" + page);
             return page;
         }

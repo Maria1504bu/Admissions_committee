@@ -21,11 +21,14 @@
         <hr>
 
         <h3 id="table-header"><fmt:message key="candidateDash.YourDetails"/></h3>
-        <h3>${candidate.getSecondName() += " " += candidate.getFirstName()}</h3>
+        <h3>${candidate.getSecondName() += " " += candidate.getFirstName() += " " += candidate.getFatherName()}</h3>
         <h4>${candidate.getCity()}</h4>
         <h4><c:out
                 value="${candidate.isBlocked() == true ? 'Candidate Status: Under Checking' : 'Candidate Status: Ddetails Approved'}"/></h4>
 
+        <hr>
+        <a href="${pageContext.request.contextPath}/jsp/candidate/updateCandidate.jsp">
+            <button type="button" class="btn btn-primary"><fmt:message key="updateCandidate.Title"/></button></a>
         <hr>
         <table class="table table-hover">
             <thead>

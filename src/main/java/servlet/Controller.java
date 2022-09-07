@@ -45,7 +45,7 @@ public class Controller extends HttpServlet {
             renderPage(req, resp, page);
         } else {
             LOG.debug("Page is null. Forward to index page");
-            page = ConfigurationManager.getProperty("path.common.index");
+            page = ConfigurationManager.getProperty("common.index");
             req.getSession().setAttribute("nullPage", MessageManager.getProperty("message.nullPage"));
         }
     }
