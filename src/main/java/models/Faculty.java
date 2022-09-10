@@ -4,30 +4,34 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Faculty implements Serializable {
-    private static final long serialVersionUID = 3523165227703971485L;
     private int id;
-    private List<String> namesList;
+    private Map<Language, String> names;
     private int budgetPlaces;
     private int totalPlaces;
     private List<Subject> subjectList;
 
 
-    public Faculty(){
-        subjectList = new ArrayList<>();
-        namesList = new ArrayList<>();
+    public Faculty() {
+        this.names = new EnumMap<Language, String>(Language.class);
+        this.subjectList = new ArrayList<>();
     }
-    public Faculty(int id){
+
+    public Faculty(int id) {
         this.id = id;
+        this.names = new EnumMap<Language, String>(Language.class);
+        this.subjectList = new ArrayList<>();
     }
-    public Faculty(int id, List<String> namesList, int budgetPlaces, int totalPlaces){
+
+    public Faculty(int id, Map<Language, String> names, int budgetPlaces, int totalPlaces) {
         this.id = id;
-        this.namesList = namesList;
+        this.names = names;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
         this.subjectList = new ArrayList<>();
     }
-    public Faculty(List<String> namesList, int budgetPlaces, int totalPlaces){
-        this.namesList = namesList;
+
+    public Faculty(Map<Language, String> names,int budgetPlaces, int totalPlaces) {
+        this.names = names;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
         this.subjectList = new ArrayList<>();
@@ -41,9 +45,7 @@ public class Faculty implements Serializable {
         this.id = id;
     }
 
-    public List<String> getNamesList() {
-        return namesList;
-    }
+    public Map<Language, String> getNames() {return names;}
 
     public int getBudgetPlaces() {
         return budgetPlaces;
@@ -61,6 +63,14 @@ public class Faculty implements Serializable {
         this.totalPlaces = totalPlaces;
     }
 
+    public void setNames(Map<Language, String> names) {
+        this.names = names;
+    }
+
+    public void setSubjectList(List<Subject> subjectList) {
+        this.subjectList = subjectList;
+    }
+
     public List<Subject> getSubjectList() {
         return subjectList;
     }
@@ -73,20 +83,20 @@ public class Faculty implements Serializable {
         return id == faculty.id &&
                 budgetPlaces == faculty.budgetPlaces &&
                 totalPlaces == faculty.totalPlaces &&
-                Objects.equals(namesList, faculty.namesList) &&
+                Objects.equals(names, faculty.names) &&
                 Objects.equals(subjectList, faculty.subjectList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, namesList, budgetPlaces, totalPlaces, subjectList);
+        return Objects.hash(id, names, budgetPlaces, totalPlaces, subjectList);
     }
 
     @Override
     public String toString() {
         return "Faculty{" +
                 "id=" + id +
-                ", namesList=" + namesList +
+                ", names=" + names +
                 ", budgetPlaces=" + budgetPlaces +
                 ", totalPlaces=" + totalPlaces +
                 ", subjectList=" + subjectList +

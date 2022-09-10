@@ -1,7 +1,6 @@
 package command.out_of_control;
 
 import command.ActionCommand;
-import filter.LocaleFilter;
 import managers.ConfigurationManager;
 import org.apache.log4j.Logger;
 
@@ -9,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SetLocaleCommand implements ActionCommand {
     private static final String PARAM_LANGUAGE = "language";
-    private static final Logger LOG = Logger.getLogger(LocaleFilter.class);
+    private static final Logger LOG = Logger.getLogger(SetLocaleCommand.class);
 
     /***
      *

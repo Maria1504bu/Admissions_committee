@@ -4,6 +4,7 @@ import com.google.protobuf.ServiceException;
 import command.ActionCommand;
 import managers.ConfigurationManager;
 import models.Faculty;
+import models.Language;
 import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
@@ -57,8 +58,8 @@ public class UpdateFacultyCommand implements ActionCommand {
         facultyToUpdate.setId(Integer.parseInt(facultyId));
         facultyToUpdate.setBudgetPlaces(Integer.parseInt(budgetPlaces));
         facultyToUpdate.setTotalPlaces(Integer.parseInt(totalPlaces));
-        facultyToUpdate.getNamesList().add(facultyEngName);
-        facultyToUpdate.getNamesList().add(facultyUkrName);
+        facultyToUpdate.getNames().put(Language.EN, facultyEngName);
+        facultyToUpdate.getNames().put(Language.UK, facultyUkrName);
 
 
         LOG.debug("Faculty with new data, which need to update at db ==> " + facultyToUpdate);

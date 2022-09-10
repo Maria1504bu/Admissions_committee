@@ -60,7 +60,7 @@
                 <c:forEach items="${faculties}" var="f" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
-                        <td>${f.getNamesList().get(0)}</td>
+                        <td>${f.getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
                         <td class="td-to-align">${f.getBudgetPlaces()}</td>
                         <td class="td-to-align">${f.getTotalPlaces()}</td>
                         <td>

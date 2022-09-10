@@ -13,9 +13,7 @@ import util.EntityMapper;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Fulfill crud operations for Grade entity with the db
@@ -260,8 +258,8 @@ public class GradeDaoImpl implements GradeDao {
                 grade.setGrade(rs.getInt(ColumnLabel.GRADE_VALUE.getName()));
 
                 subject.setId(rs.getInt(SUBJ_ID_COLUMN));
-                subject.setCourseDuration(rs.getInt(ColumnLabel.SUBJECT_DURATION.getName()));
-                subject.getNameList().addAll(Arrays.asList(rs.getString(ColumnLabel.FACULTY_NAME.getName()).split(Pattern.quote("; "))));
+                subject.setMaxGrage(rs.getInt(ColumnLabel.SUBJECT_DURATION.getName()));
+//                subject.setNames(rs.getString(ColumnLabel.SUBJECT_NAME.getName()));
                 grade.setSubject(subject);
                 LOG.debug("Extracted grade ==> " + grade);
             } catch (SQLException e) {

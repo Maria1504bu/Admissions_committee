@@ -30,8 +30,8 @@
                     <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
                 </div>
                 <div class="form-group">
-                    <label for="courseDuration"><fmt:message key="updateSubj.CourseDuration"/></label>
-                    <input type="text" class="form-control form-input" id="courseDuration" placeholder="<fmt:message key="updateSubj.CourseDurationPlcHlr"/>" name="courseDuration" required>
+                    <label for="maxGrade"><fmt:message key="updateSubj.MaxGrade"/></label>
+                    <input type="text" class="form-control form-input" id="maxGrade" placeholder="<fmt:message key="updateSubj.MaxGrade"/>" name="maxGrade" required>
                     <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
                 </div>
                 <br>

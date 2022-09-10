@@ -6,6 +6,7 @@ import dao.DaoException;
 import dao.WrongExecutedQueryException;
 import dao.interfaces.FacultyDao;
 import models.Faculty;
+import models.Language;
 import models.Subject;
 import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
@@ -45,8 +46,8 @@ public class FacultyServiceImpl implements FacultyService {
             throw new EmptyFieldsException();
         }
 
-        faculty.getNamesList().add(englishName);
-        faculty.getNamesList().add(ukrainianName);
+        faculty.getNames().put(Language.EN, englishName);
+        faculty.getNames().put(Language.UK, ukrainianName);
         faculty.setBudgetPlaces(Integer.parseInt(budgetQty));
         faculty.setTotalPlaces(Integer.parseInt(totalQty));
         for (String id : subjectsIds) {

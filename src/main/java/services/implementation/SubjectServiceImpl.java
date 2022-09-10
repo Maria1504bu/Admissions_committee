@@ -65,4 +65,10 @@ public class SubjectServiceImpl implements SubjectService {
     public List findAll() {
         return subjectDao.findAll();
     }
+
+    @Override
+    public List<Subject> findAllByFaculty (int facultyId){
+        Validator.validateId(facultyId);
+        return subjectDao.findAllByFacultyId(facultyId);
+    }
 }

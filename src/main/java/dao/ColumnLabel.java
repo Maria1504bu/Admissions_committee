@@ -20,6 +20,7 @@ public enum ColumnLabel {
     CITY_NAME("name"),
     ROLE_ID("id"),
     ROLE_NAME("name"),
+    LANG_CODE("lang_code"),
 
     FACULTY_ID("id"),
     FACULTY_NAME("name"),

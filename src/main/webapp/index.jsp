@@ -6,6 +6,7 @@
     <%@ include file="/jspf/headDirectives.jspf" %>
     <style>
         <%@ include file="/css/styles.css" %>
+        <%@ include file="/css/modalStyle.css"%>
     </style>
 </head>
 <body>
@@ -42,12 +43,19 @@
         <tbody>
         <c:forEach items="${faculties}" var="f" varStatus="loop">
             <tr>
+                <%@ page import="models.Language" %>
                 <td>${loop.index + 1}</td>
-                <td>${f.getNamesList().get(0)}</td>
+                <td>${f.getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
                 <td class="td-to-align">${f.getBudgetPlaces()}</td>
                 <td class="td-to-align">${f.getTotalPlaces()}</td>
                 <td>
-                    <input type="button" onclick=""><fmt:message key="index.sendApplication"/>
+                    <form id="createApplForm" action="${pageContext.request.contextPath}/controller" method="post">
+                        <input type="hidden" name="command" value="createApplication"/>
+                        <input type="hidden" name="facultyId" value="${f.getId()}"/>
+                    <a href="javascript:{}" onclick="createApplication();">
+                    <input type="button" value="<fmt:message key="index.sendApplication"/>">
+                    </a>
+                    </form>
                 </td>
             </tr>
         </c:forEach>
@@ -55,10 +63,14 @@
     </table>
 </div>
 
+<!-- Modal ------------------------------------------>
+<%@ include file="/jspf/createApplModal.jspf" %>
+<%@ include file="/jspf/pleaseLoginModal.jspf" %>
 <!-- Footer ------------------------------------------>
 <%@ include file="/jspf/footer.jspf" %>
 <!-- JavaScript functions ---------------------------->
 <%@ include file="/js/javascript.jspf" %>
+<%@ include file="/js/createApplicationJs.jspf" %>
 
 </body>
 </html>

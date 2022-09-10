@@ -3,63 +3,46 @@ package command.candidate;
 import command.ActionCommand;
 import managers.ConfigurationManager;
 import models.Candidate;
+import models.Faculty;
+import models.Subject;
 import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
+import services.interfaces.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public class CreateApplicationCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(CreateApplicationCommand.class);
     private final FacultyService facultyService;
-    public CreateApplicationCommand(FacultyService facultyService){
-
+    private final SubjectService subjectService;
+    public CreateApplicationCommand(FacultyService facultyService, SubjectService subjectService){
         this.facultyService = facultyService;
+        this.subjectService = subjectService;
     }
 
     @Override
     public String execute(HttpServletRequest req) {
         LOG.debug("CreateApplicationCommand starts");
+        String page = ConfigurationManager.getProperty("candidate.createApplication");
         HttpSession session = req.getSession();
         Candidate candidate = (Candidate) session.getAttribute("user");
-        LOG.trace("CreateApplicationCommand get user from session --> " + candidate);
+        LOG.trace("User from session ==> " + candidate);
         String language = req.getLocale().getLanguage();
-        LOG.trace("CreateApplicationCommand get language --> " + language);
+        LOG.trace("Get language ==> " + language);
+        String facultyId = req.getParameter("facultyId");
+        LOG.trace("facultyId to application ==> " + facultyId);
 
 
-//        List<Faculty> facultiesList = facultyService.findAll();
-//        LOG.debug("CreateApplicationCommand to board facultiesList size --> " + facultiesList.size());
-//    //    LOG.debug("CreateApplicationCommand getSubjectList().get(0) --> " + facultiesList.get(0).getSubjectList().get(0));
-//        session.setAttribute("facultiesList", facultiesList);
-//        LOG.trace("Set session attribute facultiesList ==> " + facultiesList);
+        List<Faculty> faculties = facultyService.getSortedList(language, null, null);
+        req.setAttribute("faculties", faculties);
+        LOG.debug("Set request attribute facultiesList ==> " + faculties);
+        List<Subject> subjects = subjectService.findAllByFaculty(Integer.parseInt(facultyId));
+        req.setAttribute("subjects", subjects);
+        LOG.debug("Set subjects to this faculty ==> " + subjects);
 
-        String selectFacultyPriority1 = req.getParameter("selectedFaculty1");
-        String selectFacultyPriority2 = req.getParameter("selectedFaculty2");
-        String selectFacultyPriority3 = req.getParameter("selectedFaculty3");
-
-        LOG.debug("selectFacultyPriority1 --> " + selectFacultyPriority1);
-        LOG.debug("selectFacultyPriority2 --> " + selectFacultyPriority2);
-        LOG.debug("selectFacultyPriority3 --> " + selectFacultyPriority3);
-
-        String page = ConfigurationManager.getProperty("candidate.createApplication");
-
-        if (selectFacultyPriority1 == null && selectFacultyPriority2 == null &&
-                selectFacultyPriority3 == null) {
-            session.setAttribute("priority1Subjects", 1);
-            session.setAttribute("priority2Subjects", 2);
-            session.setAttribute("priority3Subjects", 3);
-            return page;
-        }
-        if (selectFacultyPriority1 != null && selectFacultyPriority2 != null &&
-                selectFacultyPriority3 != null) {
-            session.setAttribute("priority1Subjects", selectFacultyPriority1);
-            session.setAttribute("priority2Subjects", selectFacultyPriority2);
-            session.setAttribute("priority3Subjects", selectFacultyPriority3);
-            return page;
-        }
-
-
-        LOG.debug("CreateApplication command finished with ==> " + page);
+        LOG.debug("Go to ==> " + page);
         return page;
     }
 }

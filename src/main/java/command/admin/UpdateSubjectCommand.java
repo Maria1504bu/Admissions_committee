@@ -2,6 +2,7 @@ package command.admin;
 
 import command.ActionCommand;
 import managers.ConfigurationManager;
+import models.Language;
 import models.Subject;
 import org.apache.log4j.Logger;
 import services.interfaces.SubjectService;
@@ -42,9 +43,9 @@ public class UpdateSubjectCommand implements ActionCommand {
         String subjUkrName = request.getParameter("subjUkrName");
 
         subjectToUpdate.setId(Integer.parseInt(subjId));
-        subjectToUpdate.setCourseDuration(Integer.parseInt(courseDuration));
-        subjectToUpdate.getNameList().add(subjEngName);
-        subjectToUpdate.getNameList().add(subjUkrName);
+        subjectToUpdate.setMaxGrage(Integer.parseInt(courseDuration));
+        subjectToUpdate.getNames().put(Language.EN, subjEngName);
+        subjectToUpdate.getNames().put(Language.UK, subjUkrName);
 
         LOG.debug("subjUkrName to write to db --> " + subjUkrName);
         subjectService.update(subjectToUpdate);

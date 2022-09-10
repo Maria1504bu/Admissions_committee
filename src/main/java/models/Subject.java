@@ -1,34 +1,33 @@
 package models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Subject implements Serializable {
-    private static final long serialVersionUID = 6088279359888273831L;
     private int id;
-    private List<String> nameList;
-    private int courseDuration;
+    private Map<Language, String> names;
+    private int maxGrade;
 
     public Subject() {
-        this.nameList = new ArrayList<>();
+        this.names = new HashMap<>();
     }
 
     public Subject(int id) {
         this.id = id;
-        this.nameList = new ArrayList<>();
+        this.names = new HashMap<>();
     }
 
-    public Subject(int courseDuration, List<String> nameList) {
-        this.courseDuration = courseDuration;
-        this.nameList = nameList;
+    public Subject(int courseDuration, Map<Language, String> names) {
+        this.maxGrade = courseDuration;
+        this.names = names;
     }
 
-    public Subject(int id, List<String> nameList, int courseDuration) {
+    public Subject(int id, Map<Language, String> names, int maxGrade) {
         this.id = id;
-        this.courseDuration = courseDuration;
-        this.nameList = nameList;
+        this.maxGrade = maxGrade;
+        this.names = names;
     }
 
     public int getId() {
@@ -39,16 +38,16 @@ public class Subject implements Serializable {
         this.id = id;
     }
 
-    public List<String> getNameList() {
-        return nameList;
+    public Map<Language, String> getNames() {
+        return names;
     }
 
-    public int getCourseDuration() {
-        return courseDuration;
+    public int getMaxGrade() {
+        return maxGrade;
     }
 
-    public void setCourseDuration(int courseDuration) {
-        this.courseDuration = courseDuration;
+    public void setMaxGrage(int maxGrade) {
+        this.maxGrade = maxGrade;
     }
 
     @Override
@@ -57,21 +56,21 @@ public class Subject implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Subject subject = (Subject) o;
         return id == subject.id &&
-                courseDuration == subject.courseDuration &&
-                Objects.equals(nameList, subject.nameList);
+                maxGrade == subject.maxGrade &&
+                Objects.equals(names, subject.names);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameList, courseDuration);
+        return Objects.hash(id, names, maxGrade);
     }
 
     @Override
     public String toString() {
         return "Subject{" +
                 "id=" + id +
-                ", nameList=" + nameList +
-                ", courseDuration=" + courseDuration +
+                ", names=" + names +
+                ", maxGrade=" + maxGrade +
                 '}';
     }
 }

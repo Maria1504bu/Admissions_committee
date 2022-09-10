@@ -55,13 +55,13 @@
                 <tr>
                     <th>No</th>
                     <th><fmt:message key="createFaculty.SubjectName"/></th>
-                    <th><fmt:message key="subjectsDash.CourseDuration"/></th>
+                    <th><fmt:message key="updateSubj.MaxGrade"/></th>
                     <th><fmt:message key="candidates.tableThSelect"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${subjects}" var="f" varStatus="loop">
-                    <tags:subj index="${loop.index + 1}" name="${f.getNameList().get(0)}"
+                <c:forEach items="${subjects}" var="s" varStatus="loop">
+                    <tags:subj index="${loop.index + 1}" name="${s.getNameUk()}"
                                courseDuration="${f.getCourseDuration()}"/>
                 </c:forEach>
                 </tbody>

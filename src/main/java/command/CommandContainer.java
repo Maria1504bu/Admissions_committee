@@ -45,7 +45,7 @@ public class CommandContainer {
         commands.put("initSignup", new InitSignupCommand());
         // candidate
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
-        commands.put("createApplication", new CreateApplicationCommand(facultyService));
+        commands.put("createApplication", new CreateApplicationCommand(facultyService, subjectService));
         commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
         // admin
         commands.put("candidates", new CandidatesCommand(candidateService, facultyService));

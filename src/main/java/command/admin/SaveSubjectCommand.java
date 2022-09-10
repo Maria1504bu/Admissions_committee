@@ -7,7 +7,6 @@ import org.apache.log4j.Logger;
 import services.interfaces.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
 
 public class SaveSubjectCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(SaveSubjectCommand.class);
@@ -27,15 +26,16 @@ public class SaveSubjectCommand implements ActionCommand {
         String ukrainianName = request.getParameter("ukrainianName");
         LOG.trace("Request parameter: ukrainianName --> " + ukrainianName);
 
-        String courseDuration = request.getParameter("courseDuration");
-        LOG.trace("Request parameter: courseDuration --> " + courseDuration);
-        int duration = Integer.parseInt(courseDuration);
+        String maxGrade = request.getParameter("maxGrade");
+        LOG.trace("Request parameter: maxGrade --> " + maxGrade);
+        int duration = Integer.parseInt(maxGrade);
 
-        if (englishName == null || ukrainianName == null || courseDuration == null ||
-                englishName.isEmpty() || ukrainianName.isEmpty() || courseDuration.isEmpty()) {
+        if (englishName == null || ukrainianName == null || maxGrade == null ||
+                englishName.isEmpty() || ukrainianName.isEmpty() || maxGrade.isEmpty()) {
         }
 
-        Subject subject = new Subject(0, Arrays.asList(englishName, ukrainianName), duration);
+
+        Subject subject = new Subject(duration);
 
         subjectService.save(subject);
         LOG.debug("SaveSubjectCommand save subject ==> " + subject);
