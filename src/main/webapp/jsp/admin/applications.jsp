@@ -1,7 +1,7 @@
 <%@ include file="/jspf/directives.jspf" %>
 <html>
 <head>
-    <title>Faculties DashBoard</title>
+    <title>Faculties Info</title>
     <%@ include file="/jspf/headDirectives.jspf" %>
     <style>
         <%@ include file="/css/styles.css" %>
@@ -40,31 +40,30 @@
         </div>
         <div class="col-sm-9 col-sm-9-custom">
             <h2 id="table-header"><fmt:message key="facultiesDash.OurFaculties"/></h2>
+            <h4> <fmt:message key="faculties.faculty"/> : ${appls.get(0).getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</h4>
+            <h4><fmt:message key="faculties.BudgetPlaces"/> : ${appls.get(0).getFaculty().getBudgetPlaces()}</h4>
+            <h4><fmt:message key="faculties.TotalPlaces"/> :  ${appls.get(0).getFaculty().getTotalPlaces()}</h4>
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>N</th>
-                    <th><fmt:message key="faculties.faculty"/>
-                        <a href="${pageContext.request.contextPath}/controller?command=faculties&order=DESC&by=name">&#9650</a>
-                        <a href="${pageContext.request.contextPath}/controller?command=faculties&order=ASC&by=name">&#9660</a></th>
-                    <th><fmt:message key="faculties.BudgetPlaces"/>
-                        <a href="${pageContext.request.contextPath}/controller?command=faculties&order=DESC&by=budget_places">&#9650</a>
-                        <a href="${pageContext.request.contextPath}/controller?command=faculties&order=ASC&by=budget_places">&#9660</a></th>
-                    <th><fmt:message key="faculties.TotalPlaces"/>
-                        <a href="${pageContext.request.contextPath}/controller?command=faculties&order=DESC&by=total_places">&#9650</a>
-                        <a href="${pageContext.request.contextPath}/controller?command=faculties&order=ASC&by=total_places">&#9660</a></th>
-                    <th><fmt:message key="candidates.tableThSelect"/></th>
-                </tr>
+                    <th><fmt:message key="candidates.tableThCandidate"/></th>
+                    <c:forEach items="${appls.get(0).getGradesList()}" var="grade">
+                    <th>${grade.getSubject().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</th>
+                    </c:forEach>
+                    <th><fmt:message key="candidates.tableThStatus"/></th>
+                    <th></th>
                 </thead>
                 <tbody>
-                <c:forEach items="${faculties}" var="f" varStatus="loop">
+                <c:forEach items="${appls}" var="a" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
-                        <td>${f.getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
-                        <td class="td-to-align">${f.getBudgetPlaces()}</td>
-                        <td class="td-to-align">${f.getTotalPlaces()}</td>
+                        <td><tags:initials secondName="${a.getCandidate().getSecondName()}" firstName="${a.getCandidate().getFirstName()}" fatherName="${a.getCandidate().getFatherName()}"></tags:initials></td>
+                        <c:forEach items="${a.getGradesList()}" var="grade">
+                            <td class="td-to-align">${grade.getGrade()}</td>
+                        </c:forEach>
                         <td>
-                            <INPUT type="radio" class="radioGroup" name="radioGroup" value="${f.getId()}"/>
+                            ${a.getApplicationStatus()}
                         </td>
                     </tr>
                 </c:forEach>

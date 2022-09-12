@@ -11,7 +11,7 @@
 </head>
 <body>
 <!-- Login Header beginning -------------------->
-<%@ include file="/jspf/guestHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Login Header end -------------------------->
 <br>
 <div class="container indexMainCtr">
@@ -49,10 +49,10 @@
                 <td class="td-to-align">${f.getBudgetPlaces()}</td>
                 <td class="td-to-align">${f.getTotalPlaces()}</td>
                 <td>
-                    <form id="createApplForm" action="${pageContext.request.contextPath}/controller" method="post">
-                        <input type="hidden" name="command" value="createApplication"/>
-                        <input type="hidden" name="facultyId" value="${f.getId()}"/>
-                    <a href="javascript:{}" onclick="createApplication();">
+                    <form id="form${f.getId()}" action="${pageContext.request.contextPath}/controller" method="get">
+                        <input type="hidden" name="command" value="applToFaculty">
+                        <input type="hidden" name="facultyId" value="${f.getId()}">
+                    <a  href="javascript:{}" onclick="createApplication(${f.getId()});">
                     <input type="button" value="<fmt:message key="index.sendApplication"/>">
                     </a>
                     </form>

@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/adminHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 <div class="container indexMainCtr">
   <div class="col-sm-12 col-sm-12-custom">
@@ -34,7 +34,7 @@
       <c:forEach items="${applications}" var="a" varStatus="loop">
       <tr>
         <td class="td-to-align">${a.getPriority()}</td>
-        <td>${a.getFaculty().getNamesList().get(0)}</td>
+        <td>${a.getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
 
           <c:set var="avaregeGrade" value="${0}"/>
         <c:forEach var="g" items="${a.getGradesList()}">
@@ -46,7 +46,7 @@
         <td class="td-to-align">${a.getApplicationStatus()}</td>
         <c:forEach items="${a.getGradesList()}" var="g" varStatus="loop">
       <tr>
-      <thead><th>${g.getSubject().getNameList().get(0)}</th></thead>
+      <thead><th>${g.getSubject().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</th></thead>
       </tr>
       <tr>
         <td>${g.getGrade()}</td>

@@ -7,10 +7,7 @@ import command.candidate.SignupFinalCommand;
 import command.candidate.UploadCertificateCommand;
 import command.common.FacultiesCommand;
 import command.common.LogoutCommand;
-import command.out_of_control.InitSignupCommand;
-import command.out_of_control.LoginCommand;
-import command.out_of_control.SetLocaleCommand;
-import command.out_of_control.SignupStartCommand;
+import command.out_of_control.*;
 import dao.implementation.*;
 import dao.interfaces.*;
 import org.apache.log4j.Logger;
@@ -30,7 +27,7 @@ public class CommandContainer {
         GradeDao gradeDao = new GradeDaoImpl(dataSource);
         SubjectDao subjectDao = new SubjectDaoImpl(dataSource);
 
-        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao, facultyDao, gradeDao);
+        ApplicationService applicationService = new ApplicationServiceImpl(applicationDao, candidateDao, facultyDao, gradeDao, subjectDao);
         CandidateService candidateService = new CandidateServiceImpl(candidateDao);
         FacultyService facultyService = new FacultyServiceImpl(facultyDao);
         GradeService gradeService = new GradeServiceImpl(gradeDao);
@@ -43,6 +40,7 @@ public class CommandContainer {
         commands.put("signupStart", new SignupStartCommand(candidateService));
         commands.put("signupFinal", new SignupFinalCommand(candidateService));
         commands.put("initSignup", new InitSignupCommand());
+        commands.put("applToFaculty", new ApplicationToFacultyCommand(applicationService));
         // candidate
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
         commands.put("createApplication", new CreateApplicationCommand(facultyService, subjectService));

@@ -12,7 +12,7 @@
             "            <option value='${subject.getId()}'\n" +
             "                    <c:if test='${subject.getId() eq selectedSubjId}'>selected='selected'</c:if>\n" +
             "            >\n" +
-            "                    ${subject.getNameList().get(0)}\n" +
+            "                    ${subject.getNames().get(Language.valueOf(language.toString().toUpperCase()))}\n" +
             "            </option>\n" +
             "        </c:forEach>\n" +
             "    </select>"+

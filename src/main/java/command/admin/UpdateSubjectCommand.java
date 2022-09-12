@@ -37,13 +37,13 @@ public class UpdateSubjectCommand implements ActionCommand {
 
         Subject subjectToUpdate = new Subject();
         String subjId = request.getParameter("subjId");
-        String courseDuration = request.getParameter("courseDuration");
+        String maxGrade = request.getParameter("maxGrade");
 
         String subjEngName = request.getParameter("subjEngName");
         String subjUkrName = request.getParameter("subjUkrName");
 
         subjectToUpdate.setId(Integer.parseInt(subjId));
-        subjectToUpdate.setMaxGrage(Integer.parseInt(courseDuration));
+        subjectToUpdate.setMaxGrage(Integer.parseInt(maxGrade));
         subjectToUpdate.getNames().put(Language.EN, subjEngName);
         subjectToUpdate.getNames().put(Language.UK, subjUkrName);
 

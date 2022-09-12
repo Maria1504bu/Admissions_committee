@@ -19,8 +19,8 @@ public class Subject implements Serializable {
         this.names = new HashMap<>();
     }
 
-    public Subject(int courseDuration, Map<Language, String> names) {
-        this.maxGrade = courseDuration;
+    public Subject(int maxGrade, Map<Language, String> names) {
+        this.maxGrade = maxGrade;
         this.names = names;
     }
 

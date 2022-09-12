@@ -26,21 +26,14 @@ public class GradeDaoImpl implements GradeDao {
     private static final String INSERT_SET_APPL_GRADE_QUERY =
             "INSERT INTO applications_grades(applications_id, grades_id)VALUES(?,?);";
     private static final String GET_GRADE_BY_ID_QUERY =
-            "SELECT gr.id, gr.grade, s.id AS subject_id, s.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') AS name " +
-                    "FROM grades gr " +
-                    "INNER JOIN subjects s ON s.id = gr.subjects_id " +
-                    "INNER JOIN subjects_languages sl ON sl.subject_id = s.id " +
-                    "WHERE gr.id = ?";
+            "SELECT gr.id ,gr.subject_id, gr.grade " +
+                    "FROM grades gr WHERE gr.id = ?";
     private static final String GET_ALL_GRADES_QUERY =
-            "SELECT gr.id, gr.grade, s.id AS subject_id, s.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') AS name " +
-                    "FROM grades gr " +
-                    "INNER JOIN subjects s ON s.id = gr.subject_id " +
-                    "INNER JOIN subjects_languages sl ON sl.subject_id = s.id ";
+            "SELECT gr.id ,gr.subject_id, gr.grade " +
+            "FROM grades gr";
     private static final String GET_APPLICATION_GRADES_QUERY =
-            "SELECT gr.id, gr.grade, s.id AS subject_id, s.duration, GROUP_CONCAT(sl.name SEPARATOR '; ') AS name " +
+            "SELECT gr.id, gr.subject_id, gr.grade " +
                     "FROM grades gr " +
-                    "INNER JOIN subjects s ON s.id = gr.subject_id " +
-                    "INNER JOIN subjects_languages sl ON sl.subject_id = s.id " +
                     "INNER JOIN applications_grades ag ON ag.grade_id = gr.id " +
                     "WHERE ag.application_id = ?";
     private static final String UPDATE_GRADE_QUERY =
@@ -247,7 +240,6 @@ public class GradeDaoImpl implements GradeDao {
      * Extracts an grade from the result set row.
      */
     private static class GradeMapper implements EntityMapper<Grade> {
-        private static final String SUBJ_ID_COLUMN = "subject_id";
 
         @Override
         public Grade mapEntity(ResultSet rs) {
@@ -257,9 +249,7 @@ public class GradeDaoImpl implements GradeDao {
                 grade.setId(rs.getInt(ColumnLabel.GRADE_ID.getName()));
                 grade.setGrade(rs.getInt(ColumnLabel.GRADE_VALUE.getName()));
 
-                subject.setId(rs.getInt(SUBJ_ID_COLUMN));
-                subject.setMaxGrage(rs.getInt(ColumnLabel.SUBJECT_DURATION.getName()));
-//                subject.setNames(rs.getString(ColumnLabel.SUBJECT_NAME.getName()));
+                subject.setId(rs.getInt(ColumnLabel.GRADE_SUBJ_ID.getName()));
                 grade.setSubject(subject);
                 LOG.debug("Extracted grade ==> " + grade);
             } catch (SQLException e) {

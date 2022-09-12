@@ -38,12 +38,12 @@
 //    }
 //
 //    @Test
-//    void getCourseDuration() {
+//    void getMaxGrade() {
 //        assertEquals(50, subject.getMaxGrade());
 //    }
 //
 //    @Test
-//    void setCourseDuration() {
+//    void setMaxGrade() {
 //        subject.setMaxGrage(78);
 //        assertEquals(78, subject.getMaxGrade());
 //    }
@@ -68,6 +68,6 @@
 //
 //    @Test
 //    void testToString() {
-//        assertEquals("Subject{id=1, nameEn=Math, nameUk=Математика, courseDuration=50}", subject.toString());
+//        assertEquals("Subject{id=1, nameEn=Math, nameUk=Математика, maxGrade=50}", subject.toString());
 //    }
 //}

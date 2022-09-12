@@ -1,4 +1,5 @@
 <%@ include file="/jspf/directives.jspf" %>
+
 <html>
 <head>
   <title>Update Faculty</title>
@@ -11,7 +12,7 @@
 
 <c:set var="faculty" value="${sessionScope['facultyToDisplay']}" />
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/adminHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 
 <div class="container">
@@ -26,13 +27,13 @@
         <div class="form-group">
           <label for="englishName"><fmt:message key="createFaculty.NameInEnglish"/></label>
           <input type="text" class="form-control form-input" id="englishName" placeholder="<fmt:message key="createFaculty.PlaceHolderEngl"/>" name="englishName" required
-                 value="${faculty.getNamesList().get(0)}">
+                 value="${faculty.getNames().get(Language.valueOf("EN"))}">
           <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
         </div>
         <div class="form-group">
           <label for="ukrainianName"><fmt:message key="createFaculty.NameInUkrainian"/></label>
           <input type="text" class="form-control form-input" id="ukrainianName" placeholder="<fmt:message key="createFaculty.PlaceHolderUkr"/>" name="ukrainianName" required
-                 value="${faculty.getNamesList().get(1)}">
+                 value="${faculty.getNames().get(Language.valueOf("UK"))}">
           <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
         </div>
         <div class="form-group">
@@ -49,7 +50,7 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary"><fmt:message key="updateFaculty.UpdateBtn"/></button>
-        <a href="${pageContext.request.contextPath}/view/admin/faculties/facultiesDashBoard.jsp">
+        <a href="${pageContext.request.contextPath}/controller?command=faculties">
           <button type="button" class="btn btn-primary"><fmt:message key="createFaculty.CancelBtn"/></button></a>
       </form>
     </div>

@@ -11,7 +11,7 @@
 
 <c:set var="faculty" value="${sessionScope['facultyToDisplay']}"/>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/candidateHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 
 <div class="container">

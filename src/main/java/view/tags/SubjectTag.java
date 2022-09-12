@@ -8,7 +8,7 @@ import java.io.IOException;
 public class SubjectTag extends TagSupport {
     private String index;
     private String name;
-    private String courseDuration;
+    private String maxGrade;
 
     public String getIndex() {
         return index;
@@ -26,12 +26,12 @@ public class SubjectTag extends TagSupport {
         this.name = name;
     }
 
-    public String getCourseDuration() {
-        return courseDuration;
+    public String getMaxGrade() {
+        return maxGrade;
     }
 
-    public void setCourseDuration(String courseDuration) {
-        this.courseDuration = courseDuration;
+    public void setMaxGrade(String maxGrade) {
+        this.maxGrade = maxGrade;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SubjectTag extends TagSupport {
             out.print("<tr>");
             out.print(String.format("<td>%s</td>", index));
             out.print(String.format("<td>%s</td>", name));
-            out.print(String.format("<td class=\"td-to-align\">%s</td>", courseDuration));
+            out.print(String.format("<td class=\"td-to-align\">%s</td>", maxGrade));
             out.print(String.format("<td class=\"td-to-align\"><input type=\"radio\" class=\"rgSubjects\" name=\"rgSubjects\" value=\"%s\"/>\n" +
                     "                        </td>", index));
         } catch (IOException e) {

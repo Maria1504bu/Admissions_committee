@@ -9,48 +9,59 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="change fields of localized objects">
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/models/Language.java" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create initials and header tags">
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/ApplicationToFacultyCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/header.tag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/initials.tag" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/createApplicationJs.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/applications.jsp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/jspf/createApplModal.jspf" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/webapp/jspf/pleaseLoginModal.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/SaveSubjectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/SaveSubjectCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/UpdateSubjectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateSubjectCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/common/FacultiesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/common/FacultiesCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/SetLocaleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/SetLocaleCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ColumnLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ColumnLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/FacultyDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/FacultyDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/GradeDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/GradeDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/SubjectDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/SubjectDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/SubjectDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/SubjectDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Faculty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Faculty.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/ApplicationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/ApplicationDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/models/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Subject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/ApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/ApplicationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/ApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/ApplicationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/tags/SubjectTag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/tags/SubjectTag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/css/modalStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/modalStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/createFacultyJs.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/createFacultyJs.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidateDetails.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidateDetails.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidates.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidates.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createFaculty.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createFaculty.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createSubject.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/createSubject.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/exams.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/subjects.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/subjects.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateFaculty.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateFaculty.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateSubject.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/updateSubject.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/updateCandidate.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/updateCandidate.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/common/signupStart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/common/signupStart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/candidateHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/candidateHeader.jspf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/directives.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/directives.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/guestHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/guestHeader.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/tags/displaySubjects.tld" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/displaySubjects.tld" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/ApplicationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/GradeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/GradeTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/models/SubjectTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/models/SubjectTest.java" afterDir="false" />
@@ -77,8 +88,8 @@
         <option value="XML Properties File" />
         <option value="Interface" />
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
         <option value="Jsp File" />
       </list>
     </option>
@@ -127,7 +138,7 @@
     "extract.method.default.visibility": "private",
     "last_opened_file_path": "D:/Final Project/Admissions_committee/src/main/webapp/js",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
+    "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
@@ -154,11 +165,11 @@
       <recent name="D:\Admissions_committee\src\main\webapp\WEB-INF\lib" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Final Project\Admissions_committee\src\main\webapp" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\WEB-INF" />
+      <recent name="D:\Final Project\Admissions_committee\src\main\webapp\jsp\admin" />
+      <recent name="D:\Final Project\Admissions_committee\src\main\webapp" />
       <recent name="D:\Final Project\Admissions_committee\src\main\webapp\css" />
       <recent name="D:\Final Project\Admissions_committee\src\main\resources" />
-      <recent name="D:\Final Project\Admissions_committee\src\main\webapp\jsp\candidate" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -585,7 +596,7 @@
       <workItem from="1660888592608" duration="96875000" />
       <workItem from="1661499798211" duration="128696000" />
       <workItem from="1661872610712" duration="131675000" />
-      <workItem from="1662722429660" duration="29942000" />
+      <workItem from="1662722429660" duration="66234000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -839,7 +850,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662563977507</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="make background cover all screen and display right language name">
+      <created>1662828118014</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1662828118015</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -857,8 +875,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="create application entity" />
-    <MESSAGE value="refactor dao classes" />
     <MESSAGE value="refactor authentication" />
     <MESSAGE value="fix warnings" />
     <MESSAGE value="fix errors" />
@@ -882,7 +898,9 @@
     <MESSAGE value="add features for candidate" />
     <MESSAGE value="change localization" />
     <MESSAGE value="change fields of localized objects" />
-    <option name="LAST_COMMIT_MESSAGE" value="change fields of localized objects" />
+    <MESSAGE value="make background cover all screen and display right language name" />
+    <MESSAGE value="create initials and header tags" />
+    <option name="LAST_COMMIT_MESSAGE" value="create initials and header tags" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

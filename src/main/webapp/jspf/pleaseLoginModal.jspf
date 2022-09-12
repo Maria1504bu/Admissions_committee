@@ -1,0 +1,17 @@
+<div id="pleaseLoginModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="modal.title"/></h2></span>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <a href="${pageContext.request.contextPath}/controller?command=login"><input type="button" value="<fmt:message
+                    key="header.Login"/>"></a>
+            <hr>
+            <a href="${pageContext.request.contextPath}/controller?command=initSignup"><input type="button" value="<fmt:message
+                    key="header.Registration"/>"></a>
+            <p><fmt:message key="modal.secondSent"/></p>
+        </div>
+    </div>
+</div>

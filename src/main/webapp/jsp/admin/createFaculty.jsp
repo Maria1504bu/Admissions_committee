@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/adminHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 
 <div class="container">
@@ -59,7 +59,7 @@
                                 <option value="${subject.getId()}"
                                         <c:if test="${subject.getId() eq selectedSubjId}">selected="selected"</c:if>
                                 >
-                                        ${subject.getNameList().get(0)}
+                                        ${subject.getNames().get(Language.valueOf(language.toString().toUpperCase()))}
                                 </option>
                             </c:forEach>
                         </select>

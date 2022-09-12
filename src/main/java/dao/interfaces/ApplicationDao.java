@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ApplicationDao extends CrudDao<Application> {
     public List<Application> getCandidateAppls(int candidateId) ;
+
+    List<Application> getFacultyAppls(int facultyId);
 }

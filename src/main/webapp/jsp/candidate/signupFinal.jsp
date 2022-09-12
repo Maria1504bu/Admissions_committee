@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/candidateHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body begining--------------------------------------------------------------------------->
 
 <div class="container">

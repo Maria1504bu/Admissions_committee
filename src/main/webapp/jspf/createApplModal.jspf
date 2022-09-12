@@ -1,0 +1,14 @@
+<div id="createApplModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="modal.title"/></h2></span>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <input type="text" name="" value="">
+            create appl
+            <p><fmt:message key="modal.secondSent"/></p>
+        </div>
+    </div>
+</div>

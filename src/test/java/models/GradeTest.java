@@ -64,7 +64,7 @@
 //
 //    @Test
 //    void testToString() {
-//        assertEquals("Grade{id=23, subject=Subject{id=0, nameList=[Physic, Фізика], courseDuration=38}," +
+//        assertEquals("Grade{id=23, subject=Subject{id=0, nameList=[Physic, Фізика], maxGrade=38}," +
 //                " grade=148}", grade.toString());
 //    }
 //}

@@ -9,7 +9,7 @@
   <jsp-config>
     <taglib>
       <taglib-uri>subjTag</taglib-uri>
-      <taglib-location>/tags/displaySubjects.tld</taglib-location>
+      <taglib-location>/WEB-INF/tags/displaySubjects.tld</taglib-location>
     </taglib>
   </jsp-config>
   <error-page>

@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/candidateHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 <div class="container">
     <div class="row justify-content-center align-items-center">

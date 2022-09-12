@@ -2,3 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<c:set var="language" value="${not empty param.language ? param.language: not empty language ? language  :
+pageContext.request.locale}" scope="session" />
+<%--At first use language that has set at request parameters, next check whether language has already choosen
+previosly in the session, if it was not : use language that was  set in context--%>
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="lang"/>
+<%@ page import="models.Language" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>

@@ -10,4 +10,6 @@ public interface SubjectService {
     void update(Subject subject);
     void delete(int id);
     List findAll();
+
+    List<Subject> findAllByFaculty(int facultyId);
 }

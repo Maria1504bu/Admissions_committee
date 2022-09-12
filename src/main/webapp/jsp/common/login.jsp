@@ -11,7 +11,7 @@
 <body>
 <header>
     <!-- Login Header beginning------------------------------------------------------------------->
-    <%@ include file="/jspf/guestHeader.jspf" %>
+    <tags:header></tags:header>
 </header>
 <!-- Body beginning--------------------------------------------------------------------------->
 <div class="container indexMainCtr">

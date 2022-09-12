@@ -45,28 +45,29 @@ public class UpdateFacultyCommand implements ActionCommand {
             page = ConfigurationManager.getProperty("admin.updateFaculty");
             LOG.trace("Go to ==> " + page);
             return page;
+        } else {
+            String facultyId = request.getParameter("facultyId");
+            String budgetPlaces = request.getParameter("budgetQty");
+            String totalPlaces = request.getParameter("totalQty");
+
+            String facultyEngName = request.getParameter("englishName");
+            String facultyUkrName = request.getParameter("ukrainianName");
+
+            Faculty facultyToUpdate = new Faculty();
+
+            facultyToUpdate.setId(Integer.parseInt(facultyId));
+            facultyToUpdate.setBudgetPlaces(Integer.parseInt(budgetPlaces));
+            facultyToUpdate.setTotalPlaces(Integer.parseInt(totalPlaces));
+            facultyToUpdate.getNames().put(Language.EN, facultyEngName);
+            facultyToUpdate.getNames().put(Language.UK, facultyUkrName);
+
+
+            LOG.debug("Faculty with new data, which need to update at db ==> " + facultyToUpdate);
+            facultyService.update(facultyToUpdate);
+
+            page = ConfigurationManager.getProperty("redirect") +
+                    ConfigurationManager.getProperty("path.command.faculties");
         }
-
-        String facultyId = request.getParameter("facultyId");
-        String budgetPlaces = request.getParameter("budgetQty");
-        String totalPlaces = request.getParameter("totalQty");
-
-        String facultyEngName = request.getParameter("englishName");
-        String facultyUkrName = request.getParameter("ukrainianName");
-
-        Faculty facultyToUpdate = new Faculty();
-        facultyToUpdate.setId(Integer.parseInt(facultyId));
-        facultyToUpdate.setBudgetPlaces(Integer.parseInt(budgetPlaces));
-        facultyToUpdate.setTotalPlaces(Integer.parseInt(totalPlaces));
-        facultyToUpdate.getNames().put(Language.EN, facultyEngName);
-        facultyToUpdate.getNames().put(Language.UK, facultyUkrName);
-
-
-        LOG.debug("Faculty with new data, which need to update at db ==> " + facultyToUpdate);
-        facultyService.update(facultyToUpdate);
-
-        page = ConfigurationManager.getProperty("redirect") +
-                ConfigurationManager.getProperty("path.command.faculties");
         LOG.debug("Go to ==> " + page);
         return page;
     }

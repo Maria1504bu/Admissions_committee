@@ -21,7 +21,7 @@
             <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=candidates"><fmt:message key="adminHeader.Candidates"/></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getStatement"><fmt:message key="adminHeader.Register"/></a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=applicationToFaculty"><fmt:message key="adminHeader.Register"/></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getReports"><fmt:message key="adminHeader.Reports"/></a>

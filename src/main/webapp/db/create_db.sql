@@ -36,9 +36,9 @@ CREATE TABLE cities
 CREATE TABLE candidates
 (
     `login_id`    INT                               NOT NULL,
-    `father_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
-    `first_name`  VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `second_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
+    `first_name`  VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
+    `father_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `certificate` VARCHAR(80) CHARACTER SET 'utf8',
     `city_id`     INT                               NOT NULL,
     `school_name` VARCHAR(150) CHARACTER SET 'utf8' NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS faculties_languages
 CREATE TABLE subjects
 (
     `id`       INT NOT NULL AUTO_INCREMENT,
-    `duration` INT NOT NULL,
+    `maxGrade` INT NOT NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -146,7 +146,6 @@ CREATE TABLE applications
     `id`         INT         NOT NULL AUTO_INCREMENT,
     `login_id`   INT         NOT NULL,
     `faculty_id` INT         NOT NULL,
-    `priority`   INT         NOT NULL,
     `status`     VARCHAR(30) NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_statement_logins1_idx` (`login_id` ASC) VISIBLE,

@@ -24,13 +24,14 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private static final Logger LOG = Logger.getLogger(ApplicationDaoImpl.class);
 
     private static final String INSERT_APPL_QUERY =
-            "INSERT INTO applications(login_id, faculty_id, priority, status)VALUES(?, ?, ?, ?)";
+            "INSERT INTO applications(login_id, faculty_id, status)VALUES(?, ?, ?, ?)";
     private static final String GET_APPL_BY_ID_QUERY = "SELECT * FROM applications WHERE id = ?";
     private static final String GET_CANDIDATES_APPLS_QUERY = "SELECT * FROM applications WHERE login_id = ?";
+    private static final String GET_FACULTY_APPLS_QUERY = "SELECT * FROM applications WHERE faculty_id = ?";
     private static final String GET_ALL_APPLS_QUERY = "SELECT * FROM applications";
 
     private static final String UPDATE_APPL_QUERY =
-            "UPDATE applications SET priority = ?, status = ? WHERE id = ?";
+            "UPDATE applications SET status = ? WHERE id = ?";
     private static final String DELETE_APPL_QUERY =
             "DELETE FROM applications WHERE id = ?";
 
@@ -54,21 +55,25 @@ public class ApplicationDaoImpl implements ApplicationDao {
     public Application getById(int id) throws DaoException {
         LOG.debug("Start getting application by id ==> " + id);
         Application application = null;
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(GET_APPL_BY_ID_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, id);
-            LOG.trace("set parameter into prepareStatement" + id);
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                ApplicationMapper mapper = new ApplicationMapper();
-                while (resultSet.next()) {
-                    application = mapper.mapEntity(resultSet);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_APPL_BY_ID_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, id);
+                LOG.trace("set parameter into prepareStatement" + id);
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    ApplicationMapper mapper = new ApplicationMapper();
+                    while (resultSet.next()) {
+                        application = mapper.mapEntity(resultSet);
+                    }
                 }
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new DaoException("Cannot find application with id ==>" + id, e);
             }
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            throw new DaoException("Cannot find application with id ==>" + id, e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Searched application ==>" + application);
         return application;
@@ -78,21 +83,52 @@ public class ApplicationDaoImpl implements ApplicationDao {
     public List<Application> getCandidateAppls(int candidateId) {
         LOG.debug("Start getting candidates applications by id ==> " + candidateId);
         List<Application> applications = new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(GET_CANDIDATES_APPLS_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, candidateId);
-            LOG.trace("set parameter into prepareStatement ==> " + candidateId);
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                ApplicationMapper mapper = new ApplicationMapper();
-                while (resultSet.next()) {
-                    applications.add(mapper.mapEntity(resultSet));
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_CANDIDATES_APPLS_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, candidateId);
+                LOG.trace("set parameter into prepareStatement ==> " + candidateId);
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    ApplicationMapper mapper = new ApplicationMapper();
+                    while (resultSet.next()) {
+                        applications.add(mapper.mapEntity(resultSet));
+                    }
                 }
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find applications for candidate with id ==>" + candidateId, e);
             }
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            throw new DaoException("Cannot find applications for candidate with id ==>" + candidateId, e);
+            throw new DaoException("Cannot close connection");
+        }
+        LOG.debug("Searched application ==>" + applications);
+        return applications;
+    }
+
+    @Override
+    public List<Application> getFacultyAppls(int facultyId) {
+        LOG.debug("Start getting faculty`s applications by id ==> " + facultyId);
+        List<Application> applications = new ArrayList<>();
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_FACULTY_APPLS_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, facultyId);
+                LOG.trace("set parameter into prepareStatement ==> " + facultyId);
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    ApplicationMapper mapper = new ApplicationMapper();
+                    while (resultSet.next()) {
+                        applications.add(mapper.mapEntity(resultSet));
+                    }
+                }
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new DaoException("Cannot find applications for faculty with id ==>" + facultyId, e);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Searched application ==>" + applications);
         return applications;
@@ -107,19 +143,22 @@ public class ApplicationDaoImpl implements ApplicationDao {
     public List<Application> findAll() throws DaoException {
         List<Application> applications = new ArrayList<>();
         LOG.debug("Start searching all applications");
-        try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(GET_ALL_APPLS_QUERY)) {
-            LOG.trace("Resources are created");
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(GET_ALL_APPLS_QUERY)) {
+                LOG.trace("Resources are created");
 
-            ApplicationDaoImpl.ApplicationMapper mapper = new ApplicationDaoImpl.ApplicationMapper();
-            while (resultSet.next()) {
-                applications.add(mapper.mapEntity(resultSet));
+                ApplicationDaoImpl.ApplicationMapper mapper = new ApplicationDaoImpl.ApplicationMapper();
+                while (resultSet.next()) {
+                    applications.add(mapper.mapEntity(resultSet));
+                }
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find all applications", e);
             }
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            throw new DaoException("Cannot find all applications", e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Searched applications ==>" + applications);
         return applications;
@@ -132,30 +171,33 @@ public class ApplicationDaoImpl implements ApplicationDao {
      * @param application entity to save
      */
     @Override
-    public void save(Application application) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+    public void save(Application application) throws
+            WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving application ==> " + application);
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_APPL_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, application.getCandidate().getId());
-            prStatement.setInt(2, application.getFaculty().getId());
-            prStatement.setInt(3, application.getPriority());
-            prStatement.setString(3, application.getApplicationStatus().toString());
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(INSERT_APPL_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, application.getCandidate().getId());
+                prStatement.setInt(2, application.getFaculty().getId());
+                prStatement.setString(3, application.getApplicationStatus().toString());
 
-            boolean saved = prStatement.executeUpdate() == 1;
-            LOG.debug("application " + application + " is saved ? ==>" + saved);
-            if (saved) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
+                boolean saved = prStatement.executeUpdate() == 1;
+                LOG.debug("application " + application + " is saved ? ==>" + saved);
+                if (saved) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
+                }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new AlreadyExistException("Application is already exist", e);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot save application ==> " + application, e);
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new AlreadyExistException("Application is already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot save application ==> " + application, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
@@ -165,30 +207,33 @@ public class ApplicationDaoImpl implements ApplicationDao {
      * @param application entity
      */
     @Override
-    public void update(Application application) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+    public void update(Application application) throws
+            WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start updating application");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, application.getPriority());
-            prStatement.setString(2, application.getApplicationStatus().toString());
-            prStatement.setInt(3, application.getId());
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setString(1, application.getApplicationStatus().toString());
+                prStatement.setInt(2, application.getId());
 
-            boolean updated = prStatement.executeUpdate() == 1;
-            LOG.debug("Application " + application + " is updated ? ==>" + updated);
+                boolean updated = prStatement.executeUpdate() == 1;
+                LOG.debug("Application " + application + " is updated ? ==>" + updated);
 
-            if (updated) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
+                if (updated) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
+                }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new AlreadyExistException("Similar application already exist", e);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot update application ==> " + application, e);
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new AlreadyExistException("Similar application already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot update application ==> " + application, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
@@ -200,23 +245,26 @@ public class ApplicationDaoImpl implements ApplicationDao {
     @Override
     public void delete(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start deleting application");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(DELETE_APPL_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(DELETE_APPL_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, id);
 
-            boolean deleted = prStatement.executeUpdate() == 1;
-            LOG.debug("Application with id " + id + " removed ? => " + deleted);
-            if (deleted) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application id" + id);
+                boolean deleted = prStatement.executeUpdate() == 1;
+                LOG.debug("Application with id " + id + " removed ? => " + deleted);
+                if (deleted) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application id" + id);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot delete application with id ==> " + id, e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot delete application with id ==> " + id, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
@@ -227,6 +275,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private static class ApplicationMapper implements EntityMapper<Application> {
         private static final String LOGIN_ID_COLUMN = "login_id";
         private static final String FACULTY_ID_COLUMN = "faculty_id";
+
         @Override
         public Application mapEntity(ResultSet rs) {
             Application application = new Application();
@@ -236,7 +285,6 @@ public class ApplicationDaoImpl implements ApplicationDao {
                 application.setId(rs.getInt(ColumnLabel.APPL_ID.getName()));
                 application.setCandidate(Candidate.builder().id(rs.getInt(LOGIN_ID_COLUMN)).build());
                 application.getFaculty().setId(rs.getInt(FACULTY_ID_COLUMN));
-                application.setPriority(rs.getInt(ColumnLabel.APPL_PRIORITY.getName()));
                 application.setApplicationStatus(Enum.valueOf(ApplicationStatus.class, rs.getString(ColumnLabel.APPL_STATUS.getName())));
                 return application;
             } catch (SQLException e) {

@@ -124,7 +124,7 @@
 //                " role=null, firstName='Alex', fatherName='null', secondName='null', certificate'null', city='null', " +
 //                "schoolName='null', isBlocked=false, applicationsList=null, applicationDate=null}, faculty=Faculty{id=3," +
 //                " namesList=null, budgetPlaces=0, totalPlaces=0, subjectList=null}, gradesList=[Grade{id=0, " +
-//                "subject=Subject{id=0, nameList=[Math], courseDuration=50}, grade=123}], priority=1, " +
+//                "subject=Subject{id=0, nameList=[Math], maxGrade=50}, grade=123}], " +
 //                "applicationStatus=BUDGET_APPROVED}", application.toString());
 //    }
 //}

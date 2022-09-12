@@ -27,13 +27,12 @@ public class SubjectDaoImpl implements SubjectDao {
             "WHERE fa.id = fs.faculty_id AND fs.subject_id = su.id AND su.id = sl.subject_id " +
             "AND fa.id = ?;";
     private static final String GET_ALL_SUBJECTS_QUERY = "SELECT su.id, su.maxGrade " +
-            "FROM subjects su, subjects_languages sl " +
-            "WHERE su.id = sl.subject_id GROUP BY su.id";
+            "FROM subjects su;";
 
-    private static final String GET_SUBJECT_NAME_QUERY = "SELECT la.lang_code sl.name FROM subjects_languages sl " +
+    private static final String GET_SUBJECT_NAME_QUERY = "SELECT la.lang_code, sl.name FROM subjects_languages sl " +
             "INNER JOIN  subjects su ON su.id = sl.subject_id " +
             "INNER JOIN languages la ON la.id = sl.language_id " +
-            "WHERE subject.id = ?";
+            "WHERE su.id = ?";
     private static final String INSERT_SUBJECT_QUERY = "INSERT INTO subjects (maxGrade) VALUE (?); ";
 
     private static final String INSERT_SUBJECT_LANG_QUERY = "INSERT INTO subjects_languages (`subject_id`, `language_id`, `name`) " +
@@ -120,8 +119,7 @@ public class SubjectDaoImpl implements SubjectDao {
         List<Subject> subjects = new ArrayList<>();
         LOG.debug("Start searching all subjects");
         try (Connection connection = getConnection()) {
-            try (
-                    Statement statement = connection.createStatement();
+            try (Statement statement = connection.createStatement();
                     ResultSet resultSet = statement.executeQuery(GET_ALL_SUBJECTS_QUERY);) {
                 LOG.trace("Resources are created");
                 SubjectMapper mapper = new SubjectMapper();
@@ -159,6 +157,9 @@ public class SubjectDaoImpl implements SubjectDao {
                     while (resultSet.next()) {
                         subjects.add(mapper.mapEntity(resultSet));
                     }
+                }
+                for(Subject subject : subjects){
+                    getNames(connection, subject);
                 }
                 connection.commit();
                 LOG.trace("Changes  at db was committed");
@@ -318,7 +319,7 @@ public class SubjectDaoImpl implements SubjectDao {
             Subject subject = new Subject();
             try {
                 subject.setId(rs.getInt(ColumnLabel.SUBJECT_ID.getName()));
-                subject.setMaxGrage(rs.getInt(ColumnLabel.SUBJECT_DURATION.getName()));
+                subject.setMaxGrage(rs.getInt(ColumnLabel.SUBJECT_MAX_GRADE.getName()));
             } catch (SQLException e) {
                 LOG.error("Cannot extract subject from ResultSet", e);
             }

@@ -43,13 +43,13 @@ INSERT INTO faculties_languages (faculty_id, language_id, name) VALUES (1, 1, 'M
                                                                        (2, 2, 'Аудит'),
                                                                        (3, 1, 'Engineering'),
                                                                        (3, 2, 'Машинобудування');
-INSERT INTO applications (login_id, faculty_id, priority, status) VALUES (2, 1, 1, 'NOT_PROCEED'),
-                                                                         (2, 2, 2, 'NOT_PROCEED'),
-                                                                         (2, 3, 3, 'NOT_PROCEED'),
-                                                                         (3, 1, 2, 'NOT_PROCEED'),
-                                                                         (3, 2, 2, 'NOT_PROCEED'),
-                                                                         (4, 1, 2, 'NOT_PROCEED');
-INSERT INTO subjects (duration) VALUES (50), (40), (45), (40);
+INSERT INTO applications (login_id, faculty_id, status) VALUES (2, 1, 'NOT_PROCEED'),
+                                                                         (2, 2, 'NOT_PROCEED'),
+                                                                         (2, 3, 'NOT_PROCEED'),
+                                                                         (3, 1, 'NOT_PROCEED'),
+                                                                         (3, 2, 'NOT_PROCEED'),
+                                                                         (4, 1, 'NOT_PROCEED');
+INSERT INTO subjects (maxGrade) VALUES (150), (140), (45), (40);
 
 INSERT INTO subjects_languages VALUES (1, 1, 'Math'), (1, 2, 'Математика'),
                                       (2, 1, 'Chemistry'), (2, 2, 'Хімія'),
@@ -62,10 +62,3 @@ INSERT INTO faculties_subjects VALUES (1, 1),
                                       (3, 2);
 INSERT INTO grades (subject_id, grade) VALUES (1, 123), (2, 147);
 INSERT INTO applications_grades VALUES (1, 1), (1, 2), (2, 2), (3, 1), (3, 2);
-INSERT INTO faculties (budget_places, total_places) VALUES (?, ?);
-INSERT INTO faculties_languages (faculty_id, language_id, name) VALUES
-    ((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'en'), ?),
-           ((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = 'uk'), ?);
-
-
-

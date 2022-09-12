@@ -28,17 +28,17 @@ public enum ColumnLabel {
     FACULTY_TOTAL_PLACES("total_places"),
 
     SUBJECT_ID("id"),
-    SUBJECT_DURATION("duration"),
+    SUBJECT_MAX_GRADE("maxGrade"),
     SUBJECT_NAME("name"),
 
     APPL_ID("id"),
     APPL_LOGIN_ID("login_id"),
     APPL_FACULTY_ID("faculty_id"),
-    APPL_PRIORITY("priority"),
-        APPL_STATUS("status"),
+    APPL_STATUS("status"),
 
     GRADE_ID("id"),
-    GRADE_VALUE("grade");
+    GRADE_VALUE("grade"),
+    GRADE_SUBJ_ID("subject_id");
     private final String name;
     public final String getName(){
         return name;

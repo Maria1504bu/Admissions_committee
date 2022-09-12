@@ -10,7 +10,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/candidateHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 <div class="container">
     <div class="row justify-content-center align-items-center">
@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <label for="maxGrade"><fmt:message key="updateSubj.MaxGrade"/></label>
                     <input type="text" class="form-control form-input" id="maxGrade" placeholder="<fmt:message key="updateSubj.MaxGrade"/>" name="maxGrade" required
-                           value="${subj.getCourseDuration()}">
+                           value="${subj.getMaxGrade()}">
                     <div class="invalid-feedback"><fmt:message key="createFaculty.FormFail"/></div>
                 </div>
                 <br>

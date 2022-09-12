@@ -14,7 +14,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/adminHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 <div class="container indexMainCtr">
     <h2><fmt:message key="candidates.title"/></h2>
@@ -49,7 +49,7 @@
                     <option value="${faculty.getId()}"
                             <c:if test="${faculty.getId() eq selectedFacultyId}">selected="selected"</c:if>
                     >
-                            ${faculty.getNamesList().get(0)}
+                            ${faculty.getNames().get(Language.valueOf(language.toString().toUpperCase())))}
                     </option>
                 </c:forEach>
             </select><br>

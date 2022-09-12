@@ -10,7 +10,7 @@
 </head>
 <body>
 <!-- Login Header beginging------------------------------------------------------------------->
-<%@ include file="/jspf/guestHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginging--------------------------------------------------------------------------->
 <div class="container">
     <div class="row justify-content-center align-items-center">

@@ -1,0 +1,23 @@
+<script>
+    function createApplication(facId) {
+        let role = "${role}";
+        console.log(role);
+        if (role == "CANDIDATE") {
+            console.log(facId)
+            document.getElementById('form' + facId).submit();
+        } else if (role == ""){
+            let modal = document.getElementById("pleaseLoginModal");
+            modal.style.display = "block";
+            let span = document.getElementsByClassName("close")[1];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+    }
+</script>

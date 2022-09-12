@@ -12,7 +12,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/adminHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 <div class="container-fluid indexMainCtr">
     <h2><fmt:message key="subjectsDash.Title"/></h2>
@@ -61,8 +61,8 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${subjects}" var="s" varStatus="loop">
-                    <tags:subj index="${loop.index + 1}" name="${s.getNameUk()}"
-                               courseDuration="${f.getCourseDuration()}"/>
+                    <tags:subj index="${loop.index + 1}" name="${s.getNames().get(Language.valueOf(language.toString().toUpperCase()))}"
+                               maxGrade="${s.getMaxGrade()}"/>
                 </c:forEach>
                 </tbody>
             </table>

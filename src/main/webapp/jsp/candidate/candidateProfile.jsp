@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- Header----------------------------------------------------------------------------------->
-<%@ include file="/jspf/candidateHeader.jspf" %>
+<tags:header></tags:header>
 <!-- Body beginning--------------------------------------------------------------------------->
 
 <c:set var="candidate" value="${sessionScope['user']}"/>
@@ -23,6 +23,7 @@
         <h3 id="table-header"><fmt:message key="candidateDash.YourDetails"/></h3>
         <h3>${candidate.getSecondName() += " " += candidate.getFirstName() += " " += candidate.getFatherName()}</h3>
         <h4>${candidate.getCity()}</h4>
+
         <h4><c:out
                 value="${candidate.isBlocked() == true ? 'Candidate Status: Under Checking' : 'Candidate Status: Ddetails Approved'}"/></h4>
 
@@ -43,7 +44,7 @@
             <c:forEach items="${applList}" var="a" varStatus="loop">
             <tr>
                 <td class="td-to-align">${a.getPriority()}</td>
-                <td>${a.getFaculty().getNamesList().get(0)}</td>
+                <td>${a.getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
 
                     <c:set var="avaregeGrade" value="${0}"/>
                 <c:forEach var="g" items="${a.getGradesList()}">
@@ -58,7 +59,7 @@
                 <c:forEach items="${a.getGradesList()}" var="g" varStatus="loop">
             <tr>
             <thead>
-            <th>${g.getSubject().getNameList().get(0)}</th>
+            <th>${g.getSubject().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</th>
             </thead>
             </tr>
             <tr>

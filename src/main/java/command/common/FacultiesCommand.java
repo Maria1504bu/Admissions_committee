@@ -27,7 +27,7 @@ public class FacultiesCommand implements ActionCommand {
         String lang = req.getLocale().getLanguage();
         LOG.debug("Language from locale ==> " + lang);
 
-        Role role = (Role) req.getAttribute("role");
+        Role role = (Role) req.getSession().getAttribute("role");
         LOG.debug("Attribute role ==> " + role);
         if(role == null || role == Role.CANDIDATE){
             page = ConfigurationManager.getProperty("common.index");
