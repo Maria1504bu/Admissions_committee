@@ -53,53 +53,6 @@
         form.submit();
     }
 
-    function submitForm() {
-        const formToSubmit = document.getElementById("certUploadForm");
-
-        const selectEl1 = document.getElementById("selectFaculty1");
-        const selectEl2 = document.getElementById("selectFaculty2");
-        const selectEl3 = document.getElementById("selectFaculty3");
-        let selectedFaculty1 = selectEl1.options[selectEl1.selectedIndex].value;
-        let selectedFaculty2 = selectEl2.options[selectEl2.selectedIndex].value;
-        let selectedFaculty3 = selectEl3.options[selectEl3.selectedIndex].value;
-        let fileField = document.forms["certUploadForm"]["certificateFile"].value;
-        if (selectedFaculty1 === selectedFaculty2 || selectedFaculty2 === selectedFaculty3 || selectedFaculty1 === selectedFaculty3) {
-            alert("Duplicated faculties!");
-            return false;
-        }
-        if (fileField == "") {
-            alert("Please choose a file!");
-            return false;
-        }
-
-        let subjectsGradesList = document.getElementsByClassName("prioritySubjects");
-        for (let i = 0; i < subjectsGradesList.length; i++) {
-            const hiddenFieldGrade = document.createElement('input');
-            hiddenFieldGrade.type = 'hidden';
-            hiddenFieldGrade.name = subjectsGradesList[i].id;
-            hiddenFieldGrade.value = subjectsGradesList[i].value;
-            formToSubmit.append(hiddenFieldGrade);
-        }
-
-        const hFieldPriority1Faculty = document.createElement('input');
-        hFieldPriority1Faculty.type = 'hidden';
-        hFieldPriority1Faculty.name = 'Priority1Faculty';
-        hFieldPriority1Faculty.value = selectedFaculty1;
-        formToSubmit.append(hFieldPriority1Faculty);
-
-        const hFieldPriority2Faculty = document.createElement('input');
-        hFieldPriority2Faculty.type = 'hidden';
-        hFieldPriority2Faculty.name = 'Priority2Faculty';
-        hFieldPriority2Faculty.value = selectedFaculty2;
-        formToSubmit.append(hFieldPriority2Faculty);
-
-        const hFieldPriority3Faculty = document.createElement('input');
-        hFieldPriority3Faculty.type = 'hidden';
-        hFieldPriority3Faculty.name = 'Priority3Faculty';
-        hFieldPriority3Faculty.value = selectedFaculty3;
-        formToSubmit.append(hFieldPriority3Faculty);
-    }
-
     //------------------------------------------------------------------
     //candidateDisplayProfile
     //------------------------------------------------------------------

@@ -20,29 +20,33 @@
             <p style="font-weight: bold;"><fmt:message key="candidates.navTitle"/></p>
             <ul class="nav nav-pills flex-column custom">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=prepareFacultyForm"><fmt:message key="facultiesDash.CreatePill"/></a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=prepareFacultyForm"><fmt:message
+                            key="facultiesDash.CreatePill"/></a>
                 </li>
                 <li class="nav-item">
                     <form action="${pageContext.request.contextPath}/controller" method="POST" id="updateIdForm">
                         <input type="hidden" name="command" value="updateFaculty"/>
                         <input type="hidden" name="updateFacultyId" id="updateF" value="">
-                        <a class="nav-link" href="javascript:{}" onclick="updateFaculty();"><fmt:message key="facultiesDash.UpdatePill"/></a>
+                        <a class="nav-link" href="javascript:{}" onclick="updateFaculty();"><fmt:message
+                                key="facultiesDash.UpdatePill"/></a>
                     </form>
                 </li>
                 <li class="nav-item">
                     <form action="${pageContext.request.contextPath}/controller" method="POST" id="deleteIdForm">
                         <input type="hidden" name="command" value="deleteFaculty"/>
                         <input type="hidden" name="deleteFacultyId" id="deleteF" value="">
-                        <a class="nav-link" href="javascript:{}" onclick="deleteFaculty();"><fmt:message key="facultiesDash.DeletePill"/></a>
+                        <a class="nav-link" href="javascript:{}" onclick="deleteFaculty();"><fmt:message
+                                key="facultiesDash.DeletePill"/></a>
                     </form>
                 </li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-9-custom">
             <h2 id="table-header"><fmt:message key="facultiesDash.OurFaculties"/></h2>
-            <h4> <fmt:message key="faculties.faculty"/> : ${appls.get(0).getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</h4>
+            <h4><fmt:message key="faculties.faculty"/>
+                : ${appls.get(0).getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</h4>
             <h4><fmt:message key="faculties.BudgetPlaces"/> : ${appls.get(0).getFaculty().getBudgetPlaces()}</h4>
-            <h4><fmt:message key="faculties.TotalPlaces"/> :  ${appls.get(0).getFaculty().getTotalPlaces()}</h4>
+            <h4><fmt:message key="faculties.TotalPlaces"/> : ${appls.get(0).getFaculty().getTotalPlaces()}</h4>
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -58,12 +62,24 @@
                 <c:forEach items="${appls}" var="a" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
-                        <td><tags:initials secondName="${a.getCandidate().getSecondName()}" firstName="${a.getCandidate().getFirstName()}" fatherName="${a.getCandidate().getFatherName()}"></tags:initials></td>
+                        <td><tags:initials secondName="${a.getCandidate().getSecondName()}"
+                                           firstName="${a.getCandidate().getFirstName()}"
+                                           fatherName="${a.getCandidate().getFatherName()}"></tags:initials></td>
                         <c:forEach items="${a.getGradesList()}" var="grade">
                             <td class="td-to-align">${grade.getGrade()}</td>
                         </c:forEach>
                         <td>
-                            ${a.getApplicationStatus()}
+                                ${a.getApplicationStatus()}
+                        </td>
+                        <td>
+                            <form id="form${a.getFaculty().getId()}"
+                                  action="${pageContext.request.contextPath}/controller" method="get">
+                                <input type="hidden" name="command" value="applications">
+                                <input type="hidden" name="applsToFacId" value="${a.getFaculty().getId()}">
+                                <a href="javascript:{}" onclick="createApplication(${a.getFaculty().getId()});">
+                                    <input type="button" value="<fmt:message key="index.sendApplication"/>">
+                                </a>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>
@@ -73,6 +89,8 @@
     </div>
 </div>
 <!-- Modal ------------------------------------------>
+<%@ include file="/jspf/createApplModal.jspf" %>
+<%@ include file="/jspf/pleaseLoginModal.jspf" %>
 <%@ include file="/jspf/modal.jspf" %>
 <!-- Footer ----------------------------------------->
 <%@ include file="/jspf/footer.jspf" %>
@@ -80,6 +98,7 @@
 <!-- JavaScript functions ---------------------------->
 <%@ include file="/js/facultiesDashJS.jspf" %>
 <%@ include file="/js/modal.jspf" %>
+<%@ include file="/js/createApplicationJs.jspf" %>
 
 </body>
 </html>

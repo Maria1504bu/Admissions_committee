@@ -15,7 +15,7 @@
                     key="header.Faculties"/></a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=applToFaculty"><fmt:message key="header.Applications"/></a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=applications"><fmt:message key="header.Applications"/></a>
         </li>
         <li class="nav-item px-3">
             <label class="nav-link" style="margin-bottom: 0px;"><fmt:message key="candidateHeader.loggedIn"/>:</label><br>

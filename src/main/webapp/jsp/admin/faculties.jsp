@@ -23,6 +23,13 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=prepareFacultyForm"><fmt:message key="facultiesDash.CreatePill"/></a>
                 </li>
                 <li class="nav-item">
+                    <form action="${pageContext.request.contextPath}/controller" method="POST" id="applsIdForm">
+                        <input type="hidden" name="command" value="applications"/>
+                        <input type="hidden" name="applsToFacId" id="applsF" value="">
+                        <a class="nav-link" href="javascript:{}" onclick="applsFaculty();"><fmt:message key="facultiesDash.ApplsPill"/></a>
+                    </form>
+                </li>
+                <li class="nav-item">
                     <form action="${pageContext.request.contextPath}/controller" method="POST" id="updateIdForm">
                         <input type="hidden" name="command" value="updateFaculty"/>
                         <input type="hidden" name="updateFacultyId" id="updateF" value="">

@@ -50,11 +50,9 @@
                 <td class="td-to-align">${f.getTotalPlaces()}</td>
                 <td>
                     <form id="form${f.getId()}" action="${pageContext.request.contextPath}/controller" method="get">
-                        <input type="hidden" name="command" value="applToFaculty">
-                        <input type="hidden" name="facultyId" value="${f.getId()}">
-                    <a  href="javascript:{}" onclick="createApplication(${f.getId()});">
-                    <input type="button" value="<fmt:message key="index.sendApplication"/>">
-                    </a>
+                        <input type="hidden" name="command" value="applications">
+                        <input type="hidden" name="applsToFacId" value="${f.getId()}">
+                    <input type="submit" value="<fmt:message key="index.details"/>">
                     </form>
                 </td>
             </tr>
@@ -63,14 +61,10 @@
     </table>
 </div>
 
-<!-- Modal ------------------------------------------>
-<%@ include file="/jspf/createApplModal.jspf" %>
-<%@ include file="/jspf/pleaseLoginModal.jspf" %>
 <!-- Footer ------------------------------------------>
 <%@ include file="/jspf/footer.jspf" %>
 <!-- JavaScript functions ---------------------------->
 <%@ include file="/js/javascript.jspf" %>
-<%@ include file="/js/createApplicationJs.jspf" %>
 
 </body>
 </html>

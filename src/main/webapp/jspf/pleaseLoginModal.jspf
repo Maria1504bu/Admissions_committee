@@ -2,16 +2,17 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span><h2><fmt:message key="modal.title"/></h2></span>
+            <span><h2><fmt:message key="pleaseLoginModal.title"/></h2></span>
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-            <a href="${pageContext.request.contextPath}/controller?command=login"><input type="button" value="<fmt:message
-                    key="header.Login"/>"></a>
+            <p><fmt:message key="pleaseLoginModal.logIn"/></p>
+            <a href="${pageContext.request.contextPath}/controller?command=login"><input type="button" class="btn btn-primary"
+                                                                                         value="<fmt:message key="header.Login"/>"></a>
             <hr>
-            <a href="${pageContext.request.contextPath}/controller?command=initSignup"><input type="button" value="<fmt:message
-                    key="header.Registration"/>"></a>
-            <p><fmt:message key="modal.secondSent"/></p>
+            <p><fmt:message key="pleaseLoginModal.signUp"/></p>
+            <a href="${pageContext.request.contextPath}/controller?command=initSignup"><input type="button" class="btn btn-primary"
+                                                                                              value="<fmt:message key="header.Registration"/>"></a>
         </div>
     </div>
 </div>

@@ -4,11 +4,21 @@
 <script>
     const inputs = document.querySelectorAll('.radioGroup');
     const clickHandler = i => {
+        document.getElementById("applsF").value = i.getAttribute("value");
         document.getElementById("updateF").value = i.getAttribute("value");
         document.getElementById("deleteF").value = i.getAttribute("value");
     };
     inputs.forEach(i => i.onclick = () => clickHandler(i));
 
+    function applsFaculty(){
+        let facultyToUpdate = document.getElementById('applsF');
+        if(facultyToUpdate.value == ''){
+            modalAlert();
+            return false;
+        }else {
+            document.getElementById('applsIdForm').submit();
+        }
+    }
 
     function updateFaculty(){
         let facultyToUpdate = document.getElementById('updateF');

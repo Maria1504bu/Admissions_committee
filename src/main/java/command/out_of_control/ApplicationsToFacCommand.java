@@ -9,10 +9,10 @@ import services.interfaces.ApplicationService;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-public class ApplicationToFacultyCommand implements ActionCommand {
+public class ApplicationsToFacCommand implements ActionCommand {
     private final ApplicationService applicationService;
-    private static final Logger LOG = Logger.getLogger(ApplicationToFacultyCommand.class);
-    public ApplicationToFacultyCommand(ApplicationService applicationService) {
+    private static final Logger LOG = Logger.getLogger(ApplicationsToFacCommand.class);
+    public ApplicationsToFacCommand(ApplicationService applicationService) {
         this.applicationService = applicationService;
     }
 
@@ -20,7 +20,7 @@ public class ApplicationToFacultyCommand implements ActionCommand {
     public String execute(HttpServletRequest req) {
         LOG.trace("ApplicationToFacultyCommand starts");
         String page = ConfigurationManager.getProperty("admin.applications");
-        String facultyId = req.getParameter("facultyId");
+        String facultyId = req.getParameter("applsToFacId");
         List <Application> applications = null;
         if(facultyId != null) {
             applications = applicationService.getFacultyAppls(Integer.parseInt(facultyId));

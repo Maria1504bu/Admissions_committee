@@ -40,7 +40,7 @@ public class CommandContainer {
         commands.put("signupStart", new SignupStartCommand(candidateService));
         commands.put("signupFinal", new SignupFinalCommand(candidateService));
         commands.put("initSignup", new InitSignupCommand());
-        commands.put("applToFaculty", new ApplicationToFacultyCommand(applicationService));
+        commands.put("applications", new ApplicationsToFacCommand(applicationService));
         // candidate
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
         commands.put("createApplication", new CreateApplicationCommand(facultyService, subjectService));

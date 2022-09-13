@@ -55,17 +55,6 @@
 //    }
 //
 //    @Test
-//    void getPriority() {
-//        Assertions.assertEquals(1, application.getPriority());
-//    }
-//
-//    @Test
-//    void setPriority() {
-//        application.setPriority(3);
-//        Assertions.assertEquals(3, application.getPriority());
-//    }
-//
-//    @Test
 //    void getApplicationStatus() {
 //        Assertions.assertEquals(ApplicationStatus.BUDGET_APPROVED, application.getApplicationStatus());
 //    }

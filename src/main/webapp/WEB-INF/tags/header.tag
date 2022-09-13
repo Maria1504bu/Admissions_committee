@@ -7,5 +7,4 @@
 </c:if>
 <c:if test="${empty role}">
     <%@ include file="/jspf/guestHeader.jspf" %>
-    <h1>eeeee</h1>
 </c:if>

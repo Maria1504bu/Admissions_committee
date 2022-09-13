@@ -3,6 +3,7 @@
         let role = "${role}";
         console.log(role);
         if (role == "CANDIDATE") {
+            //Todo: create modal
             console.log(facId)
             document.getElementById('form' + facId).submit();
         } else if (role == ""){

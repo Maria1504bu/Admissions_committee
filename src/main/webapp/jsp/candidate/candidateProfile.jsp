@@ -34,7 +34,7 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th><fmt:message key="getCandidate.Priority"/></th>
+                <th>N</th>
                 <th><fmt:message key="getCandidate.Faculty"/></th>
                 <th><fmt:message key="getCandidate.AverageGrade"/></th>
                 <th><fmt:message key="getCandidate.Status"/></th>
@@ -43,7 +43,7 @@
             <tbody>
             <c:forEach items="${applList}" var="a" varStatus="loop">
             <tr>
-                <td class="td-to-align">${a.getPriority()}</td>
+                <td class="td-to-align">${loop.index + 1}</td>
                 <td>${a.getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
 
                     <c:set var="avaregeGrade" value="${0}"/>
