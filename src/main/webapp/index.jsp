@@ -60,7 +60,6 @@
         </tbody>
     </table>
 </div>
-
 <!-- Footer ------------------------------------------>
 <%@ include file="/jspf/footer.jspf" %>
 <!-- JavaScript functions ---------------------------->

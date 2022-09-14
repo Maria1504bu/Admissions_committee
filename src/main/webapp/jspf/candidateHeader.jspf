@@ -1,6 +1,6 @@
 <!-- Header beginning--------------------------------------------------------------------------->
 <%@ taglib prefix="inTag" tagdir="/WEB-INF/tags" %>
-<nav class="navbar navbar-expand-sm navbar-dark navbar-custom">
+<nav class="navbar navbar-expand-sm navbar-dark navbar-custom d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4">
 <%--    if i set it to another place localization don`t work for navbar--%>
     <%@ include file="/jspf/lang.jspf" %>
     <div class="navbar-header">
@@ -15,7 +15,7 @@
                     key="header.Faculties"/></a>
         </li>
         <li class="nav-item px-3">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=applications"><fmt:message key="header.Applications"/></a>
+            <a class="nav-link" href="javascript:{}" onclick="chooseFaculty()"><fmt:message key="header.Applications"/></a>
         </li>
         <li class="nav-item px-3">
             <label class="nav-link" style="margin-bottom: 0px;"><fmt:message key="candidateHeader.loggedIn"/>:</label><br>
@@ -30,4 +30,9 @@
     </ul>
 </nav>
 <br>
+<%@ include file="/jspf/chooseFacultyModal.jspf"%>
+<%@ include file="/js/chooseFacultyJs.jspf"%>
+<style>
+    <%@ include file="/css/modalStyle.css"%>
+</style>
 <!-- Header end--------------------------------------------------------------------------->

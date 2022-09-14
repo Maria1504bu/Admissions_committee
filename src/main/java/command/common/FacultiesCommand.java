@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 
@@ -21,7 +22,7 @@ public class FacultiesCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.debug("Start facultiesCommand");
         String page = null;
         String lang = req.getLocale().getLanguage();

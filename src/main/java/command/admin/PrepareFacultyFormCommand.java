@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class PrepareFacultyFormCommand implements ActionCommand {
@@ -16,7 +17,7 @@ public class PrepareFacultyFormCommand implements ActionCommand {
         this.subjectService = subjectService;
     }
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.debug("CreateFacultyCommand starts");
         String page = ConfigurationManager.getProperty("admin.createFaculty");
 

@@ -13,46 +13,6 @@
         }
     }
 
-
-    //index.jsp
-
-    //------------------------------------------------------------------
-    //candidateInsert
-    //------------------------------------------------------------------
-    //select event handler
-    function selectRun() {
-        const selectEl1 = document.getElementById("selectFaculty1");
-        const selectEl2 = document.getElementById("selectFaculty2");
-        const selectEl3 = document.getElementById("selectFaculty3");
-        let selectedFaculty1 = selectEl1.options[selectEl1.selectedIndex].value;
-        let selectedFaculty2 = selectEl2.options[selectEl2.selectedIndex].value;
-        let selectedFaculty3 = selectEl3.options[selectEl3.selectedIndex].value;
-
-        const form = document.createElement('form');
-        form.method = 'post';
-        form.action = '${pageContext.request.contextPath}/controller?command=insertEnrolleApplication';
-        const hiddenField1 = document.createElement('input');
-        hiddenField1.type = 'hidden';
-        hiddenField1.name = 'selectedFaculty1';
-        hiddenField1.value = selectedFaculty1;
-        form.append(hiddenField1);
-
-        const hiddenField2 = document.createElement('input');
-        hiddenField2.type = 'hidden';
-        hiddenField2.name = 'selectedFaculty2';
-        hiddenField2.value = selectedFaculty2;
-        form.append(hiddenField2);
-
-        const hiddenField3 = document.createElement('input');
-        hiddenField3.type = 'hidden';
-        hiddenField3.name = 'selectedFaculty3';
-        hiddenField3.value = selectedFaculty3;
-        form.append(hiddenField3);
-
-        document.body.append(form);
-        form.submit();
-    }
-
     //------------------------------------------------------------------
     //candidateDisplayProfile
     //------------------------------------------------------------------

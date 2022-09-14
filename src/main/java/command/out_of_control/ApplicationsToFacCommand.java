@@ -10,6 +10,7 @@ import services.interfaces.ApplicationService;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ApplicationsToFacCommand implements ActionCommand {
@@ -23,7 +24,7 @@ public class ApplicationsToFacCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.trace("ApplicationToFacultyCommand starts");
         String page = ConfigurationManager.getProperty("common.applications");
         String facultyId = req.getParameter("applsToFacId");

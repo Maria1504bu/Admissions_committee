@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class BlockCandidateCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(BlockCandidateCommand.class);
@@ -16,7 +17,7 @@ public class BlockCandidateCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.debug("BlockCandidateCommand starts");
         String page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("admin.candidates");

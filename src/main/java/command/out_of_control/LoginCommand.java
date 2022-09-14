@@ -11,6 +11,7 @@ import services.ServiceException;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class LoginCommand implements ActionCommand {
@@ -26,7 +27,7 @@ public class LoginCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         logger.debug("LoginCommand starts");
         HttpSession session = req.getSession();
         String page = null;

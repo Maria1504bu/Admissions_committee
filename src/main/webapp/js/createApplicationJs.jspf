@@ -14,7 +14,6 @@
                     modal.style.display = "none";
                 }
             }
-            console.log(facId)
         } else if (role == ""){
             let modal = document.getElementById("pleaseLoginModal");
             modal.style.display = "block";

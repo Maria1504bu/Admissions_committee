@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class CandidateProfileCommand implements ActionCommand {
@@ -19,7 +20,7 @@ public class CandidateProfileCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.debug("Start candidateProfileCommand");
         Candidate candidate = (Candidate) req.getSession().getAttribute("user");
         LOG.trace("User from session ==>" + candidate);

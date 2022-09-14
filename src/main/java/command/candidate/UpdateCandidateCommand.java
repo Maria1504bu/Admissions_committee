@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Get change parameters of candidate from request and update the candidate in the db
@@ -32,7 +33,7 @@ public class UpdateCandidateCommand implements ActionCommand {
     private final static String PARAM_NAME_SCHOOL_NAME = "schoolName";
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("UpdateCandidateCommand starts");
         String page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("candidate.candidateProfile");

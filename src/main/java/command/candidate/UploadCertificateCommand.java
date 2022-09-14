@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,7 @@ public class UploadCertificateCommand implements ActionCommand {
      * the web application directory.
      */
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("UploadCertificateCommand starts");
         String page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("candidate.candidateProfile");

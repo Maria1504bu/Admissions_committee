@@ -1,0 +1,18 @@
+<div id="chooseFacultyModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="chooseFacultyModal.Title"/></h2></span>
+            <span class="closeM">&times;</span>
+        </div>
+        <div class="modal-body">
+            <h5><fmt:message key="chooseFacultyModal.Description"/></h5>
+            <form action="${pageContext.request.contextPath}/controller" method="GET">
+                <input type="hidden" name="command" value="applications">
+            <select id="chooseFac" class="form-input" name="applsToFacId" required>
+            </select>
+                <input class="btn btn-primary" type="submit" value="<fmt:message key="chooseFacultyModal.Search"/>">
+            </form>
+        </div>
+    </div>
+</div>

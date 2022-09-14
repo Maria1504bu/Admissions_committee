@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -24,7 +25,7 @@ public class UpdateFacultyCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(UpdateFacultyCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("UpdateFacultyCommand starts");
         String page;
 

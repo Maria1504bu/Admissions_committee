@@ -9,6 +9,7 @@ import services.interfaces.CandidateService;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ private final FacultyService facultyService;
     private static final Logger LOG = Logger.getLogger(CandidatesCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("CandidatesCommand starts");
         String page = ConfigurationManager.getProperty("admin.candidates");
         String language = request.getLocale().getLanguage();

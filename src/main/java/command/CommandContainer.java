@@ -5,6 +5,7 @@ import command.candidate.CreateApplicationCommand;
 import command.candidate.CandidateProfileCommand;
 import command.candidate.SignupFinalCommand;
 import command.candidate.UploadCertificateCommand;
+import command.common.AjaxChooseFacultyCommand;
 import command.common.FacultiesCommand;
 import command.common.LogoutCommand;
 import command.out_of_control.*;
@@ -41,6 +42,7 @@ public class CommandContainer {
         commands.put("signupFinal", new SignupFinalCommand(candidateService));
         commands.put("initSignup", new InitSignupCommand());
         commands.put("applications", new ApplicationsToFacCommand(facultyService, applicationService));
+        commands.put("ajaxFaculty", new AjaxChooseFacultyCommand(facultyService));
         // candidate
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
         commands.put("createApplication", new CreateApplicationCommand(applicationService));

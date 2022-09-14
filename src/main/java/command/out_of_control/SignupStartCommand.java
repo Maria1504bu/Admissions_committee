@@ -11,6 +11,7 @@ import services.EmptyFieldsException;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ public class SignupStartCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.debug("SignupStartCommand starts");
         HttpSession session = req.getSession();
         String email = req.getParameter(PARAM_NAME_EMAIL);

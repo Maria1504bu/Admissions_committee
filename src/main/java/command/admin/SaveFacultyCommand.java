@@ -8,6 +8,7 @@ import services.EmptyFieldsException;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 public class SaveFacultyCommand implements ActionCommand {
@@ -19,7 +20,7 @@ public class SaveFacultyCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
             LOG.debug("CreateFacultyCommand starts -->" + request);
             String page = ConfigurationManager.getProperty("redirect") +
                     ConfigurationManager.getProperty("path.command.faculties");

@@ -82,10 +82,12 @@
 </div>
 <!-- Modal ------------------------------------------>
 <%@ include file="/jspf/modal.jspf" %>
+<%@ include file="/jspf/chooseFacultyModal.jspf"%>
 <!-- Footer ----------------------------------------->
 <%@ include file="/jspf/footer.jspf" %>
 
 <!-- JavaScript functions ---------------------------->
+<%@ include file="/js/chooseFacultyJs.jspf"%>
 <%@ include file="/js/facultiesDashJS.jspf" %>
 <%@ include file="/js/modal.jspf" %>
 

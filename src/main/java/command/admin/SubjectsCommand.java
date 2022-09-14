@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class SubjectsCommand implements ActionCommand {
@@ -19,7 +20,7 @@ public class SubjectsCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(SubjectsCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("SubjectBoardCommand starts -->" + request);
         String page = ConfigurationManager.getProperty("admin.subjects");
         List<Subject> subjects = subjectService.findAll();

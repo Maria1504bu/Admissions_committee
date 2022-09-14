@@ -5,6 +5,7 @@ import managers.ConfigurationManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class SetLocaleCommand implements ActionCommand {
     private static final String PARAM_LANGUAGE = "language";
@@ -16,7 +17,7 @@ public class SetLocaleCommand implements ActionCommand {
      */
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         String language = request.getParameter(PARAM_LANGUAGE);
         String url = request.getHeader("referer").split("8080/committee")[1];
         LOG.debug("referer url ==>" + url);

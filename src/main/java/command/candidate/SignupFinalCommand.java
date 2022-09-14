@@ -9,6 +9,7 @@ import services.EmptyFieldsException;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class SignupFinalCommand implements ActionCommand {
@@ -25,7 +26,7 @@ public class SignupFinalCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("SignUpFinalCommand starts -->" + request);
         HttpSession session = request.getSession();
         Candidate candidate = (Candidate) session.getAttribute("user");

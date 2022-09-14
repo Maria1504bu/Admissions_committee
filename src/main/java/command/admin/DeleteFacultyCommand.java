@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.FacultyService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class DeleteFacultyCommand implements ActionCommand {
 
@@ -17,7 +18,7 @@ public class DeleteFacultyCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(DeleteFacultyCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("DeleteFacultyCommand starts");
         String page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("path.command.faculties");

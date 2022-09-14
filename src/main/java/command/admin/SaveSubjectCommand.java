@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class SaveSubjectCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(SaveSubjectCommand.class);
@@ -15,7 +16,7 @@ public class SaveSubjectCommand implements ActionCommand {
         this.subjectService = subjectService;
     }
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.debug("SaveSubjectCommand starts");
         String page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("path.command.subjects");

@@ -39,7 +39,7 @@ public class Controller extends HttpServlet {
             command = CommandContainer.get(req.getParameter("command"));
         }
         LOG.trace("Command ==> " + command);
-        page = command.execute(req);
+        page = command.execute(req, resp);
         LOG.trace("Next page ==> " + page);
         if (page != null) {
             renderPage(req, resp, page);

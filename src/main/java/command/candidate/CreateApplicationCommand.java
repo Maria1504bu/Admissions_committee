@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.ApplicationService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CreateApplicationCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest req) {
+    public String execute(HttpServletRequest req, HttpServletResponse response) {
         LOG.debug("CreateApplicationCommand starts");
         String page =  ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("common.applications");

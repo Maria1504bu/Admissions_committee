@@ -9,6 +9,7 @@ import services.interfaces.ApplicationService;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class CandidateDetailsCommand implements ActionCommand {
@@ -23,7 +24,7 @@ public class CandidateDetailsCommand implements ActionCommand {
     }
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request, HttpServletResponse resp) {
         LOG.debug("CandidateDetailsCommand starts");
         String page = ConfigurationManager.getProperty("admin.candidateDetails");
         String candidateId = request.getParameter("selectedCandidateId");

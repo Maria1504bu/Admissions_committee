@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import services.interfaces.SubjectService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class UpdateSubjectCommand implements ActionCommand {
@@ -20,7 +21,8 @@ public class UpdateSubjectCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(UpdateSubjectCommand.class);
 
     @Override
-    public String execute(HttpServletRequest request) {
+    public String execute(HttpServletRequest request,
+                          HttpServletResponse response) {
         LOG.debug("UpdateSubjectCommand starts");
         HttpSession session = request.getSession();
         String page;
