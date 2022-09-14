@@ -146,7 +146,7 @@ CREATE TABLE applications
     `id`         INT         NOT NULL AUTO_INCREMENT,
     `login_id`   INT         NOT NULL,
     `faculty_id` INT         NOT NULL,
-    `status`     VARCHAR(30) NOT NULL,
+    `status`     VARCHAR(30) NOT NULL DEFAULT 'NOT_PROCEED',
     PRIMARY KEY (`id`),
     INDEX `fk_statement_logins1_idx` (`login_id` ASC) VISIBLE,
     INDEX `fk_applications_faculties1_idx` (`faculty_id` ASC) VISIBLE,

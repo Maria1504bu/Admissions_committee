@@ -24,7 +24,7 @@ public class SubjectDaoImpl implements SubjectDao {
 
     private static final String GET_SUBJECT_BY_FACULTY_ID_QUERY = "SELECT su.id, su.maxGrade " +
             "FROM faculties fa, faculties_subjects fs, subjects su " +
-            "WHERE fa.id = fs.faculty_id AND fs.subject_id = su.id AND su.id = sl.subject_id " +
+            "WHERE fa.id = fs.faculty_id AND fs.subject_id = su.id AND su.id = fs.subject_id " +
             "AND fa.id = ?;";
     private static final String GET_ALL_SUBJECTS_QUERY = "SELECT su.id, su.maxGrade " +
             "FROM subjects su;";
@@ -319,7 +319,7 @@ public class SubjectDaoImpl implements SubjectDao {
             Subject subject = new Subject();
             try {
                 subject.setId(rs.getInt(ColumnLabel.SUBJECT_ID.getName()));
-                subject.setMaxGrage(rs.getInt(ColumnLabel.SUBJECT_MAX_GRADE.getName()));
+                subject.setMaxGrade(rs.getInt(ColumnLabel.SUBJECT_MAX_GRADE.getName()));
             } catch (SQLException e) {
                 LOG.error("Cannot extract subject from ResultSet", e);
             }

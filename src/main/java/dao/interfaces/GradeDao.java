@@ -1,12 +1,25 @@
 package dao.interfaces;
 
 import dao.AlreadyExistException;
+import dao.DaoException;
 import dao.WrongExecutedQueryException;
 import models.Grade;
 
+import java.sql.Connection;
 import java.util.List;
 
-public interface GradeDao extends CrudDao<Grade>{
-    void createApplGradesSet(int applId, int gradeId) throws WrongExecutedQueryException, AlreadyExistException;
+public interface GradeDao{
+    void save(Connection connection, Grade grade) throws WrongExecutedQueryException, AlreadyExistException, DaoException;
+
+    Grade getById(int id) throws DaoException;
+
+    List<Grade> findAll() throws DaoException;
+
     List<Grade> getApplGrades(int applId);
+
+    void createApplGradesSet(Connection connection) throws WrongExecutedQueryException, AlreadyExistException;
+
+    void update(Grade grade) throws WrongExecutedQueryException, AlreadyExistException, DaoException;
+
+    void delete(int id) throws WrongExecutedQueryException, DaoException;
 }

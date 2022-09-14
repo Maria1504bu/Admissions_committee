@@ -44,12 +44,15 @@
         <div class="col-sm-9 col-sm-9-custom">
             <h2 id="table-header"><fmt:message key="facultiesDash.OurFaculties"/></h2>
             <h4><fmt:message key="faculties.faculty"/>
-                : ${appls.get(0).getFaculty().getNames().get(Language.valueOf(language.toString().toUpperCase()))}</h4>
-            <h4><fmt:message key="faculties.BudgetPlaces"/> : ${appls.get(0).getFaculty().getBudgetPlaces()}</h4>
-            <h4><fmt:message key="faculties.TotalPlaces"/> : ${appls.get(0).getFaculty().getTotalPlaces()}</h4>
+                : ${faculty.getNames().get(Language.valueOf(language.toString().toUpperCase()))}</h4>
+            <h4><fmt:message key="faculties.BudgetPlaces"/> : ${faculty.getBudgetPlaces()}</h4>
+            <h4><fmt:message key="faculties.TotalPlaces"/> : ${faculty.getTotalPlaces()}</h4>
+            <a  href="javascript:{}" onclick="createApplication();">
+                <input class="btn btn-primary" type="button" value="<fmt:message key="index.sendApplication"/>">
+            </a>
+            <h5 class="errorMsg">${errorMessage}</h5>
             <table class="table table-hover">
                 <thead>
-                <tr>
                     <th>N</th>
                     <th><fmt:message key="candidates.tableThCandidate"/></th>
                     <c:forEach items="${appls.get(0).getGradesList()}" var="grade">
@@ -70,16 +73,6 @@
                         </c:forEach>
                         <td>
                                 ${a.getApplicationStatus()}
-                        </td>
-                        <td>
-                            <form id="form${a.getFaculty().getId()}"
-                                  action="${pageContext.request.contextPath}/controller" method="get">
-                                <input type="hidden" name="command" value="applications">
-                                <input type="hidden" name="applsToFacId" value="${a.getFaculty().getId()}">
-                                <a href="javascript:{}" onclick="createApplication(${a.getFaculty().getId()});">
-                                    <input type="button" value="<fmt:message key="index.sendApplication"/>">
-                                </a>
-                            </form>
                         </td>
                     </tr>
                 </c:forEach>

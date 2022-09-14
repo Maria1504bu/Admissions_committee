@@ -3,9 +3,18 @@
         let role = "${role}";
         console.log(role);
         if (role == "CANDIDATE") {
-            //Todo: create modal
+            let modal = document.getElementById("createApplModal");
+            modal.style.display = "block";
+            let span = document.getElementsByClassName("close")[0];
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
             console.log(facId)
-            document.getElementById('form' + facId).submit();
         } else if (role == ""){
             let modal = document.getElementById("pleaseLoginModal");
             modal.style.display = "block";

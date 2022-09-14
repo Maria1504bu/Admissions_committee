@@ -2,7 +2,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span><h2><fmt:message key="pleaseLoginModal.title"/></h2></span>
+            <span><h2><fmt:message key="pleaseLoginModal.Title"/></h2></span>
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">

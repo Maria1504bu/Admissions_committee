@@ -2,13 +2,32 @@
     <!-- Modal content -->
     <div class="modal-content">
         <div class="modal-header">
-            <span><h2><fmt:message key="modal.title"/></h2></span>
+            <span><h2><fmt:message key="createApplModal.Title"/></h2></span>
             <span class="close">&times;</span>
         </div>
         <div class="modal-body">
-            <input type="text" name="" value="">
-            create appl
-            <p><fmt:message key="modal.secondSent"/></p>
+            <h4><fmt:message key="createApplModal.EnterYourGrade"/></h4>
+            <hr>
+            <form action="${pageContext.request.contextPath}/controller" method="get">
+                <input type="hidden" name="command" value="createApplication">
+                <table>
+                <thead>
+                <th><fmt:message key="createApplModal.SubjectName"/></th>
+                <th><fmt:message key="createApplModal.MaxGrade"/></th>
+                <th><fmt:message key="createApplModal.YourGrade"/></th>
+                </thead>
+                <tbody>
+                <c:forEach items="${faculty.getSubjectList()}" var="subject">
+                    <tr>
+                        <td>${subject.getNames().get(Language.valueOf(language.toString().toUpperCase()))}</td>
+                        <td class="td-to-align">${subject.getMaxGrade()}</td>
+                        <td><input type="text" name="${subject.getId()}" required="required"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+                </table>
+                <input class="btn btn-primary" type="submit" value="<fmt:message key="createApplModal.SendAppl"/>">
+            </form>
         </div>
     </div>
 </div>

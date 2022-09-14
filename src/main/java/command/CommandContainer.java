@@ -29,7 +29,7 @@ public class CommandContainer {
 
         ApplicationService applicationService = new ApplicationServiceImpl(applicationDao, candidateDao, facultyDao, gradeDao, subjectDao);
         CandidateService candidateService = new CandidateServiceImpl(candidateDao);
-        FacultyService facultyService = new FacultyServiceImpl(facultyDao);
+        FacultyService facultyService = new FacultyServiceImpl(facultyDao, subjectDao);
         GradeService gradeService = new GradeServiceImpl(gradeDao);
         SubjectService subjectService = new SubjectServiceImpl(subjectDao);
 
@@ -40,10 +40,10 @@ public class CommandContainer {
         commands.put("signupStart", new SignupStartCommand(candidateService));
         commands.put("signupFinal", new SignupFinalCommand(candidateService));
         commands.put("initSignup", new InitSignupCommand());
-        commands.put("applications", new ApplicationsToFacCommand(applicationService));
+        commands.put("applications", new ApplicationsToFacCommand(facultyService, applicationService));
         // candidate
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
-        commands.put("createApplication", new CreateApplicationCommand(facultyService, subjectService));
+        commands.put("createApplication", new CreateApplicationCommand(applicationService));
         commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
         // admin
         commands.put("candidates", new CandidatesCommand(candidateService, facultyService));

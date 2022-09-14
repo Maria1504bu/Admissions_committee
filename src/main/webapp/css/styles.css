@@ -55,6 +55,10 @@ html, body {
     margin: 0;
 }
 
+.errorMsg{
+    color: red;
+}
+
 .indexText{
     text-align: justify;
 }

@@ -1102,6 +1102,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </column>
     <column id="306" parent="290" name="status">
       <DataType>varchar(30)|0s</DataType>
+      <DefaultExpression>&apos;NOT_PROCEED&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>

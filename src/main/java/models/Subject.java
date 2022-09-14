@@ -46,7 +46,7 @@ public class Subject implements Serializable {
         return maxGrade;
     }
 
-    public void setMaxGrage(int maxGrade) {
+    public void setMaxGrade(int maxGrade) {
         this.maxGrade = maxGrade;
     }
 

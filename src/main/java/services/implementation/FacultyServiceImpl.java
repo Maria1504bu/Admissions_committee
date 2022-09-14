@@ -5,6 +5,7 @@ import dao.AlreadyExistException;
 import dao.DaoException;
 import dao.WrongExecutedQueryException;
 import dao.interfaces.FacultyDao;
+import dao.interfaces.SubjectDao;
 import models.Faculty;
 import models.Language;
 import models.Subject;
@@ -21,9 +22,11 @@ public class FacultyServiceImpl implements FacultyService {
 
     private static final Logger LOG = Logger.getLogger(FacultyServiceImpl.class);
     private FacultyDao facultyDao;
+    private SubjectDao subjectDao;
 
-    public FacultyServiceImpl(FacultyDao facultyDao){
+    public FacultyServiceImpl(FacultyDao facultyDao, SubjectDao subjectDao){
         this.facultyDao = facultyDao;
+        this.subjectDao = subjectDao;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class FacultyServiceImpl implements FacultyService {
         try {
             Validator.validateId(id);
             faculty = facultyDao.getById(id);
+            faculty.setSubjectList(subjectDao.findAllByFacultyId(id));
         } catch (NotValidException | DaoException e) {
             throw new ServiceException("Can`t get faculty by id", e);
         }

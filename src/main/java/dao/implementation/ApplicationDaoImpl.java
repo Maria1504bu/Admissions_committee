@@ -24,7 +24,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private static final Logger LOG = Logger.getLogger(ApplicationDaoImpl.class);
 
     private static final String INSERT_APPL_QUERY =
-            "INSERT INTO applications(login_id, faculty_id, status)VALUES(?, ?, ?, ?)";
+            "INSERT INTO applications(login_id, faculty_id)VALUES(?, ?)";
     private static final String GET_APPL_BY_ID_QUERY = "SELECT * FROM applications WHERE id = ?";
     private static final String GET_CANDIDATES_APPLS_QUERY = "SELECT * FROM applications WHERE login_id = ?";
     private static final String GET_FACULTY_APPLS_QUERY = "SELECT * FROM applications WHERE faculty_id = ?";
@@ -171,34 +171,32 @@ public class ApplicationDaoImpl implements ApplicationDao {
      * @param application entity to save
      */
     @Override
-    public void save(Application application) throws
+    public Connection save(Application application) throws
             WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving application ==> " + application);
-        try (Connection connection = getConnection()) {
-            try (PreparedStatement prStatement = connection.prepareStatement(INSERT_APPL_QUERY)) {
-                LOG.trace("Resources are created");
-                prStatement.setInt(1, application.getCandidate().getId());
-                prStatement.setInt(2, application.getFaculty().getId());
-                prStatement.setString(3, application.getApplicationStatus().toString());
-
-                boolean saved = prStatement.executeUpdate() == 1;
-                LOG.debug("application " + application + " is saved ? ==>" + saved);
-                if (saved) {
-                    connection.commit();
-                    LOG.trace("Changes at db was committed");
-                } else {
-                    connection.rollback();
-                    LOG.trace("Changes at db is rollback");
-                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
-                }
-            } catch (SQLIntegrityConstraintViolationException e) {
-                throw new AlreadyExistException("Application is already exist", e);
-            } catch (SQLException e) {
-                throw new DaoException("Cannot save application ==> " + application, e);
-            }
+        Connection connection;
+        try {
+            connection = getConnection();
         } catch (SQLException e) {
             throw new DaoException("Cannot close connection");
         }
+        try (PreparedStatement prStatement = connection.prepareStatement(INSERT_APPL_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setInt(1, application.getCandidate().getId());
+            prStatement.setInt(2, application.getFaculty().getId());
+            boolean saved = prStatement.executeUpdate() == 1;
+            LOG.debug("application " + application + " is saved ? ==>" + saved);
+            if (!saved) {
+                connection.rollback();
+                LOG.trace("Changes at db is rollback");
+                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
+            }
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new AlreadyExistException("Application is already exist", e);
+        } catch (SQLException e) {
+            throw new DaoException("Cannot save application ==> " + application, e);
+        }
+      return connection;
     }
 
     /**

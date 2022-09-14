@@ -22,15 +22,17 @@ public class GradeDaoImpl implements GradeDao {
     private static final Logger LOG = Logger.getLogger(GradeDaoImpl.class);
 
     private static final String INSERT_GRADE_QUERY =
-            "INSERT INTO grades(subjects_id, grade)VALUES(?, ?);";
+            "INSERT INTO grades(subject_id, grade)VALUES(?, ?);";
     private static final String INSERT_SET_APPL_GRADE_QUERY =
-            "INSERT INTO applications_grades(applications_id, grades_id)VALUES(?,?);";
+            "INSERT INTO applications_grades(application_id, grade_id)VALUE" +
+                    "((SELECT MAX(id) FROM applications)," +
+                    "(SELECT MAX(id) FROM grades));";
     private static final String GET_GRADE_BY_ID_QUERY =
             "SELECT gr.id ,gr.subject_id, gr.grade " +
                     "FROM grades gr WHERE gr.id = ?";
     private static final String GET_ALL_GRADES_QUERY =
             "SELECT gr.id ,gr.subject_id, gr.grade " +
-            "FROM grades gr";
+                    "FROM grades gr";
     private static final String GET_APPLICATION_GRADES_QUERY =
             "SELECT gr.id, gr.subject_id, gr.grade " +
                     "FROM grades gr " +
@@ -55,21 +57,25 @@ public class GradeDaoImpl implements GradeDao {
     public Grade getById(int id) throws DaoException {
         LOG.debug("Start getting grade by id ==> " + id);
         Grade grade = null;
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(GET_GRADE_BY_ID_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_GRADE_BY_ID_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, id);
 
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                GradeDaoImpl.GradeMapper mapper = new GradeDaoImpl.GradeMapper();
-                while (resultSet.next()) {
-                    grade = mapper.mapEntity(resultSet);
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    GradeDaoImpl.GradeMapper mapper = new GradeDaoImpl.GradeMapper();
+                    while (resultSet.next()) {
+                        grade = mapper.mapEntity(resultSet);
+                    }
                 }
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                connection.rollback();
+                throw new DaoException("Cannot find grade with id ==>" + id, e);
             }
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            throw new DaoException("Cannot find grade with id ==>" + id, e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Searched grade ==>" + grade);
         return grade;
@@ -79,20 +85,23 @@ public class GradeDaoImpl implements GradeDao {
     public List<Grade> findAll() throws DaoException {
         List<Grade> grades = new ArrayList<>();
         LOG.debug("Start finding all grades");
-        try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(GET_ALL_GRADES_QUERY)) {
-            LOG.trace("Resources are created");
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(GET_ALL_GRADES_QUERY)) {
+                LOG.trace("Resources are created");
 
-            GradeDaoImpl.GradeMapper mapper = new GradeDaoImpl.GradeMapper();
-            while (resultSet.next()) {
-                grades.add(mapper.mapEntity(resultSet));
+                GradeDaoImpl.GradeMapper mapper = new GradeDaoImpl.GradeMapper();
+                while (resultSet.next()) {
+                    grades.add(mapper.mapEntity(resultSet));
+                }
+
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find all grades", e);
             }
-
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            throw new DaoException("Cannot find all grades", e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Found grades ==>" + grades);
         return grades;
@@ -102,42 +111,41 @@ public class GradeDaoImpl implements GradeDao {
     public List<Grade> getApplGrades(int applId) {
         List<Grade> grades = new ArrayList<>();
         LOG.debug("Start finding application grades");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(GET_APPLICATION_GRADES_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, applId);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_APPLICATION_GRADES_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, applId);
 
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                GradeMapper mapper = new GradeMapper();
-                while (resultSet.next()) {
-                    grades.add(mapper.mapEntity(resultSet));
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    GradeMapper mapper = new GradeMapper();
+                    while (resultSet.next()) {
+                        grades.add(mapper.mapEntity(resultSet));
+                    }
                 }
-            }
 
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find application grades", e);
+            }
         } catch (SQLException e) {
-            throw new DaoException("Cannot find application grades", e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Found grades ==>" + grades);
         return grades;
     }
 
     @Override
-    public void save(Grade grade) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
+    public void save(Connection connection, Grade grade) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving grade ==> " + grade);
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_GRADE_QUERY)) {
+        try (PreparedStatement prStatement = connection.prepareStatement(INSERT_GRADE_QUERY)) {
             LOG.trace("Resources are created");
             prStatement.setInt(1, grade.getSubject().getId());
             prStatement.setInt(2, grade.getGrade());
 
             boolean saved = prStatement.executeUpdate() == 1;
             LOG.debug("Grade " + grade + " is saved ? ==>" + saved);
-            if (saved) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
+            if (!saved) {
                 connection.rollback();
                 LOG.trace("Changes at db is rollback");
                 throw new WrongExecutedQueryException("Operation is rollback! Wrong data of grade " + grade);
@@ -151,20 +159,14 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
-    public void createApplGradesSet(int applId, int gradeId) throws WrongExecutedQueryException, AlreadyExistException {
-        LOG.debug("Start saving set with applId " + applId + " and gradeId " + gradeId);
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_SET_APPL_GRADE_QUERY)) {
+    public void createApplGradesSet(Connection connection) throws WrongExecutedQueryException, AlreadyExistException {
+        LOG.debug("Start saving set with applId and gradeId ");
+        try (Statement statement = connection.createStatement()) {
             LOG.trace("Resources are created");
-            prStatement.setInt(1, applId);
-            prStatement.setInt(2, gradeId);
 
-            boolean saved = prStatement.executeUpdate() == 1;
+            boolean saved = statement.executeUpdate(INSERT_SET_APPL_GRADE_QUERY) == 1;
             LOG.debug("Set is saved ? ==>" + saved);
-            if (saved) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
+            if (!saved) {
                 connection.rollback();
                 LOG.trace("Changes at db is rollback");
                 throw new WrongExecutedQueryException("Operation is rollback! Wrong data of set ");
@@ -173,7 +175,7 @@ public class GradeDaoImpl implements GradeDao {
         } catch (SQLIntegrityConstraintViolationException e) {
             throw new AlreadyExistException("Set is already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot save set with applId " + applId + " and gradeId " + gradeId, e);
+            throw new DaoException("Cannot save set with applId and gradeId", e);
         }
     }
 
@@ -185,25 +187,28 @@ public class GradeDaoImpl implements GradeDao {
     @Override
     public void update(Grade grade) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start updating grade");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(UPDATE_GRADE_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, grade.getGrade());
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_GRADE_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, grade.getGrade());
 
-            boolean updated = prStatement.executeUpdate() == 1;
-            LOG.debug("Grade " + grade + " is updated ? ==>" + updated);
-            if (updated) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of grade " + grade);
+                boolean updated = prStatement.executeUpdate() == 1;
+                LOG.debug("Grade " + grade + " is updated ? ==>" + updated);
+                if (updated) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of grade " + grade);
+                }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new AlreadyExistException("Similar grade already exist", e);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot update grade ==> " + grade, e);
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new AlreadyExistException("Similar grade already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot update grade ==> " + grade, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
@@ -216,23 +221,26 @@ public class GradeDaoImpl implements GradeDao {
     @Override
     public void delete(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start deleting grade");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(DELETE_GRADE_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(DELETE_GRADE_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, id);
 
-            boolean deleted = prStatement.executeUpdate() == 1;
-            LOG.debug("Grade with id" + id + " is deleted ? ==>" + deleted);
-            if (deleted) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong grade`s id " + id);
+                boolean deleted = prStatement.executeUpdate() == 1;
+                LOG.debug("Grade with id" + id + " is deleted ? ==>" + deleted);
+                if (deleted) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong grade`s id " + id);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot delete grade with id ==> " + id, e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot delete grade with id ==> " + id, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 

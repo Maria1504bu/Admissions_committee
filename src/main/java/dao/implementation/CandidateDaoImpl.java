@@ -88,26 +88,29 @@ public class CandidateDaoImpl implements CandidateDao {
     public Candidate getByLogin(String login) throws DaoException {
         LOG.debug("Start searching candidate ==>" + login + " in db");
         Candidate candidate = null;
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(FIND_CANDIDATE_BY_LOGIN_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setString(1, login);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(FIND_CANDIDATE_BY_LOGIN_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setString(1, login);
 
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    candidate = Candidate.builder()
-                            .id(resultSet.getInt(ColumnLabel.USER_ID.getName()))
-                            .email(resultSet.getString(ColumnLabel.USER_EMAIL.getName()))
-                            .password(resultSet.getString(ColumnLabel.USER_PASSWORD.getName()))
-                            .role(Enum.valueOf(Role.class, resultSet.getString(ColumnLabel.ROLE_NAME.getName())))
-                            .build();
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        candidate = Candidate.builder()
+                                .id(resultSet.getInt(ColumnLabel.USER_ID.getName()))
+                                .email(resultSet.getString(ColumnLabel.USER_EMAIL.getName()))
+                                .password(resultSet.getString(ColumnLabel.USER_PASSWORD.getName()))
+                                .role(Enum.valueOf(Role.class, resultSet.getString(ColumnLabel.ROLE_NAME.getName())))
+                                .build();
+                    }
                 }
-            }
 
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find candidate with login ==>" + login, e);
+            }
         } catch (SQLException e) {
-            throw new DaoException("Cannot find candidate with login ==>" + login, e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Searched candidate ==>" + candidate);
         return candidate;
@@ -117,22 +120,25 @@ public class CandidateDaoImpl implements CandidateDao {
     public Candidate getById(int id) throws DaoException {
         LOG.debug("Start getting candidate by id ==> " + id);
         Candidate candidate = null;
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(FIND_CANDIDATE_BY_ID_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(FIND_CANDIDATE_BY_ID_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, id);
 
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                CandidateMapper mapper = new CandidateMapper();
-                while (resultSet.next()) {
-                    candidate = mapper.mapEntity(resultSet);
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    CandidateMapper mapper = new CandidateMapper();
+                    while (resultSet.next()) {
+                        candidate = mapper.mapEntity(resultSet);
+                    }
                 }
-            }
 
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find candidate with id ==>" + id, e);
+            }
         } catch (SQLException e) {
-            throw new DaoException("Cannot find candidate with id ==>" + id, e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Searched candidate ==>" + candidate);
         return candidate;
@@ -143,20 +149,23 @@ public class CandidateDaoImpl implements CandidateDao {
     public List<Candidate> findAll() throws DaoException {
         List<Candidate> candidates = new ArrayList<>();
         LOG.debug("Finding all candidates ...");
-        try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(FIND_ALL_CANDIDATES_QUERY)) {
-            LOG.trace("Resources are created");
+        try (Connection connection = getConnection()) {
+            try (Statement statement = connection.createStatement();
+                 ResultSet resultSet = statement.executeQuery(FIND_ALL_CANDIDATES_QUERY)) {
+                LOG.trace("Resources are created");
 
-            CandidateMapper mapper = new CandidateMapper();
-            while (resultSet.next()) {
-                candidates.add(mapper.mapEntity(resultSet));
+                CandidateMapper mapper = new CandidateMapper();
+                while (resultSet.next()) {
+                    candidates.add(mapper.mapEntity(resultSet));
+                }
+
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find all candidate", e);
             }
-
-            connection.commit();
-            LOG.trace("Changes  at db was committed");
         } catch (SQLException e) {
-            throw new DaoException("Cannot find all candidate", e);
+            throw new DaoException("Cannot close connection");
         }
         LOG.debug("Found candidate ==> " + candidates);
         return candidates;
@@ -164,154 +173,172 @@ public class CandidateDaoImpl implements CandidateDao {
 
     public void saveLogin(String email, String password) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving login ==> " + email);
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_CANDIDATE_INIT_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setString(1, email);
-            prStatement.setString(2, password);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(INSERT_CANDIDATE_INIT_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setString(1, email);
+                prStatement.setString(2, password);
 
-            boolean saved = prStatement.executeUpdate() == 1;
-            LOG.debug("Login with email ==>  " + email + " is saved ? ==>" + saved);
-            if (saved) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of login ==>" + email);
+                boolean saved = prStatement.executeUpdate() == 1;
+                LOG.debug("Login with email ==>  " + email + " is saved ? ==>" + saved);
+                if (saved) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of login ==>" + email);
+                }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new AlreadyExistException("Candidate is already exist", e);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot save login ==> " + email, e);
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new AlreadyExistException("Candidate is already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot save login ==> " + email, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
     public void save(Candidate candidate) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving candidate ==> " + candidate);
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_CANDIDATE_FINAL_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, candidate.getId());
-            prStatement.setString(3, candidate.getFatherName());
-            prStatement.setString(2, candidate.getFirstName());
-            prStatement.setString(4, candidate.getSecondName());
-            prStatement.setString(5, candidate.getCity().name());
-            prStatement.setString(6, candidate.getSchoolName());
-            prStatement.setObject(7, candidate.isBlocked());
-            prStatement.setString(8, candidate.getApplicationDate().toString());
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(INSERT_CANDIDATE_FINAL_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, candidate.getId());
+                prStatement.setString(3, candidate.getFatherName());
+                prStatement.setString(2, candidate.getFirstName());
+                prStatement.setString(4, candidate.getSecondName());
+                prStatement.setString(5, candidate.getCity().name());
+                prStatement.setString(6, candidate.getSchoolName());
+                prStatement.setObject(7, candidate.isBlocked());
+                prStatement.setString(8, candidate.getApplicationDate().toString());
 
 
-            boolean saved = prStatement.executeUpdate() == 1;
-            LOG.debug("Candidate " + candidate + " is saved ? ==>" + saved);
-            if (saved) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate " + candidate);
+                boolean saved = prStatement.executeUpdate() == 1;
+                LOG.debug("Candidate " + candidate + " is saved ? ==>" + saved);
+                if (saved) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate " + candidate);
+                }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new AlreadyExistException("Candidate is already exist", e);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot save candidate ==> " + candidate, e);
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new AlreadyExistException("Candidate is already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot save candidate ==> " + candidate, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
     @Override
-    public void saveCertificate(int id, String certificateName) throws WrongExecutedQueryException{
+    public void saveCertificate(int id, String certificateName) throws WrongExecutedQueryException {
         LOG.debug("Start saving certificate for candidate with id ==> " + id);
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(INSERT_CERTIFICATE_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setString(1,certificateName);
-            prStatement.setInt(2, id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(INSERT_CERTIFICATE_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setString(1, certificateName);
+                prStatement.setInt(2, id);
 
-            boolean saved = prStatement.executeUpdate() == 1;
-            LOG.debug("Certificate " + certificateName + " is saved ? ==>" + saved);
-            if (saved) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate ");
+                boolean saved = prStatement.executeUpdate() == 1;
+                LOG.debug("Certificate " + certificateName + " is saved ? ==>" + saved);
+                if (saved) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate ");
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot save certificate ==> " + certificateName, e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot save certificate ==> " + certificateName, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
     @Override
     public void update(Candidate candidate) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start updating candidate");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(UPDATE_CANDIDATE_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setString(1, candidate.getEmail());
-            prStatement.setString(2, candidate.getPassword());
-            prStatement.setInt(3, candidate.getId());
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_CANDIDATE_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setString(1, candidate.getEmail());
+                prStatement.setString(2, candidate.getPassword());
+                prStatement.setInt(3, candidate.getId());
 
-            boolean updated = prStatement.executeUpdate() == 1;
-            LOG.debug("Candidate " + candidate + " is updated ? ==>" + updated);
-            if (updated) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate " + candidate);
+                boolean updated = prStatement.executeUpdate() == 1;
+                LOG.debug("Candidate " + candidate + " is updated ? ==>" + updated);
+                if (updated) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of candidate " + candidate);
+                }
+            } catch (SQLIntegrityConstraintViolationException e) {
+                throw new AlreadyExistException("Similar candidate already exist", e);
+            } catch (SQLException e) {
+                throw new DaoException("Cannot update candidate ==> " + candidate, e);
             }
-        } catch (SQLIntegrityConstraintViolationException e) {
-            throw new AlreadyExistException("Similar candidate already exist", e);
         } catch (SQLException e) {
-            throw new DaoException("Cannot update candidate ==> " + candidate, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
     @Override
     public void blockCandidate(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start to block candidate");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(BLOCK_CANDIDATE_BY_ADMIN_QUERY)) {
-            LOG.debug("Resources are created");
-            prStatement.setInt(1, id);
-            boolean executed = prStatement.executeUpdate() == 1;
-            LOG.debug("Candidate with id =" + id + " is blocked/unblocked ? ==>" + executed);
-            if (executed) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Don`t (un)blocked candidate with id" + id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(BLOCK_CANDIDATE_BY_ADMIN_QUERY)) {
+                LOG.debug("Resources are created");
+                prStatement.setInt(1, id);
+                boolean executed = prStatement.executeUpdate() == 1;
+                LOG.debug("Candidate with id =" + id + " is blocked/unblocked ? ==>" + executed);
+                if (executed) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Don`t (un)blocked candidate with id" + id);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot (un)block candidate", e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot (un)block candidate", e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
     @Override
     public void delete(int id) throws WrongExecutedQueryException, DaoException {
         LOG.debug("Start deleting candidate");
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(DELETE_CANDIDATE_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, id);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(DELETE_CANDIDATE_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, id);
 
-            boolean deleted = prStatement.executeUpdate() == 1;
-            LOG.debug("Candidate with id " + id + " is deleted ? ==>" + deleted);
-            if (deleted) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
-                throw new WrongExecutedQueryException("Operation is rollback! Wrong candidate`s id  " + id);
+                boolean deleted = prStatement.executeUpdate() == 1;
+                LOG.debug("Candidate with id " + id + " is deleted ? ==>" + deleted);
+                if (deleted) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong candidate`s id  " + id);
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot delete candidate with id ==> " + id, e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot delete candidate with id ==> " + id, e);
+            throw new DaoException("Cannot close connection");
         }
     }
 
@@ -319,27 +346,30 @@ public class CandidateDaoImpl implements CandidateDao {
     public int getCandidateListSize(int facultyId) {
         LOG.debug("Start getting candidateList size to faculty with id ==>" + facultyId);
         int candidateListSize = 0;
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(COUNT_CANDIDATES_BY_FACULTY_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, facultyId);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(COUNT_CANDIDATES_BY_FACULTY_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, facultyId);
 
-            ResultSet resultSet = prStatement.executeQuery();
+                ResultSet resultSet = prStatement.executeQuery();
 
-            while (resultSet.next()){
-                candidateListSize = resultSet.getInt(1);
-            }
-            LOG.debug("CandidateList size = " + candidateListSize);
+                while (resultSet.next()) {
+                    candidateListSize = resultSet.getInt(1);
+                }
+                LOG.debug("CandidateList size = " + candidateListSize);
 
-            if (candidateListSize != 0) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
+                if (candidateListSize != 0) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot get  candidateList size to faculty with id ==>" + facultyId, e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot get  candidateList size to faculty with id ==>" + facultyId, e);
+            throw new DaoException("Cannot close connection");
         }
         return candidateListSize;
     }
@@ -348,30 +378,33 @@ public class CandidateDaoImpl implements CandidateDao {
     public List<Candidate> getCandidatesForFaculty(int facultyId, int limit, int offset) {
         LOG.debug("Start getting candidateList to faculty with id ==>" + facultyId);
         List<Candidate> candidates = new ArrayList<>();
-        try (Connection connection = getConnection();
-             PreparedStatement prStatement = connection.prepareStatement(FIND_FACULTY_CANDIDATES_QUERY)) {
-            LOG.trace("Resources are created");
-            prStatement.setInt(1, facultyId);
-            prStatement.setInt(2, limit);
-            prStatement.setInt(3, offset);
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(FIND_FACULTY_CANDIDATES_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, facultyId);
+                prStatement.setInt(2, limit);
+                prStatement.setInt(3, offset);
 
-            try (ResultSet resultSet = prStatement.executeQuery()) {
-                CandidateMapper mapper = new CandidateMapper();
-                while (resultSet.next()) {
-                    candidates.add(mapper.mapEntity(resultSet));
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    CandidateMapper mapper = new CandidateMapper();
+                    while (resultSet.next()) {
+                        candidates.add(mapper.mapEntity(resultSet));
+                    }
                 }
-            }
-            LOG.debug("CandidateList size = " + candidates.size());
+                LOG.debug("CandidateList size = " + candidates.size());
 
-            if (candidates.size() != 0) {
-                connection.commit();
-                LOG.trace("Changes at db was committed");
-            } else {
-                connection.rollback();
-                LOG.trace("Changes at db is rollback");
+                if (candidates.size() != 0) {
+                    connection.commit();
+                    LOG.trace("Changes at db was committed");
+                } else {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                }
+            } catch (SQLException e) {
+                throw new DaoException("Cannot get  candidateList size to faculty with id ==>" + facultyId, e);
             }
         } catch (SQLException e) {
-            throw new DaoException("Cannot get  candidateList size to faculty with id ==>" + facultyId, e);
+            throw new DaoException("Cannot close connection");
         }
         return candidates;
     }
@@ -382,6 +415,7 @@ public class CandidateDaoImpl implements CandidateDao {
     private static class CandidateMapper implements EntityMapper<Candidate> {
         private static final String ROLE_COLUMN = "role";
         private static final String CITY_COLUMN = "city";
+
         @Override
         public Candidate mapEntity(ResultSet rs) {
             Candidate candidate = null;

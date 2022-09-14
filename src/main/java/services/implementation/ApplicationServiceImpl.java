@@ -1,13 +1,15 @@
 package services.implementation;
 
+import dao.AlreadyExistException;
+import dao.DaoException;
+import dao.WrongExecutedQueryException;
 import dao.interfaces.*;
-import models.Application;
-import models.Candidate;
-import models.Faculty;
-import models.Grade;
+import models.*;
 import org.apache.log4j.Logger;
 import services.interfaces.ApplicationService;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ApplicationServiceImpl implements ApplicationService {
@@ -25,6 +27,20 @@ public class ApplicationServiceImpl implements ApplicationService {
         this.subjectDao = subjectDao;
     }
 
+    @Override
+    public void saveWithGrades(Application application) throws AlreadyExistException, WrongExecutedQueryException {
+        Connection connection = applicationDao.save(application);
+        //todo: validate grate less maxGrade
+        for(Grade grade : application.getGradesList()){
+            gradeDao.save(connection, grade);
+            gradeDao.createApplGradesSet(connection);
+        }
+        try {
+            connection.commit();
+        } catch (SQLException e) {
+            throw new DaoException("Cannot commit changes at db", e);
+        }
+    }
     @Override
     public List<Application> getCandidatesAppls(int candidateId, String language) {
         LOG.trace("Start get candidates applications by candidateId ==> " + candidateId);
@@ -56,10 +72,6 @@ public class ApplicationServiceImpl implements ApplicationService {
             Candidate candidate = candidateDao.getById(application.getCandidate().getId());
             application.setCandidate(candidate);
             LOG.trace("Set candidate "+ candidate + " to application" + application);
-
-            Faculty faculty = facultyDao.getById(application.getFaculty().getId());
-            application.setFaculty(faculty);
-            LOG.trace("Set faculty "+ faculty + " for application" + application);
 
             List<Grade> grades = gradeDao.getApplGrades(application.getId());
             for(Grade grade : grades){
