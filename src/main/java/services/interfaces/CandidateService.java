@@ -15,11 +15,11 @@ public interface CandidateService {
 
     Candidate saveCertificate(Candidate candidate, String certificateName);
 
-    void blockCandidate(int candidateId);
+    void blockCandidate(String candidateId);
 
     int getCandidatesListSize(String facultyId);
 
     List<Candidate> getAll(String selectedFaculty, String limitItemsQty, String offSetValueCandidates);
-    Candidate getById(int id);
+    Candidate getById(String id);
     void update(Candidate candidate) throws AlreadyExistException, WrongExecutedQueryException;
 }

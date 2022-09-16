@@ -1,10 +1,7 @@
 package command;
 
 import command.admin.*;
-import command.candidate.CreateApplicationCommand;
-import command.candidate.CandidateProfileCommand;
-import command.candidate.SignupFinalCommand;
-import command.candidate.UploadCertificateCommand;
+import command.candidate.*;
 import command.common.AjaxChooseFacultyCommand;
 import command.common.FacultiesCommand;
 import command.common.LogoutCommand;
@@ -47,6 +44,7 @@ public class CommandContainer {
         commands.put("candidateProfile", new CandidateProfileCommand(applicationService));
         commands.put("createApplication", new CreateApplicationCommand(applicationService));
         commands.put("uploadCertificate", new UploadCertificateCommand(candidateService));
+        commands.put("provideDocuments", new ProvideDocumentsCommand(applicationService));
         // admin
         commands.put("candidates", new CandidatesCommand(candidateService, facultyService));
         commands.put("candidateDetails", new CandidateDetailsCommand(candidateService, applicationService));

@@ -24,4 +24,6 @@ public interface ApplicationDao {
             WrongExecutedQueryException, AlreadyExistException, DaoException;
 
     void delete(int id) throws WrongExecutedQueryException, DaoException;
+
+    void provideDocuments(Application application) throws WrongExecutedQueryException;
 }

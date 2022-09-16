@@ -48,7 +48,7 @@ public class CreateApplicationCommand implements ActionCommand {
         } catch (AlreadyExistException | WrongExecutedQueryException e) {
             req.setAttribute("errorMessage", e.getMessage());
         }
-        List<Application> applications = applicationService.getFacultyAppls(faculty.getId());
+        List<Application> applications = applicationService.getFacultyAppls(String.valueOf(faculty.getId()));
         LOG.trace("Applications to faculty ==> " + applications);
         req.setAttribute("appls", applications);
         LOG.debug("Set appls attribute ==> " + applications);

@@ -1,0 +1,21 @@
+<script>
+    function chooseFaculty() {
+        let modal = document.getElementById("chooseFacultyModal");
+        modal.style.display = "block";
+        let span = document.getElementsByClassName("closeM")[0];
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        const xhr = new XMLHttpRequest();
+        xhr.onload = function () {
+            document.getElementById("chooseFac").innerHTML = this.response;
+        }
+        xhr.open("GET", "${pageContext.request.contextPath}/controller?command=ajaxFaculty");
+        xhr.send()
+    }
+</script>

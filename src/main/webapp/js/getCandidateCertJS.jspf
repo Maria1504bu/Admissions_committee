@@ -1,0 +1,12 @@
+<script>
+    function getCertCandidateProfile(buttonCertCan) {
+        let div = document.getElementById('certDiv');
+        if (div.style.display !== 'block') {
+            div.style.display = 'block';
+            buttonCertCan.innerHTML = '<fmt:message key="candidateDash.HideCertificate"/>';
+        } else {
+            div.style.display = 'none';
+            buttonCertCan.innerHTML = '<fmt:message key="candidateDash.ShowCertificate"/>';
+        }
+    }
+</script>

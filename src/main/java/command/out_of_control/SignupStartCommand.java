@@ -5,7 +5,6 @@ import managers.ConfigurationManager;
 import managers.MessageManager;
 import models.Candidate;
 import models.City;
-import models.Role;
 import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
 import services.interfaces.CandidateService;
@@ -48,9 +47,7 @@ public class SignupStartCommand implements ActionCommand {
         req.getServletContext().setAttribute("cities", cities);
         LOG.trace("Set attribute cities for select tag and other tables on application scope");
         req.getSession().setAttribute("user", candidate);
-        LOG.trace("Set the session attribute: user --> " + candidate);
-        session.setAttribute("role", Role.CANDIDATE);
-        LOG.trace("Set the session attribute: role --> " + Role.CANDIDATE);
+        LOG.trace("Set the session attribute: user --> " + candidate);;
 
         page = ConfigurationManager.getProperty("redirect") +
                 ConfigurationManager.getProperty("candidate.signupFinal");

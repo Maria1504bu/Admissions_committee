@@ -7,6 +7,7 @@ import dao.interfaces.*;
 import models.*;
 import org.apache.log4j.Logger;
 import services.interfaces.ApplicationService;
+import util.Validator;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -42,9 +43,10 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
     @Override
-    public List<Application> getCandidatesAppls(int candidateId, String language) {
+    public List<Application> getCandidatesAppls(String candidateId) {
         LOG.trace("Start get candidates applications by candidateId ==> " + candidateId);
-        List<Application> applications = applicationDao.getCandidateAppls(candidateId);
+        int validatedId = Validator.validateId(candidateId);
+        List<Application> applications = applicationDao.getCandidateAppls(validatedId);
         LOG.trace("Applications from db ==> " + applications);
         // from applicationDao we get only id faculty
         for(Application application : applications){
@@ -63,9 +65,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<Application> getFacultyAppls(int facultyId) {
+    public List<Application> getFacultyAppls(String facultyId) {
         LOG.trace("Start get faculty`s applications by candidateId ==> " + facultyId);
-        List<Application> applications = applicationDao.getFacultyAppls(facultyId);
+        int validateId = Validator.validateId(facultyId);
+        List<Application> applications = applicationDao.getFacultyAppls(validateId);
         LOG.trace("Applications from db ==> " + applications);
         // from applicationDao we get only id faculty
         for(Application application : applications){
@@ -81,5 +84,11 @@ public class ApplicationServiceImpl implements ApplicationService {
             LOG.trace("Set grades "+ grades + " for application" + application);
         }
         return applications;
+    }
+
+    @Override
+    public void provideDocuments(Application application) throws AlreadyExistException, WrongExecutedQueryException {
+        application.setApplicationStatus(ApplicationStatus.DOCUMENTS_PROVIDED);
+        applicationDao.provideDocuments(application);
     }
 }

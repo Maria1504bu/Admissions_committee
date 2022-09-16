@@ -9,7 +9,9 @@ import java.util.List;
 public interface ApplicationService {
     void saveWithGrades(Application application) throws AlreadyExistException, WrongExecutedQueryException;
 
-    public List<Application> getCandidatesAppls(int candidateId, String language);
+    public List<Application> getCandidatesAppls(String candidateId);
 
-    List<Application> getFacultyAppls(int facultyId);
+    List<Application> getFacultyAppls(String facultyId);
+
+    void provideDocuments(Application application) throws AlreadyExistException, WrongExecutedQueryException;
 }

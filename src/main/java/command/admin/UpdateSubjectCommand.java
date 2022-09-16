@@ -31,7 +31,7 @@ public class UpdateSubjectCommand implements ActionCommand {
 
         if(subjIdToUpdate != null)
         {
-            Subject subToDisplay = subjectService.getById(Integer.parseInt(subjIdToUpdate));
+            Subject subToDisplay = subjectService.getById(subjIdToUpdate);
             session.setAttribute("subToDisplay", subToDisplay);
             page = ConfigurationManager.getProperty("admin.updateSubject");
             return page;

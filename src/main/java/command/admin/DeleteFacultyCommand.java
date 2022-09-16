@@ -27,15 +27,7 @@ public class DeleteFacultyCommand implements ActionCommand {
         String facultyId = request.getParameter("deleteFacultyId");
         LOG.debug("Request parameter: deleteFacultyId ==> " + facultyId);
 
-        int idToDelete = 0;
-        try {
-            idToDelete = Integer.parseInt(facultyId);
-        } catch (NumberFormatException ex) {
-            LOG.debug("Could not get id to delete from url " + ex);
-            return page;
-        }
-
-        facultyService.delete(idToDelete);
+        facultyService.delete(facultyId);
 
         LOG.debug("Go to ==> " + page);
         return page;

@@ -10,7 +10,7 @@
 <body>
 <!-- Header----------------------------------------------------------------------------------->
 <tags:header></tags:header>
-<!-- Body begining--------------------------------------------------------------------------->
+<!-- Body beginning--------------------------------------------------------------------------->
 
 <div class="container">
     <div class="row justify-content-center align-items-center">
@@ -62,7 +62,7 @@
                         <div class="invalid-feedback"><fmt:message key="registrationFinal.CheckBox"/></div>
                     </label>
                 </div>
-                <input type="submit" class="btn btn-primary"><fmt:message key="registrationFinal.RegisterProfile"/>
+                <input type="submit" class="btn btn-primary" value='<fmt:message key="registrationFinal.RegisterProfile"/>'/>
             </form>
 
         </div>

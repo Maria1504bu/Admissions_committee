@@ -24,7 +24,7 @@ public class BlockCandidateCommand implements ActionCommand {
         String candidateId = req.getParameter("candidateToBlockId");
         LOG.debug("Candidate id to (un)block ==> " + candidateId);
 
-        candidateService.blockCandidate(Integer.parseInt(candidateId));
+        candidateService.blockCandidate(candidateId);
 
         LOG.debug("Go to ==> " + page);
         return page;

@@ -1,0 +1,13 @@
+<script>
+    function displayAbout() {
+        document.getElementById('facultiesTable').style.display = 'none';
+        document.getElementById('about-us-text-id').style.display = 'block';
+    }
+
+    window.onload = function () {
+        if (${faculties.size() > 0}) {
+            document.getElementById('facultiesTable').style.display = 'block';
+            document.getElementById('about-us-text-id').style.display = 'none';
+        }
+    }
+</script>

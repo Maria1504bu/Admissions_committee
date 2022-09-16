@@ -29,7 +29,7 @@ public class CandidateProfileCommand implements ActionCommand {
 
         String page = ConfigurationManager.getProperty("path.command.createApplication");
 
-        List<Application> candidateAplls = applicationService.getCandidatesAppls(candidate.getId(), lang);
+        List<Application> candidateAplls = applicationService.getCandidatesAppls(String.valueOf(candidate.getId()));
         if (candidateAplls != null && candidateAplls.size() > 0) {
             req.getSession().setAttribute("applicationsList", candidateAplls);
             page = ConfigurationManager.getProperty("redirect") + ConfigurationManager.getProperty("candidate.candidateProfile");

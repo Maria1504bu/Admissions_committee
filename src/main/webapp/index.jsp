@@ -63,7 +63,7 @@
 <!-- Footer ------------------------------------------>
 <%@ include file="/jspf/footer.jspf" %>
 <!-- JavaScript functions ---------------------------->
-<%@ include file="/js/javascript.jspf" %>
+<%@ include file="/js/startPageJS.jspf" %>
 
 </body>
 </html>

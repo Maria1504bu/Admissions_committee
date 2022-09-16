@@ -1,10 +1,10 @@
 
 INSERT INTO roles (name) VALUES ('ADMIN'), ('CANDIDATE');
 INSERT INTO languages (name, lang_code) VALUES ('English', 'en'), ('Українська', 'uk');
-INSERT INTO logins (email, password, role_id) VALUES ('admin@gmail', 'B0BAEE9D279D34FA1DFD71AADB908C3F', 1),
-                                                     ('candidate@gmail', 'B0BAEE9D279D34FA1DFD71AADB908C3F', 2),
-                                                     ('vova27@gmail', 'B0BAEE9D279D34FA1DFD71AADB908C3F', 2),
-                                                     ('grabovych@gmail', 'B0BAEE9D279D34FA1DFD71AADB908C3F', 2);
+INSERT INTO logins (email, password, role_id) VALUES ('admin@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 1),
+                                                     ('candidate@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2),
+                                                     ('vova27@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2),
+                                                     ('grabovych@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2);
 INSERT INTO cities (`name`)
 VALUES ('Cherkasy'),
        ('Chernihiv'),

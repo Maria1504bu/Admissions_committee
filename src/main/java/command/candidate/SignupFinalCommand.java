@@ -4,6 +4,7 @@ import command.ActionCommand;
 import managers.ConfigurationManager;
 import models.Candidate;
 import models.City;
+import models.Role;
 import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
 import services.interfaces.CandidateService;
@@ -54,6 +55,8 @@ public class SignupFinalCommand implements ActionCommand {
         }
         session.setAttribute("user", candidate);
         LOG.trace("Reset user attribute ==> " + candidate);
+        session.setAttribute("role", Role.CANDIDATE);
+        LOG.trace("Set the session attribute: role --> " + Role.CANDIDATE);
         String page = ConfigurationManager.getProperty("redirect") + ConfigurationManager.getProperty("path.command.candidateProfile");
         LOG.debug("Go to ==> " + page);
         return page;

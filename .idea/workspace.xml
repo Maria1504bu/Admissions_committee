@@ -9,53 +9,54 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="write logic of create application">
-      <change afterPath="$PROJECT_DIR$/src/main/java/command/common/AjaxChooseFacultyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/jspf/chooseFacultyModal.jspf" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create validation to signupStart form">
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/9/19c2b18ddaf5118617e200067867e37ff6b07aab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/d/8d5d47836a28eb97d655864c7fafb5a146cb80e1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/command/candidate/ProvideDocumentsCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/chooseFacultyJs.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/comparePasswords.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/getCandidateCertJS.jspf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/startPageJS.jspf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/ActionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/ActionCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/CommandContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/BlockCandidateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/BlockCandidateCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/CandidateDetailsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidateDetailsCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/CandidatesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidatesCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteFacultyCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/DeleteSubjectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/DeleteSubjectCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/EditFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/EditFacultyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/PrepareFacultyFormCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/PrepareFacultyFormCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/SaveFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/SaveFacultyCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/SaveSubjectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/SaveSubjectCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/SubjectsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/SubjectsCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateFacultyCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/UpdateSubjectCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/UpdateSubjectCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/CandidateProfileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CandidateProfileCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/SignupFinalCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/SignupFinalCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/UpdateCandidateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/UpdateCandidateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/UploadCertificateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/UploadCertificateCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/common/FacultiesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/common/FacultiesCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/common/LogoutCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/common/LogoutCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/ApplicationsToFacCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/ApplicationsToFacCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/InitSignupCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/InitSignupCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/LoginCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/LoginCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/SetLocaleCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/SetLocaleCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/command/out_of_control/SignupStartCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/out_of_control/SignupStartCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/servlet/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/ApplicationDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/ApplicationDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/ApplicationStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/ApplicationStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/ApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/ApplicationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/FacultyServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/SubjectServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/ApplicationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/ApplicationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/FacultyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/FacultyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/SubjectService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/Validator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Validator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lang_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_en.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/lang_uk.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/header.tag" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/header.tag" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/js/createApplicationJs.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/createApplicationJs.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/javascript.jspf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidateDetails.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/admin/candidateDetails.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/candidate/signupFinal.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/jsp/common/signupStart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jsp/common/signupStart.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/candidateHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/candidateHeader.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/jspf/guestHeader.jspf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/jspf/guestHeader.jspf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/BlockCandidateCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/BlockCandidateCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/CandidateDetailsCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/CandidateDetailsCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/CandidatesCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/CandidatesCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/DeleteFacultyCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/DeleteFacultyCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/DeleteSubjectCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/DeleteSubjectCommandTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/command/admin/FacultiesCommandTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/command/admin/FacultiesCommandTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +89,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="JspContextManager">
+    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/js/comparePasswords.jspf" context-file="file://$PROJECT_DIR$/src/main/webapp/jsp/common/signupStart.jsp" />
+  </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -114,29 +118,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "extract.method.default.visibility": "private",
-    "last_opened_file_path": "D:/Final Project/Admissions_committee/src/main/webapp/js",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Final Project/Admissions_committee/src/main/webapp/js&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="command.admin" />
@@ -191,21 +195,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CandidatesCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Admissions_committee" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="command.common.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="command.admin" />
-      <option name="MAIN_CLASS_NAME" value="command.admin.CandidatesCommandTest" />
-      <option name="METHOD_NAME" value="execute" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="create_db.sql" type="DatabaseScript" editBeforeRun="true" temporary="true" nameIsGenerated="true">
+      <script-file value="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" />
+      <script-mode>FILE</script-mode>
+      <method v="2" />
     </configuration>
     <configuration name="DeleteFacultyCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
@@ -540,7 +533,7 @@
     </configuration>
     <list>
       <item itemvalue="Application.Subject" />
-      <item itemvalue="JUnit.CandidatesCommandTest.execute" />
+      <item itemvalue="Database Script.create_db.sql" />
       <item itemvalue="JUnit.DeleteFacultyCommandTest.execute" />
       <item itemvalue="JUnit.DeleteSubjectCommandTest.execute" />
       <item itemvalue="JUnit.FacultiesCommandTest.execute" />
@@ -549,11 +542,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Database Script.create_db.sql" />
         <item itemvalue="Application.Subject" />
         <item itemvalue="JUnit.FacultiesCommandTest.execute" />
         <item itemvalue="JUnit.DeleteSubjectCommandTest.execute" />
         <item itemvalue="JUnit.DeleteFacultyCommandTest.execute" />
-        <item itemvalue="JUnit.CandidatesCommandTest.execute" />
       </list>
     </recent_temporary>
   </component>
@@ -584,7 +577,11 @@
       <workItem from="1660888592608" duration="96875000" />
       <workItem from="1661499798211" duration="128696000" />
       <workItem from="1661872610712" duration="131675000" />
-      <workItem from="1662722429660" duration="112651000" />
+      <workItem from="1662722429660" duration="113228000" />
+      <workItem from="1663181874571" duration="12711000" />
+      <workItem from="1663257529895" duration="13445000" />
+      <workItem from="1663333139597" duration="4526000" />
+      <workItem from="1663339624757" duration="6617000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -866,7 +863,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663144198639</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="create ajax modal window chooseFaculty">
+      <created>1663174695775</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1663174695775</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -884,10 +888,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add filter to prevent user`s attempt go to jsp page explicitly" />
-    <MESSAGE value="add internationalization" />
-    <MESSAGE value="make candidateProfile" />
-    <MESSAGE value="make getApplicationGrades" />
     <MESSAGE value="upload, show and hide certificate" />
     <MESSAGE value="fix upload certificate" />
     <MESSAGE value="change navigation bar" />
@@ -909,7 +909,11 @@
     <MESSAGE value="delete priority field for application" />
     <MESSAGE value="edit pleaseLoginModal" />
     <MESSAGE value="write logic of create application" />
-    <option name="LAST_COMMIT_MESSAGE" value="write logic of create application" />
+    <MESSAGE value="create ajax modal window chooseFaculty" />
+    <MESSAGE value="refactor validation" />
+    <MESSAGE value="create validation signupStart form" />
+    <MESSAGE value="create validation to signupStart form" />
+    <option name="LAST_COMMIT_MESSAGE" value="create validation to signupStart form" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -921,7 +925,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java</url>
-          <line>284</line>
+          <line>338</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

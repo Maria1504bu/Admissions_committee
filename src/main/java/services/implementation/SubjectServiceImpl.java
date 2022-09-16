@@ -22,11 +22,11 @@ public class SubjectServiceImpl implements SubjectService {
     }
     private static final Logger LOG = Logger.getLogger(SubjectServiceImpl.class);
     @Override
-    public Subject getById(int id) {
+    public Subject getById(String id) {
         Subject subject;
         try {
-            Validator.validateId(id);
-            subject = subjectDao.getById(id);
+            int validateId = Validator.validateId(id);
+            subject = subjectDao.getById(validateId);
         } catch (NotValidException | DaoException e) {
             throw new ServiceException("Can`t get subject by id", e);
         }
@@ -52,10 +52,10 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String id) {
         try {
-            Validator.validateId(id);
-            subjectDao.delete(id);
+            int validateId = Validator.validateId(id);
+            subjectDao.delete(validateId);
         } catch (WrongExecutedQueryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -67,8 +67,8 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<Subject> findAllByFaculty (int facultyId){
-        Validator.validateId(facultyId);
-        return subjectDao.findAllByFacultyId(facultyId);
+    public List<Subject> findAllByFaculty (String facultyId){
+        int validateId = Validator.validateId(facultyId);
+        return subjectDao.findAllByFacultyId(validateId);
     }
 }

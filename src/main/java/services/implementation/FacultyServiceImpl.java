@@ -30,12 +30,12 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty getById(int id) throws ServiceException {
+    public Faculty getById(String id) throws ServiceException {
         Faculty faculty;
         try {
-            Validator.validateId(id);
-            faculty = facultyDao.getById(id);
-            faculty.setSubjectList(subjectDao.findAllByFacultyId(id));
+            int validateId = Validator.validateId(id);
+            faculty = facultyDao.getById(validateId);
+            faculty.setSubjectList(subjectDao.findAllByFacultyId(validateId));
         } catch (NotValidException | DaoException e) {
             throw new ServiceException("Can`t get faculty by id", e);
         }
@@ -79,10 +79,10 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String id) {
         try {
-            Validator.validateId(id);
-            facultyDao.delete(id);
+            int validateId = Validator.validateId(id);
+            facultyDao.delete(validateId);
         } catch (NotValidException| WrongExecutedQueryException e) {
             throw new ServiceException(e.getMessage(), e);
         }

@@ -35,6 +35,9 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private static final String DELETE_APPL_QUERY =
             "DELETE FROM applications WHERE id = ?";
 
+    private static final String DELETE_NOT_PROVIDED_CANDIDATE_APPLS_QUERY =
+            "DELETE FROM applications WHERE login_id = ? AND status = 'DOCUMENTS_PROVIDED'";
+
     private final DataSource dataSource;
 
     public ApplicationDaoImpl(DataSource dataSource) {
@@ -196,8 +199,11 @@ public class ApplicationDaoImpl implements ApplicationDao {
         } catch (SQLException e) {
             throw new DaoException("Cannot save application ==> " + application, e);
         }
-      return connection;
+        return connection;
     }
+
+
+    //TODO: maybe delete method?
 
     /**
      * Update application in the db
@@ -265,6 +271,54 @@ public class ApplicationDaoImpl implements ApplicationDao {
             throw new DaoException("Cannot close connection");
         }
     }
+
+    @Override
+    public void provideDocuments(Application application) throws WrongExecutedQueryException {
+        LOG.debug("Start provide documents to application");
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setString(1, ApplicationStatus.DOCUMENTS_PROVIDED.toString());
+                prStatement.setInt(2, application.getId());
+
+                boolean updated = prStatement.executeUpdate() == 1;
+                LOG.debug("Application " + application + " is updated ? ==>" + updated);
+
+                if (!updated) {
+                    connection.rollback();
+                    LOG.trace("Changes at db is rollback");
+                    throw new WrongExecutedQueryException("Operation is rollback! Wrong data of application " + application);
+                }
+                deleteNotProvidedAppls(connection, application.getCandidate().getId());
+            } catch (SQLException e) {
+                throw new DaoException("Cannot provide documents to application ==> " + application, e);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close connection");
+        }
+    }
+
+    private void deleteNotProvidedAppls(Connection connection, int candidateId) {
+        LOG.debug("Start delete not provided candidate`s application with candidateId ==> " + candidateId);
+        try (PreparedStatement prStatement = connection.prepareStatement(DELETE_NOT_PROVIDED_CANDIDATE_APPLS_QUERY)) {
+            LOG.trace("Resources are created");
+            prStatement.setInt(1, candidateId);
+
+            prStatement.executeUpdate();
+            LOG.debug("Applications with not provided documents by candidate with id ==> " + candidateId + " was deleted");
+            connection.commit();
+            connection.close();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                throw new DaoException("Cannot rollback connection");
+            }
+            throw new DaoException("Cannot provide documents to application and delete another applications this" +
+                    " user  with id ==> " + candidateId, e);
+        }
+    }
+
 
     /**
      * Extracts an application entity from the result set row.

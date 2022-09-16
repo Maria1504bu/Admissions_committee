@@ -27,12 +27,10 @@ public class CandidateDetailsCommand implements ActionCommand {
     public String execute(HttpServletRequest request, HttpServletResponse resp) {
         LOG.debug("CandidateDetailsCommand starts");
         String page = ConfigurationManager.getProperty("admin.candidateDetails");
-        String candidateId = request.getParameter("selectedCandidateId");
-        LOG.debug("CandidateId value ==> " + candidateId);
-        String language = request.getLocale().getLanguage();
-        int id = Integer.parseInt(candidateId);
+        String id = request.getParameter("selectedCandidateId");
+        LOG.debug("Candidate Id value ==> " + id);
         Candidate candidate = candidateService.getById(id);
-        List<Application> applications = applicationService.getCandidatesAppls(id, language);
+        List<Application> applications = applicationService.getCandidatesAppls(id);
 
         request.setAttribute("candidate", candidate);
         request.setAttribute("applications", applications);

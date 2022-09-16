@@ -31,17 +31,14 @@ public class ApplicationsToFacCommand implements ActionCommand {
         LOG.debug("Faculty id to display applications ==> " + facultyId);
         Faculty faculty = null;
         List<Application> applications = null;
-        if (facultyId != null) {
-            int facId = Integer.parseInt(facultyId);
             try {
-                faculty = facultyService.getById(facId);
+                faculty = facultyService.getById(facultyId);
                 LOG.trace("Searched faculty ==> " + faculty);
             } catch (ServiceException e) {
                 throw new RuntimeException(e);
             }
-            applications = applicationService.getFacultyAppls(facId);
+            applications = applicationService.getFacultyAppls(facultyId);
             LOG.trace("Applications to faculty ==> " + applications);
-        }
         req.getSession().setAttribute("faculty", faculty);
         LOG.debug("Set session attribute faculty ==> " + faculty);
         req.setAttribute("appls", applications);

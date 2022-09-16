@@ -3,7 +3,9 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/header.tag" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tags" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/js/comparePasswords.jspf" value="file://$PROJECT_DIR$/src/main/webapp/js" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/js/createApplicationJs.jspf" value="file://$PROJECT_DIR$/src/main/webapp/js" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/js/sortTableJS.jspf" value="file://$PROJECT_DIR$/src/main/webapp/js" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/admin/adminProfile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/admin" />
@@ -11,7 +13,9 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/admin/faculties.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate/candidateProfile.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate/createApplication.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/candidate" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/common" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/main.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/headDirectives.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
       </map>

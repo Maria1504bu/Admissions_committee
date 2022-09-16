@@ -49,6 +49,8 @@ public class CandidateServiceImpl implements CandidateService {
         LOG.debug("Start authenticate user with email ==> " + email);
         if (email == null || password == null || email.isEmpty() || password.isEmpty())
             throw new EmptyFieldsException("email or password is empty");
+        Validator.validateEmail(email);
+        Validator.validatePassword(password);
         String encodedPass = encodePassword(password);
         Candidate candidate = candidateDao.getByLogin(email);
         LOG.trace("User from db ==> " + candidate);
@@ -71,6 +73,8 @@ public class CandidateServiceImpl implements CandidateService {
         LOG.debug("Start first step of registration user with email ==> " + email);
         if (email == null || password == null || email.isEmpty() || password.isEmpty())
             throw new EmptyFieldsException("email or password is empty");
+        Validator.validateEmail(email);
+        Validator.validatePassword(password);
         String encodedPass = encodePassword(password);
         try {
             candidateDao.saveLogin(email, encodedPass);
@@ -129,9 +133,10 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void blockCandidate(int candidateId) {
+    public void blockCandidate(String candidateId) {
         try {
-            candidateDao.blockCandidate(candidateId);
+            int validateId = Validator.validateId(candidateId);
+            candidateDao.blockCandidate(validateId);
         } catch (WrongExecutedQueryException e) {
             throw new ServiceException(e.getMessage(), e);
         }
@@ -159,9 +164,9 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Candidate getById(int id) {
-        Validator.validateId(id);
-        return candidateDao.getById(id);
+    public Candidate getById(String id) {
+        int validateId = Validator.validateId(id);
+        return candidateDao.getById(validateId);
     }
 
     @Override

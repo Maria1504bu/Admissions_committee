@@ -7,9 +7,9 @@ import services.EmptyFieldsException;
 import java.util.List;
 
 public interface FacultyService {
-    Faculty getById (int id) throws ServiceException;
+    Faculty getById (String id) throws ServiceException;
     void update (Faculty faculty);
-    void delete (int id);
+    void delete (String id);
     List<Faculty> getSortedList(String lang, String orderBy, String order);
 
     void save(String englishName, String ukrainianName, String budgetQty, String totalQty, String[] subjectsIds) throws EmptyFieldsException;

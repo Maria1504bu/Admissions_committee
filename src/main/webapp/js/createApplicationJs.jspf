@@ -1,7 +1,6 @@
 <script>
     function createApplication(facId) {
         let role = "${role}";
-        console.log(role);
         if (role == "CANDIDATE") {
             let modal = document.getElementById("createApplModal");
             modal.style.display = "block";

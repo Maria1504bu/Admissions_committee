@@ -36,7 +36,7 @@ public class UpdateFacultyCommand implements ActionCommand {
         if (facultyIdToUpdate != null) {
             Faculty facultyToDisplay = null;
             try {
-                facultyToDisplay = facultyService.getById(Integer.parseInt(facultyIdToUpdate));
+                facultyToDisplay = facultyService.getById(facultyIdToUpdate);
                 LOG.trace("Faculty, which need to update ==> " + facultyToDisplay);
             } catch (ServiceException e) {
                 throw new RuntimeException(e);

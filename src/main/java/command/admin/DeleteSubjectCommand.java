@@ -26,15 +26,7 @@ public class DeleteSubjectCommand implements ActionCommand {
         String subjectId = request.getParameter("deleteSubjectId");
         LOG.debug("Request parameter: deleteSubjectId ==> " + subjectId);
 
-        int idToDelete = 0;
-        try {
-            idToDelete = Integer.parseInt(subjectId);
-        } catch (NumberFormatException ex) {
-            LOG.debug("Could not get id to delete from url " + ex);
-            return page;
-        }
-
-        subjectService.delete(idToDelete);
+        subjectService.delete(subjectId);
 
         LOG.debug("Go to ==> " + page);
         return page;
