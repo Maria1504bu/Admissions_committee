@@ -62,7 +62,7 @@ public class ContextListener implements ServletContextListener {
 	private void initLog4J(ServletContext servletContext) {
 		LOG.debug("Log4J initialization started");
 		try {
-			PropertyConfigurator.configure("D:\\Final Project\\Admissions_committee\\target\\classes\\log4j.properties");
+			PropertyConfigurator.configure("D:\\My Final Project\\Admissions_committee\\target\\classes\\log4j.properties");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

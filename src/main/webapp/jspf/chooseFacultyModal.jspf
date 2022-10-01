@@ -3,7 +3,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <span><h2><fmt:message key="chooseFacultyModal.Title"/></h2></span>
-            <span class="closeM">&times;</span>
+            <span class="close">&times;</span>
         </div>
         <div class="modal-body">
             <h5><fmt:message key="chooseFacultyModal.Description"/></h5>

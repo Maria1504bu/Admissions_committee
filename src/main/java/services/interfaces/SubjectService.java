@@ -3,6 +3,7 @@ package services.interfaces;
 import models.Subject;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SubjectService {
     Subject getById(String id);
@@ -11,5 +12,5 @@ public interface SubjectService {
     void delete(String id);
     List findAll();
 
-    List<Subject> findAllByFaculty(String facultyId);
+    Map<Subject, Integer> findAllByFaculty(String facultyId);
 }

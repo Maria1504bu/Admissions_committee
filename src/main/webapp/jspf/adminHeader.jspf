@@ -22,10 +22,7 @@
             <a class="nav-link" href="javascript:{}" onclick="chooseFaculty()"><fmt:message key="header.Applications"/></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getReports"><fmt:message key="adminHeader.Register"/></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=getReports"><fmt:message key="adminHeader.Reports"/></a>
+            <a class="nav-link" href="javascript:{}" onclick="createRegister()"><fmt:message key="adminHeader.Register"/></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message key="adminHeader.logout"/></a>
@@ -33,6 +30,10 @@
     </ul>
     <%@ include file="/jspf/chooseFacultyModal.jspf"%>
     <%@ include file="/js/chooseFacultyJs.jspf"%>
+    <%@include file="/js/createRegisterJs.jspf"%>
+    <%@ include file="/jspf/startEnrolmentModal.jspf"%>
+    <%@ include file="/jspf/finalizeGatheringApplsModal.jspf"%>
+    <%@include file="/jspf/finalizeSendingDocumentsModal.jspf"%>
     <style>
         <%@ include file="/css/modalStyle.css"%>
     </style>

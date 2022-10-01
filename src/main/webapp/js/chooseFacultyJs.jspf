@@ -2,7 +2,7 @@
     function chooseFaculty() {
         let modal = document.getElementById("chooseFacultyModal");
         modal.style.display = "block";
-        let span = document.getElementsByClassName("closeM")[0];
+        let span = document.getElementsByClassName("close")[0];
         span.onclick = function () {
             modal.style.display = "none";
         }

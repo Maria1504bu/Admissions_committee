@@ -8,18 +8,18 @@ public class Faculty implements Serializable {
     private Map<Language, String> names;
     private int budgetPlaces;
     private int totalPlaces;
-    private List<Subject> subjectList;
+    private Map<Subject, Integer> subjectsWithCoefs;
 
 
     public Faculty() {
         this.names = new EnumMap<Language, String>(Language.class);
-        this.subjectList = new ArrayList<>();
+        this.subjectsWithCoefs = new HashMap<>();
     }
 
     public Faculty(int id) {
         this.id = id;
         this.names = new EnumMap<Language, String>(Language.class);
-        this.subjectList = new ArrayList<>();
+        this.subjectsWithCoefs = new HashMap<>();
     }
 
     public Faculty(int id, Map<Language, String> names, int budgetPlaces, int totalPlaces) {
@@ -27,14 +27,14 @@ public class Faculty implements Serializable {
         this.names = names;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
-        this.subjectList = new ArrayList<>();
+        this.subjectsWithCoefs = new HashMap<>();
     }
 
     public Faculty(Map<Language, String> names,int budgetPlaces, int totalPlaces) {
         this.names = names;
         this.budgetPlaces = budgetPlaces;
         this.totalPlaces = totalPlaces;
-        this.subjectList = new ArrayList<>();
+        this.subjectsWithCoefs = new HashMap<>();
     }
 
     public int getId() {
@@ -67,12 +67,12 @@ public class Faculty implements Serializable {
         this.names = names;
     }
 
-    public void setSubjectList(List<Subject> subjectList) {
-        this.subjectList = subjectList;
+    public void setSubjectsWithCoefs(Map<Subject, Integer> subjectsWithCoefs) {
+        this.subjectsWithCoefs = subjectsWithCoefs;
     }
 
-    public List<Subject> getSubjectList() {
-        return subjectList;
+    public Map<Subject, Integer> getSubjectsWithCoefs() {
+        return subjectsWithCoefs;
     }
 
     @Override
@@ -84,12 +84,12 @@ public class Faculty implements Serializable {
                 budgetPlaces == faculty.budgetPlaces &&
                 totalPlaces == faculty.totalPlaces &&
                 Objects.equals(names, faculty.names) &&
-                Objects.equals(subjectList, faculty.subjectList);
+                Objects.equals(subjectsWithCoefs, faculty.subjectsWithCoefs);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, names, budgetPlaces, totalPlaces, subjectList);
+        return Objects.hash(id, names, budgetPlaces, totalPlaces, subjectsWithCoefs);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Faculty implements Serializable {
                 ", names=" + names +
                 ", budgetPlaces=" + budgetPlaces +
                 ", totalPlaces=" + totalPlaces +
-                ", subjectList=" + subjectList +
+                ", subjectsWithCoefficients=" + subjectsWithCoefs +
                 '}';
     }
 }

@@ -12,5 +12,5 @@ public interface FacultyService {
     void delete (String id);
     List<Faculty> getSortedList(String lang, String orderBy, String order);
 
-    void save(String englishName, String ukrainianName, String budgetQty, String totalQty, String[] subjectsIds) throws EmptyFieldsException;
+    void save(String englishName, String ukrainianName, String budgetQty, String totalQty, String[] subjectsIds, String[] subjectsCoefs) throws EmptyFieldsException;
 }

@@ -2,7 +2,6 @@ package command.admin;
 
 import command.ActionCommand;
 import managers.ConfigurationManager;
-import models.Faculty;
 import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
 import services.interfaces.FacultyService;
@@ -25,7 +24,7 @@ public class SaveFacultyCommand implements ActionCommand {
             String page = ConfigurationManager.getProperty("redirect") +
                     ConfigurationManager.getProperty("path.command.faculties");
 
-            Faculty faculty = new Faculty();
+
             // obtain data from the request
             String englishName = request.getParameter("englishName");
             LOG.debug("Request parameter: englishName --> " + englishName);
@@ -37,10 +36,12 @@ public class SaveFacultyCommand implements ActionCommand {
             LOG.trace("Request parameter: totalQty --> " + totalQty);
             String[] subjectsIds = request.getParameterValues("subject");
             LOG.debug("Request parameter: subject --> " + Arrays.toString(subjectsIds));
+        String[] subjectsCoefs = request.getParameterValues("coefficient");
+        LOG.debug("Request parameter: coefficient --> " + Arrays.toString(subjectsCoefs));
 
 
         try {
-            facultyService.save(englishName, ukrainianName, budgetQty, totalQty, subjectsIds);
+            facultyService.save(englishName, ukrainianName, budgetQty, totalQty, subjectsIds, subjectsCoefs);
         } catch (EmptyFieldsException e) {
             throw new RuntimeException(e);
         }

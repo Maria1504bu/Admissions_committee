@@ -37,9 +37,7 @@ public class FacultyDaoImpl implements FacultyDao {
     private static final String INSERT_FACULTY_LANG_QUERY = "INSERT INTO faculties_languages (faculty_id, language_id, name) " +
             "VALUE ((SELECT MAX(id) FROM faculties), (SELECT id FROM languages WHERE lang_code = ?), ?) ";
     private static final String INSERT_SUBJECTS_TO_FACULTY =
-            "INSERT INTO faculties_subjects (faculty_id, subject_id) VALUES ((SELECT MAX(id) FROM faculties), ?);";
-
-
+            "INSERT INTO faculties_subjects VALUES ((SELECT MAX(id) FROM faculties), ?, ?);";
     private static final String UPDATE_FACULTY_QUERY =
             "UPDATE faculties SET budget_places = ?, total_places = ? " +
                     "WHERE id = ?;";
@@ -157,7 +155,7 @@ public class FacultyDaoImpl implements FacultyDao {
                 LOG.trace("First query went successful");
 
                 saveFacultyNames(connection, faculty);
-                addSubjectsToFaculty(connection, faculty.getSubjectList());
+                addSubjectsToFaculty(connection, faculty.getSubjectsWithCoefs());
             } catch (SQLIntegrityConstraintViolationException e) {
                 connection.rollback();
                 throw new AlreadyExistException("Faculty is already exist", e);
@@ -185,7 +183,6 @@ public class FacultyDaoImpl implements FacultyDao {
                     throw new DaoException("Faculty name with this parameters already exist", e);
                 }
             }
-            connection.commit();
             LOG.trace("Changes at db was committed");
         } catch (SQLException e) {
             throw new DaoException("Cannot save faculty name ==> " + faculty, e);
@@ -193,24 +190,28 @@ public class FacultyDaoImpl implements FacultyDao {
     }
 
 
-    private void addSubjectsToFaculty(Connection connection, List<Subject> subjects) throws
+    private void addSubjectsToFaculty(Connection connection, Map<Subject, Integer> subjectsWithCoeffs) throws
             WrongExecutedQueryException, DaoException {
-        LOG.debug("Start adding subjects to faculty ");
+        LOG.debug("Start adding subjectsWithCoeffs to faculty ");
         int savedRows = 0;
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_SUBJECTS_TO_FACULTY)) {
             LOG.trace("Resources are created");
-            LOG.trace("Subjects required to faculty ==> " + subjects.size());
-            for (Subject subject : subjects) {
+            LOG.trace("Subjects required to faculty ==> " + subjectsWithCoeffs.size());
+            for (Map.Entry<Subject, Integer> entry : subjectsWithCoeffs.entrySet()) {
                 try {
-                    preparedStatement.setInt(1, subject.getId());
+                    preparedStatement.setInt(1, entry.getKey().getId());
+                    preparedStatement.setInt(2, entry.getValue());
+
                     preparedStatement.executeUpdate();
                     savedRows++;
-                    LOG.trace("Saved subjects required to faculty ==> " + savedRows + " last with id " + subject.getId());
+                    LOG.trace("Saved subjectsWithCoeffs required to faculty ==> " + savedRows + " last with id " + entry.getKey().getId() +
+                            " and coefficient ==> " + entry.getValue());
                 } catch (SQLIntegrityConstraintViolationException e) {
+                   //todo: kl
                     continue;
                 }
             }
-            if (savedRows == subjects.size()) {
+            if (savedRows == subjectsWithCoeffs.size()) {
                 connection.commit();
                 LOG.trace("Changes at db was committed");
             } else {
@@ -223,7 +224,7 @@ public class FacultyDaoImpl implements FacultyDao {
                 connection.rollback();
             } catch (SQLException ignored) {
             }
-            throw new DaoException("Cannot add subjects to faculty", e);
+            throw new DaoException("Cannot add subjects with coefficients to faculty. " + e.getMessage(), e);
         }
 
     }

@@ -1,0 +1,30 @@
+<script>
+    function createRegister(){
+        let phase = '${phase}';
+        console.log(phase);
+        if(phase == ''){
+            showModalById('startEnrolmentModal', 'startEnrolmentClose');
+        } else if (phase == 'gatheringAppls') {
+           showModalById('gatheringApplsModal', 'gatherApplsClose');
+       } else if (phase == 'sendingDocuments') {
+            showModalById('finalizeSendingDocumentsModal', 'sendDocsClose')
+        }
+       //  }else if (phase =='completedRegister'{
+        //TODO:
+       //     // go to pdf
+       // }
+    }
+    function showModalById(id, closeSpanId){
+    let modal = document.getElementById(id);
+    modal.style.display = "block";
+    let span = document.getElementById(closeSpanId);
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    }
+</script>

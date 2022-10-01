@@ -43,6 +43,7 @@ hr { display: block; height: 1px;
 /*Body*/
 body{
     background-image:url("/committee/css/background_image.png");
+    background-color: bisque;
     height: 100%;
     background-repeat: no-repeat;
     background-size: cover;

@@ -23,7 +23,7 @@ public class UploadCertificateCommand implements ActionCommand {
         this.candidateService = candidateService;
     }
 
-    private static final String UPLOAD_DIR = "D:/Final Project/Admissions_committee/src/main/webapp/certificateUploads";
+    private static final String UPLOAD_DIR = "D:/My Final Project/Admissions_committee/src/main/webapp/certificateUploads";
     private static final int fileSizeThreshold = 1024 * 1024 * 3; // 3MB
     private static final int maxFileSize = 1024 * 1024 * 3;
 

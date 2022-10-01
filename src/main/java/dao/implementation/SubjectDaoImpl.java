@@ -13,6 +13,7 @@ import util.EntityMapper;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class SubjectDaoImpl implements SubjectDao {
     private static final String GET_SUBJECT_BY_ID_QUERY = "SELECT su.id, su.maxGrade FROM subjects su " +
             "WHERE su.id = ?";
 
-    private static final String GET_SUBJECT_BY_FACULTY_ID_QUERY = "SELECT su.id, su.maxGrade " +
+    private static final String GET_SUBJECT_BY_FACULTY_ID_QUERY = "SELECT su.id, su.maxGrade, fs.subject_coefficient " +
             "FROM faculties fa, faculties_subjects fs, subjects su " +
             "WHERE fa.id = fs.faculty_id AND fs.subject_id = su.id AND su.id = fs.subject_id " +
             "AND fa.id = ?;";
@@ -143,9 +144,9 @@ public class SubjectDaoImpl implements SubjectDao {
     }
 
     @Override
-    public List<Subject> findAllByFacultyId(int facultyId) throws DaoException {
+    public Map<Subject, Integer> findAllByFacultyId(int facultyId) throws DaoException {
         LOG.debug("Start searching candidates subjects");
-        List<Subject> subjects = new ArrayList<>();
+        Map<Subject, Integer> subjectsWithCoeffs = new HashMap<>();
         try (Connection connection = getConnection()) {
             try (
                     PreparedStatement prStatement = connection.prepareStatement(GET_SUBJECT_BY_FACULTY_ID_QUERY)) {
@@ -155,10 +156,11 @@ public class SubjectDaoImpl implements SubjectDao {
                 SubjectMapper mapper = new SubjectMapper();
                 try (ResultSet resultSet = prStatement.executeQuery()) {
                     while (resultSet.next()) {
-                        subjects.add(mapper.mapEntity(resultSet));
+                        subjectsWithCoeffs.put(mapper.mapEntity(resultSet),
+                                resultSet.getInt(ColumnLabel.SUBJECT_COEFFICIENT.getName()));
                     }
                 }
-                for(Subject subject : subjects){
+                for(Subject subject : subjectsWithCoeffs.keySet()){
                     getNames(connection, subject);
                 }
                 connection.commit();
@@ -170,8 +172,8 @@ public class SubjectDaoImpl implements SubjectDao {
         } catch (SQLException e) {
             throw new DaoException("Cannot create connection", e);
         }
-        LOG.debug("Searched subjects by facultyId:" + subjects);
-        return subjects;
+        LOG.debug("Searched subjects by facultyId:" + subjectsWithCoeffs);
+        return subjectsWithCoeffs;
     }
 
     @Override

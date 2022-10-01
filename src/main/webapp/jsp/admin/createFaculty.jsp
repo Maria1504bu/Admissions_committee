@@ -63,6 +63,8 @@
                                 </option>
                             </c:forEach>
                         </select>
+                        <label><fmt:message key="createFaculty.SubjectCoefficient"/></label>
+                        <input name="coefficient" type="number" min="0" max="100">
                         <input class="btn btn-primary" type="button" value="+" onClick="addInput();">
                     </div>
                 </div>

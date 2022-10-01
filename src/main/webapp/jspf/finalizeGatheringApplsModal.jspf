@@ -1,0 +1,14 @@
+<div id="gatheringApplsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="finalizeGatheringAppls.Title"/></h2></span>
+            <span id="gatherApplsClose" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <h5><fmt:message key="finalizeGatheringAppls.Description"/></h5>
+            <a href="${pageContext.request.contextPath}/controller?command=createRegister&phase=sendingDocuments">
+            <button class="btn btn-secondary"><fmt:message key="finalizeGatheringAppls.Title"/></button>
+            </a>
+        </div>
+    </div>
+</div>

@@ -30,7 +30,7 @@ public enum ColumnLabel {
     SUBJECT_ID("id"),
     SUBJECT_MAX_GRADE("maxGrade"),
     SUBJECT_NAME("name"),
-
+    SUBJECT_COEFFICIENT("subject_coefficient"),
     APPL_ID("id"),
     APPL_LOGIN_ID("login_id"),
     APPL_FACULTY_ID("faculty_id"),

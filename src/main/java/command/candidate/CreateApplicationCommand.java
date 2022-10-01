@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class CreateApplicationCommand implements ActionCommand {
     private static final Logger LOG = Logger.getLogger(CreateApplicationCommand.class);
@@ -33,10 +34,10 @@ public class CreateApplicationCommand implements ActionCommand {
         LOG.trace("faculty to application ==> " + faculty);
         List<Grade> grades = new ArrayList<>();
         if(faculty != null){
-        for(Subject subject : faculty.getSubjectList()){
-            int subjId = subject.getId();
-            int mark = Integer.parseInt(req.getParameter(String.valueOf(subjId)));
-            LOG.debug("Grade ==> " + mark + " for subject with id ==> " + subjId);
+        for(Map.Entry<Subject, Integer> entry : faculty.getSubjectsWithCoefs().entrySet()){
+            Subject subject = entry.getKey();
+            int mark = Integer.parseInt(req.getParameter(String.valueOf(subject.getId())));
+            LOG.debug("Grade ==> " + mark + " for subject with id ==> " + subject.getId());
             Grade grade = new Grade(subject, mark);
             LOG.debug("Add grade ==> " + grade + " to grades");
             grades.add(grade);

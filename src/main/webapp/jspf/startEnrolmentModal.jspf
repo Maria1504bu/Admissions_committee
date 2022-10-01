@@ -1,0 +1,15 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div id="startEnrolmentModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="startEnrolment.Title"/></h2></span>
+            <span id="startEnrolmentClose" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <h5><fmt:message key="startEnrolment.Description"/></h5>
+            <a href="${pageContext.request.contextPath}/controller?command=createRegister&phase=gatheringAppls">
+                <button class="btn btn-secondary"><fmt:message key="startEnrolment.Title"/></button>
+            </a>
+        </div>
+    </div>
+</div>

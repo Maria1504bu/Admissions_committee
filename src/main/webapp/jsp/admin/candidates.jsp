@@ -49,7 +49,7 @@
                     <option value="${faculty.getId()}"
                             <c:if test="${faculty.getId() eq selectedFacultyId}">selected="selected"</c:if>
                     >
-                            ${faculty.getNames().get(Language.valueOf(language.toString().toUpperCase())))}
+                            ${faculty.getNames().get(Language.valueOf(language.toString().toUpperCase()))}
                     </option>
                 </c:forEach>
             </select><br>
@@ -68,9 +68,9 @@
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th><fmt:message key="candidates.tableThSecondName"/></th>
-                    <th><fmt:message key="candidates.tableThFirstName"/></th>
-                    <th><fmt:message key="candidates.tableThCity"/></th>
+                    <th><fmt:message key="candidate.secondName"/></th>
+                    <th><fmt:message key="candidate.firstName"/></th>
+                    <th><fmt:message key="candidate.city"/></th>
                     <th><fmt:message key="candidates.tableThStatus"/></th>
                     <th><fmt:message key="candidates.tableThApplicationDate"/></th>
                     <th><fmt:message key="candidates.tableThSelect"/></th>

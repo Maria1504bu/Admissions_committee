@@ -12,6 +12,7 @@ import util.NotValidException;
 import util.Validator;
 
 import java.util.List;
+import java.util.Map;
 
 public class SubjectServiceImpl implements SubjectService {
 
@@ -67,7 +68,7 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<Subject> findAllByFaculty (String facultyId){
+    public Map<Subject, Integer> findAllByFaculty (String facultyId){
         int validateId = Validator.validateId(facultyId);
         return subjectDao.findAllByFacultyId(validateId);
     }

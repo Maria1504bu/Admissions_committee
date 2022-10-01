@@ -35,7 +35,7 @@ public class FacultyServiceImpl implements FacultyService {
         try {
             int validateId = Validator.validateId(id);
             faculty = facultyDao.getById(validateId);
-            faculty.setSubjectList(subjectDao.findAllByFacultyId(validateId));
+            faculty.setSubjectsWithCoefs(subjectDao.findAllByFacultyId(validateId));
         } catch (NotValidException | DaoException e) {
             throw new ServiceException("Can`t get faculty by id", e);
         }
@@ -43,7 +43,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public void save(String englishName, String ukrainianName, String budgetQty, String totalQty, String[] subjectsIds) throws EmptyFieldsException {
+    public void save(String englishName, String ukrainianName, String budgetQty, String totalQty, String[] subjectsIds, String[] subjectsCoefs) throws EmptyFieldsException {
         Faculty faculty = new Faculty();
         if (englishName == null || ukrainianName == null || budgetQty == null || totalQty == null ||
                 subjectsIds.length == 0 || englishName.isEmpty() || ukrainianName.isEmpty() || budgetQty.isEmpty() || totalQty.isEmpty()) {
@@ -54,10 +54,11 @@ public class FacultyServiceImpl implements FacultyService {
         faculty.getNames().put(Language.UK, ukrainianName);
         faculty.setBudgetPlaces(Integer.parseInt(budgetQty));
         faculty.setTotalPlaces(Integer.parseInt(totalQty));
-        for (String id : subjectsIds) {
+        for (int i = 0; i < subjectsIds.length; i++){
             Subject s = new Subject();
-            s.setId(Integer.parseInt(id));
-            faculty.getSubjectList().add(s);
+            s.setId(Integer.parseInt(subjectsIds[i]));
+            Integer appropriateCoef =Integer.parseInt(subjectsCoefs[i]);
+            faculty.getSubjectsWithCoefs().put(s, appropriateCoef);
         }
 
         try {

@@ -2,7 +2,7 @@
     let counter = 1;
     let dynamicInput = [];
 
-    function addInput(){
+    function addInput() {
         let newdiv = document.createElement('div');
         newdiv.id = dynamicInput[counter];
         newdiv.innerHTML =
@@ -15,13 +15,15 @@
             "                    ${subject.getNames().get(Language.valueOf(language.toString().toUpperCase()))}\n" +
             "            </option>\n" +
             "        </c:forEach>\n" +
-            "    </select>"+
-            "<input type='button' class='btn btn-primary' value='-' onClick='removeInput("+dynamicInput[counter]+");'>";
+            "    </select>" +
+            "<label><fmt:message key='createFaculty.SubjectCoefficient'/></label>" +
+            "<input name=\"coefficient\" type=\"number\" min=\"0\" max=\"100\">" +
+        "<input type='button' class='btn btn-primary' value='-' onClick='removeInput(" + dynamicInput[counter] + ");'>";
         document.getElementById('optionDiv').appendChild(newdiv);
         counter++;
     }
 
-    function removeInput(id){
+    function removeInput(id) {
         let elem = document.getElementById(id);
         return elem.parentNode.removeChild(elem);
     }

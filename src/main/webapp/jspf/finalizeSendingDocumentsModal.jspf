@@ -1,0 +1,14 @@
+<div id="finalizeSendingDocumentsModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="finalizeSendingDocuments.Title"/></h2></span>
+            <span id="sendDocsClose" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <h5><fmt:message key="finalizeSendingDocuments.Description"/></h5>
+            <a href="${pageContext.request.contextPath}/controller?command=createRegister&phase=completedRegister">
+            <button class="btn btn-secondary"><fmt:message key="finalizeSendingDocuments.Title"/></button>
+            </a>
+        </div>
+    </div>
+</div>

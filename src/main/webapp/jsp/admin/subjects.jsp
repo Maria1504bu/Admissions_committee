@@ -1,6 +1,6 @@
 <%@ include file="/jspf/directives.jspf" %>
 
-<%@ taglib prefix="tags" uri="subjTag" %>
+<%@ taglib prefix="tag" uri="subjTag" %>
 <html>
 <head>
     <title>Subjects DashBoard</title>
@@ -61,7 +61,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${subjects}" var="s" varStatus="loop">
-                    <tags:subj index="${loop.index + 1}" name="${s.getNames().get(Language.valueOf(language.toString().toUpperCase()))}"
+                    <tag:subj index="${loop.index + 1}" name="${s.getNames().get(Language.valueOf(language.toString().toUpperCase()))}"
                                maxGrade="${s.getMaxGrade()}"/>
                 </c:forEach>
                 </tbody>
