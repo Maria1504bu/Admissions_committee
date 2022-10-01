@@ -103,8 +103,9 @@ CREATE TABLE subjects
 
 CREATE TABLE faculties_subjects
 (
-    faculty_id   INT NOT NULL,
-    subject_id INT NOT NULL,
+    faculty_id          INT NOT NULL,
+    subject_id          INT NOT NULL,
+    subject_coefficient INT NOT NULL,
     INDEX `fk_subjects_has_faculties_faculties1_idx` (faculty_id ASC) VISIBLE,
     INDEX `fk_subjects_has_faculties_subjects1_idx` (`subject_id` ASC) VISIBLE,
     CONSTRAINT `fk_subjects_has_faculties_faculties1`
@@ -117,8 +118,29 @@ CREATE TABLE faculties_subjects
             REFERENCES subjects (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
+    CONSTRAINT `subject_coefficient_range`
+        CHECK ( subject_coefficient > 0 && subject_coefficient <= 100 ),
     CONSTRAINT UNIQUE (subject_id, faculty_id)
 );
+
+-- MySQL don`t support statement-level triggers, so I`m able to check only if sum is greater 100
+CREATE TRIGGER i_sum_of_subject_coefficient_by_faculty
+    AFTER INSERT
+    ON faculties_subjects
+    FOR EACH ROW
+BEGIN
+    DECLARE coef_sum INT;
+    DECLARE error_message VARCHAR(255);
+    SELECT SUM(subject_coefficient) FROM faculties_subjects
+    WHERE faculty_id = NEW.faculty_id
+    INTO coef_sum;
+
+    SET error_message = CONCAT('Sum of subject_coefficients must can`t be more than 100  but is ', coef_sum);
+    IF coef_sum > 100 THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = error_message;
+    end if;
+END;
 
 CREATE TABLE subjects_languages
 (
@@ -160,7 +182,7 @@ CREATE TABLE applications
             REFERENCES logins (`id`)
             ON DELETE CASCADE
             ON UPDATE CASCADE,
-            CONSTRAINT UNIQUE (login_id, faculty_id)
+    CONSTRAINT UNIQUE (login_id, faculty_id)
 )
     ENGINE = InnoDB
     DEFAULT CHARACTER SET = utf8;
