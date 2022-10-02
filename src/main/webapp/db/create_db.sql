@@ -131,7 +131,8 @@ CREATE TRIGGER i_sum_of_subject_coefficient_by_faculty
 BEGIN
     DECLARE coef_sum INT;
     DECLARE error_message VARCHAR(255);
-    SELECT SUM(subject_coefficient) FROM faculties_subjects
+    SELECT SUM(subject_coefficient)
+    FROM faculties_subjects
     WHERE faculty_id = NEW.faculty_id
     INTO coef_sum;
 
@@ -163,12 +164,34 @@ CREATE TABLE subjects_languages
     CONSTRAINT UNIQUE (subject_id, language_id)
 );
 
+CREATE TABLE grades
+(
+    candidate_id         INT NOT NULL,
+    subject_id INT NOT NULL,
+    grade      INT NOT NULL,
+    PRIMARY KEY (candidate_id, subject_id),
+    INDEX `fk_grades_candidates1_idx` (candidate_id ASC) VISIBLE,
+    INDEX `fk_grades_subjects1_idx` (subject_id ASC) VISIBLE,
+    CONSTRAINT `fk_grades_subjects1`
+        FOREIGN KEY (subject_id)
+            REFERENCES subjects (id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `fk_grades_candidates1`
+        FOREIGN KEY (candidate_id)
+            REFERENCES candidates (login_id)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT UNIQUE (candidate_id, subject_id)
+);
+
 CREATE TABLE applications
 (
-    `id`         INT         NOT NULL AUTO_INCREMENT,
-    `login_id`   INT         NOT NULL,
-    `faculty_id` INT         NOT NULL,
-    `status`     VARCHAR(30) NOT NULL DEFAULT 'NOT_PROCEED',
+    `id`           INT         NOT NULL AUTO_INCREMENT,
+    `login_id`     INT         NOT NULL,
+    `faculty_id`   INT         NOT NULL,
+    `rating_score` INT, -- it will be calculating by trigger
+    `status`       VARCHAR(30) NOT NULL DEFAULT 'NOT_PROCEED',
     PRIMARY KEY (`id`),
     INDEX `fk_statement_logins1_idx` (`login_id` ASC) VISIBLE,
     INDEX `fk_applications_faculties1_idx` (`faculty_id` ASC) VISIBLE,
@@ -183,42 +206,43 @@ CREATE TABLE applications
             ON DELETE CASCADE
             ON UPDATE CASCADE,
     CONSTRAINT UNIQUE (login_id, faculty_id)
-)
-    ENGINE = InnoDB
-    DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE grades
-(
-    `id`         INT NOT NULL AUTO_INCREMENT,
-    `subject_id` INT NOT NULL,
-    `grade`      INT NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_grades_subjects1_idx` (`subject_id` ASC) VISIBLE,
-    CONSTRAINT `fk_grades_subjects1`
-        FOREIGN KEY (`subject_id`)
-            REFERENCES subjects (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
 );
 
-CREATE TABLE applications_grades
-(
-    `application_id` INT NOT NULL,
-    grade_id         INT NOT NULL,
-    PRIMARY KEY (`application_id`, grade_id),
-    INDEX `fk_applications_has_grades_grades1_idx` (grade_id ASC) VISIBLE,
-    INDEX `fk_applications_has_grades_applications1_idx` (`application_id` ASC) VISIBLE,
-    CONSTRAINT `fk_applications_has_grades_applications1`
-        FOREIGN KEY (`application_id`)
-            REFERENCES applications (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
-    CONSTRAINT `fk_applications_has_grades_grades1`
-        FOREIGN KEY (grade_id)
-            REFERENCES grades (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE,
-    CONSTRAINT UNIQUE (application_id, grade_id)
-);
+CREATE TABLE log (t datetime, comment varchar(255));
+CREATE TRIGGER i_counting_rating_score
+    BEFORE INSERT
+    ON applications
+    FOR EACH ROW
+BEGIN
+DECLARE cur_subj_id, sum_score INT DEFAULT 0;
+DECLARE cursor_list_is_done BOOLEAN DEFAULT false;
+DECLARE cursor_List CURSOR FOR
+    SELECT subject_id FROM faculties_subjects WHERE faculties_subjects.faculty_id = NEW.faculty_id;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET cursor_list_is_done = TRUE;
+
+OPEN cursor_List;
+
+loop_List:
+    LOOP
+        FETCH cursor_List INTO cur_subj_id;
+IF cursor_list_is_done THEN
+            LEAVE loop_List;
+end if;
+        -- multiply by 2, because max rating score must be 200 and subject_coefficient is in percents
+insert INTO log value (now(), cur_subj_id);
+        SET sum_score = sum_score + (2 * (SELECT grade FROM grades WHERE subject_id = cur_subj_id AND candidate_id = NEW.login_id) /
+                         (SELECT maxGrade FROM subjects WHERE subjects.id = cur_subj_id) *
+                         (SELECT subject_coefficient FROM faculties_subjects WHERE subject_id = cur_subj_id AND faculty_id=NEW.faculty_id));
+INSERT INTO log VALUE (now(), (2 * (SELECT grade FROM grades WHERE subject_id = cur_subj_id AND candidate_id = NEW.login_id) /
+                               (SELECT maxGrade FROM subjects WHERE subjects.id = cur_subj_id) *
+                               (SELECT subject_coefficient FROM faculties_subjects WHERE subject_id = cur_subj_id AND faculty_id=NEW.faculty_id)));
+INSERT INTO log VALUE (now(), sum_score);
+
+END LOOP;
+CLOSE cursor_List;
+SET NEW.rating_score = sum_score;
+END;
+
 
 

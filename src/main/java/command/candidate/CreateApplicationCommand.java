@@ -42,7 +42,7 @@ public class CreateApplicationCommand implements ActionCommand {
             LOG.debug("Add grade ==> " + grade + " to grades");
             grades.add(grade);
         }}
-        Application application = new Application(candidate, faculty, grades, ApplicationStatus.NOT_APPROVED);
+        Application application = new Application(candidate, faculty, grades, 0, ApplicationStatus.NOT_APPROVED);
         LOG.trace("Create application to save at db");
         try {
             applicationService.saveWithGrades(application);

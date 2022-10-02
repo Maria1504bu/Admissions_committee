@@ -6,30 +6,32 @@ import java.util.List;
 import java.util.Objects;
 
 public class Application implements Serializable {
-    private static final long serialVersionUID = -6038504292558516492L;
     private int id;
     private Candidate candidate;
     private Faculty faculty;
     private List<Grade> gradesList;
+    private int ratingScore;
     private ApplicationStatus applicationStatus;
 
     public Application() {
         this.gradesList = new ArrayList<>();
     }
 
-    public Application(int id, Candidate candidate, Faculty faculty, List<Grade> gradeList, ApplicationStatus applicationStatus) {
+    public Application(int id, Candidate candidate, Faculty faculty, List<Grade> gradeList, int ratingScore, ApplicationStatus applicationStatus) {
         this.id = id;
         this.candidate = candidate;
         this.faculty = faculty;
         this.applicationStatus = applicationStatus;
+        this.ratingScore = ratingScore;
         this.gradesList = gradeList;
     }
 
-    public Application(Candidate candidate, Faculty faculty, List<Grade> gradeList, ApplicationStatus applicationStatus) {
+    public Application(Candidate candidate, Faculty faculty, List<Grade> gradeList, int ratingScore, ApplicationStatus applicationStatus) {
         this.candidate = candidate;
         this.faculty = faculty;
-        this.applicationStatus = applicationStatus;
         this.gradesList = gradeList;
+        this.ratingScore = ratingScore;
+        this.applicationStatus = applicationStatus;
     }
 
     public int getId() {
@@ -56,19 +58,27 @@ public class Application implements Serializable {
         this.candidate = candidate;
     }
 
+    public List<Grade> getGradesList() {
+        return gradesList;
+    }
+    public void setGradesList(List<Grade> gradesList) {
+        this.gradesList = gradesList;
+    }
+
+    public int getRatingScore() {
+        return ratingScore;
+    }
+
+    public void setRatingScore(int ratingScore) {
+        this.ratingScore = ratingScore;
+    }
+
     public ApplicationStatus getApplicationStatus() {
         return applicationStatus;
     }
 
     public void setApplicationStatus(ApplicationStatus applicationStatus) {
         this.applicationStatus = applicationStatus;
-    }
-    public List<Grade> getGradesList() {
-        return gradesList;
-    }
-
-    public void setGradesList(List<Grade> gradesList) {
-        this.gradesList = gradesList;
     }
 
     @Override
@@ -80,12 +90,13 @@ public class Application implements Serializable {
                 Objects.equals(candidate, that.candidate) &&
                 Objects.equals(faculty, that.faculty) &&
                 Objects.equals(gradesList, that.gradesList) &&
+                Objects.equals(ratingScore, that.ratingScore) &&
                 Objects.equals(applicationStatus, that.applicationStatus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, candidate, faculty, gradesList, applicationStatus);
+        return Objects.hash(id, candidate, faculty, gradesList, ratingScore, applicationStatus);
     }
 
     @Override
@@ -95,6 +106,7 @@ public class Application implements Serializable {
                 ", candidate=" + candidate +
                 ", faculty=" + faculty +
                 ", gradesList=" + gradesList +
+                ", ratingScore=" + ratingScore +
                 ", applicationStatus=" + applicationStatus +
                 '}';
     }

@@ -30,7 +30,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private static final String GET_FACULTY_APPLS_QUERY = "SELECT * FROM applications WHERE faculty_id = ?";
     private static final String GET_ALL_APPLS_QUERY = "SELECT * FROM applications";
 
-    private static final String UPDATE_APPL_QUERY =
+    private static final String UPDATE_APPL_STATUS_QUERY =
             "UPDATE applications SET status = ? WHERE id = ?";
     private static final String DELETE_APPL_QUERY =
             "DELETE FROM applications WHERE id = ?";
@@ -215,7 +215,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
             WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start updating application");
         try (Connection connection = getConnection()) {
-            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_QUERY)) {
+            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_STATUS_QUERY)) {
                 LOG.trace("Resources are created");
                 prStatement.setString(1, application.getApplicationStatus().toString());
                 prStatement.setInt(2, application.getId());
@@ -276,7 +276,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     public void provideDocuments(Application application) throws WrongExecutedQueryException {
         LOG.debug("Start provide documents to application");
         try (Connection connection = getConnection()) {
-            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_QUERY)) {
+            try (PreparedStatement prStatement = connection.prepareStatement(UPDATE_APPL_STATUS_QUERY)) {
                 LOG.trace("Resources are created");
                 prStatement.setString(1, ApplicationStatus.DOCUMENTS_PROVIDED.toString());
                 prStatement.setInt(2, application.getId());
@@ -337,6 +337,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
                 application.setId(rs.getInt(ColumnLabel.APPL_ID.getName()));
                 application.setCandidate(Candidate.builder().id(rs.getInt(LOGIN_ID_COLUMN)).build());
                 application.getFaculty().setId(rs.getInt(FACULTY_ID_COLUMN));
+                application.setRatingScore(rs.getInt(ColumnLabel.APPL_RATING_SCORE.getName()));
                 application.setApplicationStatus(Enum.valueOf(ApplicationStatus.class, rs.getString(ColumnLabel.APPL_STATUS.getName())));
                 return application;
             } catch (SQLException e) {
