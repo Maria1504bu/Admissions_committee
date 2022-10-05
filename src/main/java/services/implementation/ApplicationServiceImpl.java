@@ -183,7 +183,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             table.addCell(new Cell().add(candidate.getSecondName()).setBackgroundColor(color));
             table.addCell(new Cell().add(candidate.getFirstName()).setBackgroundColor(color));
             table.addCell(new Cell().add(candidate.getFatherName()).setBackgroundColor(color));
-            table.addCell(new Cell().add("Rating").setBackgroundColor(color));
+            table.addCell(new Cell().add(String.valueOf(applications.get(i-1).getRatingScore())).setBackgroundColor(color));
             for (Grade grade : applications.get(i - 1).getGradesList()) {
                 String mark = String.valueOf(grade.getGrade());
                 table.addCell(new Cell().add(mark).setBackgroundColor(color));
@@ -193,4 +193,6 @@ public class ApplicationServiceImpl implements ApplicationService {
         document.add(table);
         document.close();
     }
+
+
 }

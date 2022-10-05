@@ -27,8 +27,8 @@ public class ApplicationDaoImpl implements ApplicationDao {
             "INSERT INTO applications(login_id, faculty_id)VALUES(?, ?)";
     private static final String GET_APPL_BY_ID_QUERY = "SELECT * FROM applications WHERE id = ?";
     private static final String GET_CANDIDATES_APPLS_QUERY = "SELECT * FROM applications WHERE login_id = ?";
-    private static final String GET_FACULTY_APPLS_QUERY = "SELECT * FROM applications WHERE faculty_id = ?";
-    private static final String GET_ALL_APPLS_QUERY = "SELECT * FROM applications";
+    private static final String GET_FACULTY_APPLS_QUERY = "SELECT * FROM applications WHERE faculty_id = ? ORDER BY rating_score DESC";
+    private static final String GET_ALL_APPLS_QUERY = "SELECT * FROM applications ORDER BY rating_score DESC";
 
     private static final String UPDATE_APPL_STATUS_QUERY =
             "UPDATE applications SET status = ? WHERE id = ?";

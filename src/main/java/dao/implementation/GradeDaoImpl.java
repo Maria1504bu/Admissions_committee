@@ -5,6 +5,7 @@ import dao.ColumnLabel;
 import dao.DaoException;
 import dao.WrongExecutedQueryException;
 import dao.interfaces.GradeDao;
+import models.Candidate;
 import models.Grade;
 import models.Subject;
 import org.apache.log4j.Logger;
@@ -22,24 +23,24 @@ public class GradeDaoImpl implements GradeDao {
     private static final Logger LOG = Logger.getLogger(GradeDaoImpl.class);
 
     private static final String INSERT_GRADE_QUERY =
-            "INSERT INTO grades(subject_id, grade)VALUES(?, ?);";
+            "INSERT INTO grades(candidate_id, subject_id, grade)VALUES(?, ?);";
     private static final String INSERT_SET_APPL_GRADE_QUERY =
             "INSERT INTO applications_grades(application_id, grade_id)VALUE" +
                     "((SELECT MAX(id) FROM applications)," +
                     "(SELECT MAX(id) FROM grades));";
+    //todo: won`t work because id is not yet.
     private static final String GET_GRADE_BY_ID_QUERY =
-            "SELECT gr.id ,gr.subject_id, gr.grade " +
-                    "FROM grades gr WHERE gr.id = ?";
+            "SELECT * FROM grades gr WHERE gr.id = ?";
     private static final String GET_ALL_GRADES_QUERY =
-            "SELECT gr.id ,gr.subject_id, gr.grade " +
-                    "FROM grades gr";
-    private static final String GET_APPLICATION_GRADES_QUERY =
-            "SELECT gr.id, gr.subject_id, gr.grade " +
-                    "FROM grades gr " +
-                    "INNER JOIN applications_grades ag ON ag.grade_id = gr.id " +
-                    "WHERE ag.application_id = ?";
+            "SELECT * FROM grades gr";
+    private static final String GET_CANDIDATE_GRADES_QUERY =
+            "SELECT * FROM grades gr WHERE gr.candidate_id = ?";
+    private static final String GET_APPL_GRADES_QUERY = "SELECT gr.* FROM grades gr INNER JOIN faculties_subjects fs ON gr.subject_id = fs.subject_id " +
+            "INNER JOIN applications a ON fs.faculty_id = a.faculty_id AND gr.candidate_id = a.login_id " +
+            "WHERE a.id = ?";
     private static final String UPDATE_GRADE_QUERY =
             "UPDATE grades SET (grade) VALUE (?)";
+    //todo: won`t work because id is not yet.
     private static final String DELETE_GRADE_QUERY =
             "DELETE FROM grades WHERE id = ?";
 
@@ -108,11 +109,39 @@ public class GradeDaoImpl implements GradeDao {
     }
 
     @Override
+    public List<Grade> getCandidatesGrades(int candidatesId) {
+        List<Grade> grades = new ArrayList<>();
+        LOG.debug("Start finding candidate grades");
+        try (Connection connection = getConnection()) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_CANDIDATE_GRADES_QUERY)) {
+                LOG.trace("Resources are created");
+                prStatement.setInt(1, candidatesId);
+
+                try (ResultSet resultSet = prStatement.executeQuery()) {
+                    GradeMapper mapper = new GradeMapper();
+                    while (resultSet.next()) {
+                        grades.add(mapper.mapEntity(resultSet));
+                    }
+                }
+
+                connection.commit();
+                LOG.trace("Changes  at db was committed");
+            } catch (SQLException e) {
+                throw new DaoException("Cannot find candidate grades", e);
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Cannot close connection");
+        }
+        LOG.debug("Found grades ==>" + grades);
+        return grades;
+    }
+
+    @Override
     public List<Grade> getApplGrades(int applId) {
         List<Grade> grades = new ArrayList<>();
         LOG.debug("Start finding application grades");
         try (Connection connection = getConnection()) {
-            try (PreparedStatement prStatement = connection.prepareStatement(GET_APPLICATION_GRADES_QUERY)) {
+            try (PreparedStatement prStatement = connection.prepareStatement(GET_APPL_GRADES_QUERY)) {
                 LOG.trace("Resources are created");
                 prStatement.setInt(1, applId);
 
@@ -253,12 +282,14 @@ public class GradeDaoImpl implements GradeDao {
         public Grade mapEntity(ResultSet rs) {
             Grade grade = new Grade();
             Subject subject = new Subject();
+            Candidate candidate;
             try {
-                grade.setId(rs.getInt(ColumnLabel.GRADE_ID.getName()));
                 grade.setGrade(rs.getInt(ColumnLabel.GRADE_VALUE.getName()));
 
                 subject.setId(rs.getInt(ColumnLabel.GRADE_SUBJ_ID.getName()));
                 grade.setSubject(subject);
+                candidate = Candidate.builder().id(rs.getInt(ColumnLabel.GRADE_CANDIDATE_ID.getName())).build();
+                grade.setCandidate(candidate);
                 LOG.debug("Extracted grade ==> " + grade);
             } catch (SQLException e) {
                 LOG.error("Cannot extract grade from ResultSet", e);

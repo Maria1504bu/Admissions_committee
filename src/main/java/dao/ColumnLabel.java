@@ -34,12 +34,12 @@ public enum ColumnLabel {
     APPL_ID("id"),
     APPL_LOGIN_ID("login_id"),
     APPL_FACULTY_ID("faculty_id"),
-    APPL_RATING_SCORE("rating-score"),
+    APPL_RATING_SCORE("rating_score"),
     APPL_STATUS("status"),
 
-    GRADE_ID("id"),
-    GRADE_VALUE("grade"),
-    GRADE_SUBJ_ID("subject_id");
+    GRADE_CANDIDATE_ID("candidate_id"),
+    GRADE_SUBJ_ID("subject_id"),
+    GRADE_VALUE("grade");
     private final String name;
     public final String getName(){
         return name;

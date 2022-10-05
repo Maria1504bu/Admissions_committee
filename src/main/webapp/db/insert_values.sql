@@ -122,3 +122,5 @@ VALUES (1, 1, 'Math'),
        (3, 2, 'Фізика'),
        (4, 1, 'English'),
        (4, 2, 'Англійська мова');
+SELECT fl.name FROM faculties_languages fl INNER JOIN applications a on fl.faculty_id = a.faculty_id
+WHERE a.login_id = 1

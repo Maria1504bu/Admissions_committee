@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.List;
 
 public interface GradeDao{
+    List<Grade> getCandidatesGrades(int applId);
+
     void save(Connection connection, Grade grade) throws WrongExecutedQueryException, AlreadyExistException, DaoException;
 
     Grade getById(int id) throws DaoException;

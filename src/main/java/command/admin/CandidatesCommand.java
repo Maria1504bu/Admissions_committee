@@ -41,7 +41,7 @@ private final FacultyService facultyService;
         LOG.debug("limitItems ==> " + limitItems);
         LOG.debug("offset ==> " + offset);
 
-        List<Candidate> candidates = candidateService.getAll(selectedFacultyId, limitItems, offset);
+        List<Candidate> candidates = candidateService.getByFaculty(selectedFacultyId, limitItems, offset);
         request.setAttribute("candidates", candidates);
         LOG.trace("Set the request attribute: candidates ==> " + candidates);
 

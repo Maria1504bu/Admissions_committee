@@ -199,6 +199,7 @@ public class CandidateDaoImpl implements CandidateDao {
         }
     }
 
+    @Override
     public void save(Candidate candidate) throws WrongExecutedQueryException, AlreadyExistException, DaoException {
         LOG.debug("Start saving candidate ==> " + candidate);
         try (Connection connection = getConnection()) {

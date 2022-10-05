@@ -30,7 +30,7 @@ public class ProvideDocumentsCommand implements ActionCommand {
                 ConfigurationManager.getProperty("common.applications");
         Candidate candidate = (Candidate) req.getSession().getAttribute("user");
         int applId = Integer.parseInt(req.getParameter("application"));
-        Application application = new Application(applId, candidate, null, null, ApplicationStatus.DOCUMENTS_PROVIDED);
+        Application application = new Application(applId, candidate, null, null, 0, ApplicationStatus.DOCUMENTS_PROVIDED);
         try {
             applicationService.provideDocuments(application);
         } catch (AlreadyExistException | WrongExecutedQueryException e) {

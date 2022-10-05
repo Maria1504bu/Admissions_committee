@@ -156,7 +156,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<Candidate> getAll(String selectedFacultyId, String limitItems, String offset) {
+    public List<Candidate> getByFaculty(String selectedFacultyId, String limitItems, String offset) {
         int idFaculty = selectedFacultyId == null || selectedFacultyId.isEmpty() ? 1 : Integer.parseInt(selectedFacultyId);
         int limit = limitItems == null || limitItems.isEmpty() ? 2 : Integer.parseInt(limitItems);
         int offSet = offset == null || offset.isEmpty() ? 0 : Integer.parseInt(offset);
@@ -167,6 +167,11 @@ public class CandidateServiceImpl implements CandidateService {
     public Candidate getById(String id) {
         int validateId = Validator.validateId(id);
         return candidateDao.getById(validateId);
+    }
+
+    @Override
+    public List<Candidate> getAll() {
+        return candidateDao.findAll();
     }
 
     @Override

@@ -19,7 +19,9 @@ public interface CandidateService {
 
     int getCandidatesListSize(String facultyId);
 
-    List<Candidate> getAll(String selectedFaculty, String limitItemsQty, String offSetValueCandidates);
+    List<Candidate> getAll();
+    List<Candidate> getByFaculty(String selectedFaculty, String limitItemsQty, String offSetValueCandidates);
     Candidate getById(String id);
+
     void update(Candidate candidate) throws AlreadyExistException, WrongExecutedQueryException;
 }
