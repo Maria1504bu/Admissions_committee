@@ -9,15 +9,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="add coefficient to faculties` subjects">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5e8893f4-7565-4503-b5c5-b0c0d51b0de6.xml" afterDir="false" />
+    <list default="true" id="a923ce5e-9c03-4079-a50b-6670c7187d9d" name="Changes" comment="create email sender">
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/MailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/CreateApplicationCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/CandidatesCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/CandidatesCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/admin/CreateRegisterCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/admin/CreateRegisterCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/command/candidate/ProvideDocumentsCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/command/candidate/ProvideDocumentsCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ColumnLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ColumnLabel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/ApplicationDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/CandidateDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/CandidateDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/implementation/GradeDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/implementation/GradeDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/CandidateDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/CandidateDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/interfaces/GradeDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/interfaces/GradeDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Grade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Grade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/ApplicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/ApplicationServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/implementation/CandidateServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/interfaces/CandidateService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/db/insert_values.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register/AuditRegister.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register/AuditRegister.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register/EngineeringRegister.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register/EngineeringRegister.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register/ManagementRegister.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register/ManagementRegister.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +106,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -156,6 +168,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="InstallCert" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="MAIN_CLASS_NAME" value="services.InstallCert" />
+      <module name="Admissions_committee" />
+      <option name="PROGRAM_PARAMETERS" value="smtp.gmail.com:465" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Subject" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="models.Subject" />
       <module name="Admissions_committee" />
@@ -173,22 +200,6 @@
       <script-file value="$PROJECT_DIR$/src/main/webapp/db/create_db.sql" />
       <script-mode>FILE</script-mode>
       <method v="2" />
-    </configuration>
-    <configuration name="DeleteSubjectCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Admissions_committee" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="command.common.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="command.admin" />
-      <option name="MAIN_CLASS_NAME" value="command.admin.DeleteSubjectCommandTest" />
-      <option name="METHOD_NAME" value="execute" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="FacultiesCommandTest.execute" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Admissions_committee" />
@@ -490,21 +501,21 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.InstallCert" />
       <item itemvalue="Application.Faculty" />
       <item itemvalue="Application.Subject" />
       <item itemvalue="Database Script.create_db.sql" />
-      <item itemvalue="JUnit.DeleteSubjectCommandTest.execute" />
       <item itemvalue="JUnit.FacultiesCommandTest.execute" />
       <item itemvalue="Tomcat Server.Tomcat 10.0.22" />
       <item itemvalue="Tomcat Server.Tomcat  8.5.81" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.InstallCert" />
         <item itemvalue="Application.Faculty" />
         <item itemvalue="Database Script.create_db.sql" />
         <item itemvalue="Application.Subject" />
         <item itemvalue="JUnit.FacultiesCommandTest.execute" />
-        <item itemvalue="JUnit.DeleteSubjectCommandTest.execute" />
       </list>
     </recent_temporary>
   </component>
@@ -541,7 +552,8 @@
       <workItem from="1663333139597" duration="4526000" />
       <workItem from="1663339624757" duration="61707000" />
       <workItem from="1664274213757" duration="7151000" />
-      <workItem from="1664355830572" duration="40713000" />
+      <workItem from="1664355830572" duration="70619000" />
+      <workItem from="1664981848810" duration="7326000" />
     </task>
     <task id="LOCAL-00001" summary="test url">
       <created>1657034425197</created>
@@ -858,7 +870,14 @@
       <option name="project" value="LOCAL" />
       <updated>1664619542972</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="create trigger, which calculate rating_score for application">
+      <created>1664731411325</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1664731411325</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -876,8 +895,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change styles" />
-    <MESSAGE value="refactor admin page" />
     <MESSAGE value="create add faculty form" />
     <MESSAGE value="create edit faculty command" />
     <MESSAGE value="create crud commands and pages for subjects" />
@@ -901,7 +918,9 @@
     <MESSAGE value="insert demo values" />
     <MESSAGE value="create trigger" />
     <MESSAGE value="add coefficient to faculties` subjects" />
-    <option name="LAST_COMMIT_MESSAGE" value="add coefficient to faculties` subjects" />
+    <MESSAGE value="create trigger, which calculate rating_score for application" />
+    <MESSAGE value="create email sender" />
+    <option name="LAST_COMMIT_MESSAGE" value="create email sender" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
