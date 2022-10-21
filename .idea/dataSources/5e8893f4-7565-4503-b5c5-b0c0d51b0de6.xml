@@ -1064,609 +1064,546 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="298" parent="274" name="log">
+    <table id="298" parent="274" name="logins">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="299" parent="274" name="logins">
+    <table id="299" parent="274" name="subjects">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="300" parent="274" name="roles">
+    <table id="300" parent="274" name="subjects_languages">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="301" parent="274" name="subjects">
-      <Engine>InnoDB</Engine>
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </table>
-    <table id="302" parent="274" name="subjects_languages">
-      <Engine>InnoDB</Engine>
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </table>
-    <column id="303" parent="290" name="id">
+    <column id="301" parent="290" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="304" parent="290" name="login_id">
+    <column id="302" parent="290" name="login_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="305" parent="290" name="faculty_id">
+    <column id="303" parent="290" name="faculty_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="306" parent="290" name="rating_score">
+    <column id="304" parent="290" name="rating_score">
       <DataType>int|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="307" parent="290" name="status">
+    <column id="305" parent="290" name="status">
       <DataType>varchar(30)|0s</DataType>
       <DefaultExpression>&apos;NOT_PROCEED&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <foreign-key id="308" parent="290" name="fk_statement_logins1">
+    <foreign-key id="306" parent="290" name="fk_statement_logins1">
       <ColNames>login_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>logins</RefTableName>
     </foreign-key>
-    <foreign-key id="309" parent="290" name="fk_applications_faculties1">
+    <foreign-key id="307" parent="290" name="fk_applications_faculties1">
       <ColNames>faculty_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>faculties</RefTableName>
     </foreign-key>
-    <index id="310" parent="290" name="PRIMARY">
+    <index id="308" parent="290" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="311" parent="290" name="login_id">
+    <index id="309" parent="290" name="login_id">
       <ColNames>login_id
 faculty_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="312" parent="290" name="fk_statement_logins1_idx">
+    <index id="310" parent="290" name="fk_statement_logins1_idx">
       <ColNames>login_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="313" parent="290" name="fk_applications_faculties1_idx">
+    <index id="311" parent="290" name="fk_applications_faculties1_idx">
       <ColNames>faculty_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="314" parent="290" name="PRIMARY">
+    <key id="312" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="315" parent="290" name="login_id">
+    <key id="313" parent="290" name="login_id">
       <UnderlyingIndexName>login_id</UnderlyingIndexName>
     </key>
-    <trigger id="316" parent="290" name="i_counting_rating_score">
+    <trigger id="314" parent="290" name="i_counting_rating_score">
       <Definer>Maria1504@%</Definer>
       <Events>I</Events>
-      <SourceTextLength>1447</SourceTextLength>
+      <SourceTextLength>989</SourceTextLength>
       <Turn>before-row</Turn>
     </trigger>
-    <column id="317" parent="291" name="login_id">
+    <column id="315" parent="291" name="login_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="318" parent="291" name="second_name">
+    <column id="316" parent="291" name="lastname">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="319" parent="291" name="first_name">
+    <column id="317" parent="291" name="firstname">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="320" parent="291" name="father_name">
+    <column id="318" parent="291" name="fathername">
       <DataType>varchar(50)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="321" parent="291" name="certificate">
+    <column id="319" parent="291" name="certificate">
       <DataType>varchar(80)|0s</DataType>
       <Position>5</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="322" parent="291" name="city_id">
+    <column id="320" parent="291" name="city_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="323" parent="291" name="school_name">
+    <column id="321" parent="291" name="school_name">
       <DataType>varchar(150)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>7</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="324" parent="291" name="is_blocked">
+    <column id="322" parent="291" name="is_blocked">
       <DataType>tinyint(1)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="325" parent="291" name="appl_date">
-      <DataType>date|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>9</Position>
-    </column>
-    <foreign-key id="326" parent="291" name="fk_candidates_logins">
+    <foreign-key id="323" parent="291" name="fk_candidates_logins">
       <ColNames>login_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>logins</RefTableName>
     </foreign-key>
-    <foreign-key id="327" parent="291" name="fk_candidates_cities1">
+    <foreign-key id="324" parent="291" name="fk_candidates_cities1">
       <ColNames>city_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>cities</RefTableName>
     </foreign-key>
-    <index id="328" parent="291" name="PRIMARY">
+    <index id="325" parent="291" name="PRIMARY">
       <ColNames>login_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="329" parent="291" name="fk_candidates_logins1_idx">
+    <index id="326" parent="291" name="fk_candidates_logins1_idx">
       <ColNames>login_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="330" parent="291" name="fk_candidates_cities1_idx">
+    <index id="327" parent="291" name="fk_candidates_cities1_idx">
       <ColNames>city_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="331" parent="291" name="PRIMARY">
+    <key id="328" parent="291" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="332" parent="292" name="id">
+    <column id="329" parent="292" name="id">
       <AutoIncrement>24</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="333" parent="292" name="name">
+    <column id="330" parent="292" name="name">
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <index id="334" parent="292" name="PRIMARY">
+    <index id="331" parent="292" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="335" parent="292" name="PRIMARY">
+    <key id="332" parent="292" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="336" parent="293" name="id">
+    <column id="333" parent="293" name="id">
       <AutoIncrement>4</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="337" parent="293" name="budget_places">
+    <column id="334" parent="293" name="budget_places">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="338" parent="293" name="total_places">
+    <column id="335" parent="293" name="total_places">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <index id="339" parent="293" name="PRIMARY">
+    <index id="336" parent="293" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="340" parent="293" name="PRIMARY">
+    <key id="337" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="341" parent="294" name="faculty_id">
+    <column id="338" parent="294" name="faculty_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="342" parent="294" name="language_id">
+    <column id="339" parent="294" name="language_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="343" parent="294" name="name">
+    <column id="340" parent="294" name="name">
       <DataType>varchar(250)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <foreign-key id="344" parent="294" name="fk_faculties_languages_faculties1">
+    <foreign-key id="341" parent="294" name="fk_faculties_languages_faculties1">
       <ColNames>faculty_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>faculties</RefTableName>
     </foreign-key>
-    <foreign-key id="345" parent="294" name="fk_faculties_languages_languages1">
+    <foreign-key id="342" parent="294" name="fk_faculties_languages_languages1">
       <ColNames>language_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>languages</RefTableName>
     </foreign-key>
-    <index id="346" parent="294" name="PRIMARY">
+    <index id="343" parent="294" name="PRIMARY">
       <ColNames>faculty_id
 language_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="347" parent="294" name="faculty_id">
+    <index id="344" parent="294" name="faculty_id">
       <ColNames>faculty_id
 language_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="348" parent="294" name="name">
+    <index id="345" parent="294" name="name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="349" parent="294" name="fk_faculties_languages_faculties1_idx">
+    <index id="346" parent="294" name="fk_faculties_languages_faculties1_idx">
       <ColNames>faculty_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="350" parent="294" name="fk_faculties_languages_languages1_idx">
+    <index id="347" parent="294" name="fk_faculties_languages_languages1_idx">
       <ColNames>language_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="351" parent="294" name="PRIMARY">
+    <key id="348" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="352" parent="294" name="faculty_id">
+    <key id="349" parent="294" name="faculty_id">
       <UnderlyingIndexName>faculty_id</UnderlyingIndexName>
     </key>
-    <key id="353" parent="294" name="name">
+    <key id="350" parent="294" name="name">
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
-    <check id="354" parent="295" name="subject_coefficient_range">
+    <check id="351" parent="295" name="subject_coefficient_range">
       <Predicate>(`subject_coefficient` &gt; 0) and (`subject_coefficient` &lt;= 100)</Predicate>
     </check>
-    <column id="355" parent="295" name="faculty_id">
+    <column id="352" parent="295" name="faculty_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="356" parent="295" name="subject_id">
+    <column id="353" parent="295" name="subject_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="357" parent="295" name="subject_coefficient">
+    <column id="354" parent="295" name="subject_coefficient">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <foreign-key id="358" parent="295" name="fk_subjects_has_faculties_faculties1">
+    <foreign-key id="355" parent="295" name="fk_subjects_has_faculties_faculties1">
       <ColNames>faculty_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>faculties</RefTableName>
     </foreign-key>
-    <foreign-key id="359" parent="295" name="fk_subjects_has_faculties_subjects1">
+    <foreign-key id="356" parent="295" name="fk_subjects_has_faculties_subjects1">
       <ColNames>subject_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>subjects</RefTableName>
     </foreign-key>
-    <index id="360" parent="295" name="subject_id">
+    <index id="357" parent="295" name="subject_id">
       <ColNames>subject_id
 faculty_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="361" parent="295" name="fk_subjects_has_faculties_faculties1_idx">
+    <index id="358" parent="295" name="fk_subjects_has_faculties_faculties1_idx">
       <ColNames>faculty_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="362" parent="295" name="fk_subjects_has_faculties_subjects1_idx">
+    <index id="359" parent="295" name="fk_subjects_has_faculties_subjects1_idx">
       <ColNames>subject_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="363" parent="295" name="subject_id">
+    <key id="360" parent="295" name="subject_id">
       <UnderlyingIndexName>subject_id</UnderlyingIndexName>
     </key>
-    <trigger id="364" parent="295" name="i_sum_of_subject_coefficient_by_faculty">
+    <trigger id="361" parent="295" name="i_sum_of_subject_coefficient_by_faculty">
       <Definer>Maria1504@%</Definer>
       <Events>I</Events>
       <SourceTextLength>424</SourceTextLength>
       <Turn>after-row</Turn>
     </trigger>
-    <column id="365" parent="296" name="candidate_id">
+    <column id="362" parent="296" name="candidate_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="366" parent="296" name="subject_id">
+    <column id="363" parent="296" name="subject_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="367" parent="296" name="grade">
+    <column id="364" parent="296" name="grade">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <foreign-key id="368" parent="296" name="fk_grades_candidates1">
+    <foreign-key id="365" parent="296" name="fk_grades_candidates1">
       <ColNames>candidate_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>login_id</RefColNames>
       <RefTableName>candidates</RefTableName>
     </foreign-key>
-    <foreign-key id="369" parent="296" name="fk_grades_subjects1">
+    <foreign-key id="366" parent="296" name="fk_grades_subjects1">
       <ColNames>subject_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>subjects</RefTableName>
     </foreign-key>
-    <index id="370" parent="296" name="PRIMARY">
+    <index id="367" parent="296" name="PRIMARY">
       <ColNames>candidate_id
 subject_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="371" parent="296" name="candidate_id">
+    <index id="368" parent="296" name="candidate_id">
       <ColNames>candidate_id
 subject_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="372" parent="296" name="fk_grades_candidates1_idx">
+    <index id="369" parent="296" name="fk_grades_candidates1_idx">
       <ColNames>candidate_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="373" parent="296" name="fk_grades_subjects1_idx">
+    <index id="370" parent="296" name="fk_grades_subjects1_idx">
       <ColNames>subject_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="374" parent="296" name="PRIMARY">
+    <key id="371" parent="296" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="375" parent="296" name="candidate_id">
+    <key id="372" parent="296" name="candidate_id">
       <UnderlyingIndexName>candidate_id</UnderlyingIndexName>
     </key>
-    <column id="376" parent="297" name="id">
+    <column id="373" parent="297" name="id">
       <AutoIncrement>3</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="377" parent="297" name="name">
+    <column id="374" parent="297" name="name">
       <DataType>varchar(20)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="378" parent="297" name="lang_code">
+    <column id="375" parent="297" name="lang_code">
       <DataType>varchar(5)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <index id="379" parent="297" name="PRIMARY">
+    <index id="376" parent="297" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="380" parent="297" name="PRIMARY">
+    <key id="377" parent="297" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="381" parent="298" name="t">
-      <DataType>datetime|0s</DataType>
-      <Position>1</Position>
-    </column>
-    <column id="382" parent="298" name="comment">
-      <DataType>varchar(255)|0s</DataType>
-      <Position>2</Position>
-    </column>
-    <column id="383" parent="299" name="id">
+    <column id="378" parent="298" name="id">
       <AutoIncrement>8</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="384" parent="299" name="email">
+    <column id="379" parent="298" name="email">
       <DataType>varchar(45)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="385" parent="299" name="password">
+    <column id="380" parent="298" name="password">
       <DataType>varchar(200)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="386" parent="299" name="role_id">
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
+    <column id="381" parent="298" name="role">
+      <DataType>enum(&apos;ADMIN&apos;, &apos;CANDIDATE&apos;)|0e</DataType>
       <Position>4</Position>
     </column>
-    <foreign-key id="387" parent="299" name="fk_logins_roles">
-      <ColNames>role_id</ColNames>
-      <OnDelete>cascade</OnDelete>
-      <OnUpdate>cascade</OnUpdate>
-      <RefColNames>id</RefColNames>
-      <RefTableName>roles</RefTableName>
-    </foreign-key>
-    <index id="388" parent="299" name="PRIMARY">
+    <index id="382" parent="298" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="389" parent="299" name="email_UNIQUE">
+    <index id="383" parent="298" name="email_UNIQUE">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="390" parent="299" name="fk_logins_role_idx">
-      <ColNames>role_id</ColNames>
-      <Type>btree</Type>
-    </index>
-    <key id="391" parent="299" name="PRIMARY">
+    <key id="384" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="392" parent="299" name="email_UNIQUE">
+    <key id="385" parent="298" name="email_UNIQUE">
       <UnderlyingIndexName>email_UNIQUE</UnderlyingIndexName>
     </key>
-    <column id="393" parent="300" name="id">
-      <AutoIncrement>3</AutoIncrement>
-      <DataType>int|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="394" parent="300" name="name">
-      <DataType>varchar(50)|0s</DataType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-      <CollationName>utf8_general_ci</CollationName>
-    </column>
-    <index id="395" parent="300" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <index id="396" parent="300" name="name">
-      <ColNames>name</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="397" parent="300" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
-    <key id="398" parent="300" name="name">
-      <UnderlyingIndexName>name</UnderlyingIndexName>
-    </key>
-    <column id="399" parent="301" name="id">
+    <column id="386" parent="299" name="id">
       <AutoIncrement>5</AutoIncrement>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="400" parent="301" name="maxGrade">
+    <column id="387" parent="299" name="maxGrade">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <index id="401" parent="301" name="PRIMARY">
+    <index id="388" parent="299" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="402" parent="301" name="PRIMARY">
+    <key id="389" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="403" parent="302" name="subject_id">
+    <column id="390" parent="300" name="subject_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="404" parent="302" name="language_id">
+    <column id="391" parent="300" name="language_id">
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="405" parent="302" name="name">
+    <column id="392" parent="300" name="name">
       <DataType>varchar(100)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <foreign-key id="406" parent="302" name="fk_subjects_languages_subjects1">
+    <foreign-key id="393" parent="300" name="fk_subjects_languages_subjects1">
       <ColNames>subject_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>subjects</RefTableName>
     </foreign-key>
-    <foreign-key id="407" parent="302" name="fk_subjects_languages_languages1">
+    <foreign-key id="394" parent="300" name="fk_subjects_languages_languages1">
       <ColNames>language_id</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>languages</RefTableName>
     </foreign-key>
-    <index id="408" parent="302" name="PRIMARY">
+    <index id="395" parent="300" name="PRIMARY">
       <ColNames>subject_id
 language_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="409" parent="302" name="subject_id">
+    <index id="396" parent="300" name="subject_id">
       <ColNames>subject_id
 language_id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="410" parent="302" name="name">
+    <index id="397" parent="300" name="name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="411" parent="302" name="fk_subjects_languages_subjects1_idx">
+    <index id="398" parent="300" name="fk_subjects_languages_subjects1_idx">
       <ColNames>subject_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="412" parent="302" name="fk_subjects_languages_languages1_idx">
+    <index id="399" parent="300" name="fk_subjects_languages_languages1_idx">
       <ColNames>language_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="413" parent="302" name="PRIMARY">
+    <key id="400" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="414" parent="302" name="subject_id">
+    <key id="401" parent="300" name="subject_id">
       <UnderlyingIndexName>subject_id</UnderlyingIndexName>
     </key>
-    <key id="415" parent="302" name="name">
+    <key id="402" parent="300" name="name">
       <UnderlyingIndexName>name</UnderlyingIndexName>
     </key>
   </database-model>

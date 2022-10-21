@@ -16,6 +16,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/common/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp/common" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jsp/main.jsp" value="file://$PROJECT_DIR$/src/main/webapp/jsp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/adminHeader.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/errorModal.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/headDirectives.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/jspf/lang.jspf" value="file://$PROJECT_DIR$/src/main/webapp/jspf" />
       </map>
