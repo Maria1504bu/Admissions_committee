@@ -52,7 +52,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void saveWithGrades(Application application) throws AlreadyExistException, WrongExecutedQueryException {
+    public void saveWithGrades(Application application) throws AlreadyExistException, WrongExecutedQueryException, DaoException {
         Connection connection = applicationDao.save(application);
         //todo: validate grate less maxGrade
         for (Grade grade : application.getGradesList()) {
@@ -67,7 +67,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<Application> getCandidatesAppls(String candidateId) {
+    public List<Application> getCandidatesAppls(String candidateId) throws DaoException {
         LOG.trace("Start get candidates applications by candidateId ==> " + candidateId);
         int validatedId = Validator.validateId(candidateId);
         List<Application> applications = applicationDao.getCandidateAppls(validatedId);
@@ -89,7 +89,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<Application> getFacultyAppls(String facultyId) {
+    public List<Application> getFacultyAppls(String facultyId) throws DaoException {
         LOG.trace("Start get faculty`s applications by candidateId ==> " + facultyId);
         int validateId = Validator.validateId(facultyId);
         List<Application> applications = applicationDao.getFacultyAppls(validateId);
@@ -117,7 +117,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public void createRegister(Faculty faculty) {
+    public void createRegister(Faculty faculty) throws ServiceException, DaoException {
         faculty.setSubjectsWithCoefs(subjectDao.findAllByFacultyId(faculty.getId()));
         LOG.debug("Set subjects for faculty ==> " + faculty);
         String engName = faculty.getNames().get(Language.EN);

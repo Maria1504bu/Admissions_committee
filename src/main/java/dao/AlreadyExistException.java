@@ -4,7 +4,7 @@ package dao;
  * wrap SQLIntegrityConstraintViolationException at insert and update methods to show that similar entity already exist in db
  * (unique value at db is reserved)
  */
-public class AlreadyExistException extends Throwable {
+public class AlreadyExistException extends Exception {
     public AlreadyExistException() {
     }
 

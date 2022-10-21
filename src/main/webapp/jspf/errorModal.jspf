@@ -1,0 +1,35 @@
+<div id="errorModal" class="container-fluid modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span><h2><fmt:message key="modal.title"/></h2></span>
+            <span id="erClose" class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>${errorMessage}</p>
+        </div>
+    </div>
+</div>
+<script>
+    var errorMessage = "${errorMessage}";
+    if (errorMessage.length != 0) {
+        erModalAlert();
+    }
+
+    function erModalAlert() {
+        // Get the modal
+        let modal = document.getElementById("errorModal");
+        modal.style.display = "block";
+        let span = document.getElementById("erClose");
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+</script>
+<!-- The Modal -->
+</div>

@@ -7,7 +7,6 @@ import models.Candidate;
 import models.Role;
 import org.apache.log4j.Logger;
 import services.EmptyFieldsException;
-import services.ServiceException;
 import services.interfaces.CandidateService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +35,7 @@ public class LoginCommand implements ActionCommand {
         String password = req.getParameter(PARAM_NAME_PASSWORD);
         try {
             candidate = candidateService.authenticate(login, password);
-        } catch (EmptyFieldsException |
-                 ServiceException e) {
+        } catch (EmptyFieldsException e) {
             req.setAttribute("errorLoginPassMessage",
                     MessageManager.getProperty("message.loginError"));
             page = ConfigurationManager.getProperty("common.login");

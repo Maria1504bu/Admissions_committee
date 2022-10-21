@@ -47,7 +47,8 @@
     </div>
 </div>
 <!-- Footer ----------------------------------------->
+<%@ include file="/jspf/errorModal.jspf" %>
 <%@ include file="/jspf/footer.jspf" %>
-<%@include file="/js/comparePasswords.jspf" %>
+<%@ include file="/js/comparePasswords.jspf" %>
 </body>
 </html>

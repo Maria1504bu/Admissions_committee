@@ -1,6 +1,7 @@
 package services.implementation;
 
 import dao.AlreadyExistException;
+import dao.DaoException;
 import dao.WrongExecutedQueryException;
 import dao.interfaces.CandidateDao;
 import models.Candidate;
@@ -45,7 +46,7 @@ public class CandidateServiceImpl implements CandidateService {
 
     //TODO: check if throws exception
     @Override
-    public Candidate authenticate(String email, String password) throws EmptyFieldsException, ServiceException {
+    public Candidate authenticate(String email, String password) throws EmptyFieldsException, ServiceException, DaoException {
         LOG.debug("Start authenticate user with email ==> " + email);
         if (email == null || password == null || email.isEmpty() || password.isEmpty())
             throw new EmptyFieldsException("email or password is empty");
@@ -69,19 +70,14 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Candidate signInit(String email, String password) throws EmptyFieldsException {
+    public Candidate signInit(String email, String password) throws EmptyFieldsException, AlreadyExistException, WrongExecutedQueryException {
         LOG.debug("Start first step of registration user with email ==> " + email);
         if (email == null || password == null || email.isEmpty() || password.isEmpty())
             throw new EmptyFieldsException("email or password is empty");
         Validator.validateEmail(email);
         Validator.validatePassword(password);
         String encodedPass = encodePassword(password);
-        try {
             candidateDao.saveLogin(email, encodedPass);
-        } catch (WrongExecutedQueryException | AlreadyExistException e) {
-            LOG.debug("Candidate login data with email " + email + " not saved", e);
-            throw new ServiceException("candidate with email already exist");
-        }
         Candidate candidate = candidateDao.getByLogin(email);
         LOG.trace("User from db ==> " + candidate);
         LOG.debug("First step of registration went well");
@@ -89,7 +85,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Candidate signFinal(Candidate candidate, String firstName, String fatherName, String secondName, City city, String schoolName) throws EmptyFieldsException {
+    public Candidate signFinal(Candidate candidate, String firstName, String fatherName, String secondName, City city, String schoolName) throws EmptyFieldsException, ServiceException, DaoException {
         LOG.debug("Start final step of registration user");
         if (firstName == null || fatherName == null || secondName == null || city == null || schoolName == null ||
                 firstName.isEmpty() || fatherName.isEmpty() || secondName.isEmpty() || schoolName.isEmpty()) {
@@ -113,7 +109,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Candidate saveCertificate(Candidate candidate, String certificateName) {
+    public Candidate saveCertificate(Candidate candidate, String certificateName) throws ServiceException {
         final String UPLOAD_DIR = "/certificateUploads/";
         try {
             String certificatePath = UPLOAD_DIR + certificateName;
@@ -125,7 +121,7 @@ public class CandidateServiceImpl implements CandidateService {
         return candidate;
     }
 
-    private Candidate authorizeCandidate(int id) {
+    private Candidate authorizeCandidate(int id) throws DaoException {
         LOG.debug("Find all information about candidate");
         Candidate candidate = candidateDao.getById(id);
         LOG.debug("Searched candidate ==> " + candidate);
@@ -133,7 +129,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public void blockCandidate(String candidateId) {
+    public void blockCandidate(String candidateId) throws ServiceException {
         try {
             int validateId = Validator.validateId(candidateId);
             candidateDao.blockCandidate(validateId);
@@ -164,18 +160,18 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public Candidate getById(String id) {
+    public Candidate getById(String id) throws DaoException {
         int validateId = Validator.validateId(id);
         return candidateDao.getById(validateId);
     }
 
     @Override
-    public List<Candidate> getAll() {
+    public List<Candidate> getAll() throws DaoException {
         return candidateDao.findAll();
     }
 
     @Override
-    public void update(Candidate candidate) throws AlreadyExistException, WrongExecutedQueryException {
+    public void update(Candidate candidate) throws AlreadyExistException, WrongExecutedQueryException, DaoException {
         candidateDao.update(candidate);
     }
 }

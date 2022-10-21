@@ -50,7 +50,6 @@
             <a  href="javascript:{}" onclick="createApplication();">
                 <input class="btn btn-primary" type="button" value="<fmt:message key="index.sendApplication"/>">
             </a>
-            <h5 class="errorMsg">${errorMessage}</h5>
             <table class="table table-hover">
                 <thead>
                     <th>N</th>

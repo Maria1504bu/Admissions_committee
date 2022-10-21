@@ -57,7 +57,7 @@ public class CommandContainer {
         commands.put("saveFaculty", new SaveFacultyCommand(facultyService));
         commands.put("updateFaculty", new UpdateFacultyCommand(facultyService));
         commands.put("deleteFaculty", new DeleteFacultyCommand(facultyService));
-        commands.put("createRegister", new CreateRegisterCommand(applicationService, facultyService));
+        commands.put("createRegister", new CreateRegisterCommand(applicationService, facultyService, candidateService));
 
         commands.put("editFaculties", new EditFacultyCommand(facultyService));
         // common

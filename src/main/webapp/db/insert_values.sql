@@ -1,12 +1,9 @@
-INSERT INTO roles (name)
-VALUES ('ADMIN'),
-       ('CANDIDATE');
 INSERT INTO languages (name, lang_code)
 VALUES ('English', 'en'),
        ('Українська', 'uk');
-INSERT INTO logins (email, password, role_id)
+INSERT INTO logins (email, password, role)
 VALUES ('admin@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 1),
-       ('candidate@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2),
+       ('candidate@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 'CANDIDATE'),
        ('vova27@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2),
        ('grabovych@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2),
        ('kozarDiana@gmail.com', 'AAB27D62AA18F1D428D488788A0B1BEC', 2),
@@ -40,17 +37,17 @@ VALUES ('Cherkasy'),
        ('Zhytomyr');
 INSERT INTO candidates
 VALUES (2, 'Дудар', 'Софія', 'Степанівна', 'havenot', 3,
-        'school 23', FALSE, '2022-08-14'),
+        'school 23', FALSE),
        (3, 'Футка', 'Володимир', 'Миколайович', 'havenot', 6,
-        'school 17', FALSE, '2022-08-29'),
+        'school 17', FALSE),
        (4, 'Грабович', 'Петро', 'Богданович', 'havenot', 10,
-        'school 22', FALSE, '2022-08-29'),
+        'school 22', FALSE),
        (5, 'Козар', 'Діана', 'Петрівна', 'havenot', 12,
-        'school 22', FALSE, '2022-09-21'),
+        'school 22', FALSE),
        (6, 'Кравчук', 'Дмитро', 'Остапович', 'havenot', 2,
-        'school 2', FALSE, '2022-09-21'),
+        'school 2', FALSE),
        (7, 'Сапужак', 'Роман', 'Олександрович', 'havenot', 19,
-        'school 5', FALSE, '2022-09-21');
+        'school 5', FALSE);
 INSERT INTO faculties (budget_places, total_places)
 VALUES (4, 10),
        (2, 7),

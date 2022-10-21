@@ -1,6 +1,6 @@
 <%@ include file="/jspf/directives.jspf" %>
 <%--set init values to pagination if admin select any parameters--%>
-<c:set var="selectedFacultyId" value="${empty param.selectedFacultyId ? 1 : param.selectedFacultyId}"/>"
+<c:set var="selectedFacultyId" value="${empty param.selectedFacultyId ? 1 : param.selectedFacultyId}"/>
 <c:set var="limit" value="${empty param.limitItems ? 2 : param.limitItems}"/>
 <c:set var="offset" value="${empty param.offset ? 0 : param.offset}"/>
 <html>
@@ -100,7 +100,7 @@
         </div>
         <div>
 <%--  set at the form values from previous query and by the js functions it changes when user click on certain elements and submits--%>
-            <form id="paginationForm" action="${pageContext.request.contextPath}/controller" method="post">
+            <form id="paginationForm" action="${pageContext.request.contextPath}/controller" method="get">
                 <input type="hidden" name="command" value="candidates"/>
                 <input type="hidden" id="selFacultyId" name="selectedFacultyId" value="${selectedFacultyId}"/>
                 <input type="hidden" id="limitItemsId" name="limitItems" value="${limit}"/>

@@ -4,26 +4,26 @@ CREATE DATABASE IF NOT EXISTS Admissions_committee;
 USE Admissions_committee;
 
 
-CREATE TABLE roles
-(
-    id   INT AUTO_INCREMENT PRIMARY KEY          NOT NULL,
-    name VARCHAR(50) CHARACTER SET 'utf8' UNIQUE NOT NULL
-);
+# CREATE TABLE roles
+# (
+#     id   INT AUTO_INCREMENT PRIMARY KEY          NOT NULL,
+#     name VARCHAR(50) CHARACTER SET 'utf8' UNIQUE NOT NULL
+# );
 
 CREATE TABLE logins
 (
     `id`       INT                               NOT NULL AUTO_INCREMENT,
     `email`    VARCHAR(45) CHARACTER SET 'utf8'  NOT NULL,
     `password` VARCHAR(200) CHARACTER SET 'utf8' NOT NULL,
-    `role_id`  INT                               NOT NULL,
+    `role`  ENUM('ADMIN', 'CANDIDATE'),
     PRIMARY KEY (`id`),
-    UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE,
-    INDEX `fk_logins_role_idx` (`role_id` ASC) VISIBLE,
-    CONSTRAINT `fk_logins_roles`
-        FOREIGN KEY (`role_id`)
-            REFERENCES roles (`id`)
-            ON DELETE CASCADE
-            ON UPDATE CASCADE
+    UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE
+#     INDEX `fk_logins_role_idx` (`role_id` ASC) VISIBLE,
+#     CONSTRAINT `fk_logins_roles`
+#         FOREIGN KEY (`role_id`)
+#             REFERENCES roles (`id`)
+#             ON DELETE CASCADE
+#             ON UPDATE CASCADE
 );
 
 CREATE TABLE cities
@@ -36,14 +36,13 @@ CREATE TABLE cities
 CREATE TABLE candidates
 (
     `login_id`    INT                               NOT NULL,
-    `second_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
-    `first_name`  VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
-    `father_name` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
+    `lastname` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
+    `firstname`  VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
+    `fathername` VARCHAR(50) CHARACTER SET 'utf8'  NOT NULL,
     `certificate` VARCHAR(80) CHARACTER SET 'utf8',
     `city_id`     INT                               NOT NULL,
     `school_name` VARCHAR(150) CHARACTER SET 'utf8' NOT NULL,
     `is_blocked`  BOOLEAN                           NOT NULL,
-    `appl_date`   DATE                              NOT NULL,
     INDEX `fk_candidates_cities1_idx` (`city_id` ASC) VISIBLE,
     INDEX `fk_candidates_logins1_idx` (`login_id` ASC) VISIBLE,
     PRIMARY KEY (`login_id`),
@@ -208,7 +207,6 @@ CREATE TABLE applications
     CONSTRAINT UNIQUE (login_id, faculty_id)
 );
 
-CREATE TABLE log (t datetime, comment varchar(255));
 CREATE TRIGGER i_counting_rating_score
     BEFORE INSERT
     ON applications
@@ -230,14 +228,9 @@ IF cursor_list_is_done THEN
             LEAVE loop_List;
 end if;
         -- multiply by 2, because max rating score must be 200 and subject_coefficient is in percents
-insert INTO log value (now(), cur_subj_id);
         SET sum_score = sum_score + (2 * (SELECT grade FROM grades WHERE subject_id = cur_subj_id AND candidate_id = NEW.login_id) /
                          (SELECT maxGrade FROM subjects WHERE subjects.id = cur_subj_id) *
                          (SELECT subject_coefficient FROM faculties_subjects WHERE subject_id = cur_subj_id AND faculty_id=NEW.faculty_id));
-INSERT INTO log VALUE (now(), (2 * (SELECT grade FROM grades WHERE subject_id = cur_subj_id AND candidate_id = NEW.login_id) /
-                               (SELECT maxGrade FROM subjects WHERE subjects.id = cur_subj_id) *
-                               (SELECT subject_coefficient FROM faculties_subjects WHERE subject_id = cur_subj_id AND faculty_id=NEW.faculty_id)));
-INSERT INTO log VALUE (now(), sum_score);
 
 END LOOP;
 CLOSE cursor_List;

@@ -1,8 +1,10 @@
 package command.out_of_control;
 
 import command.ActionCommand;
+import dao.AlreadyExistException;
+import dao.DaoException;
+import dao.WrongExecutedQueryException;
 import managers.ConfigurationManager;
-import managers.MessageManager;
 import models.Candidate;
 import models.City;
 import org.apache.log4j.Logger;
@@ -37,10 +39,12 @@ public class SignupStartCommand implements ActionCommand {
         String page = null;
         try {
             candidate = candidateService.signInit(email, password);
-        } catch (EmptyFieldsException e) {
-            req.setAttribute("errorEmailAlreadyExist",
-                    MessageManager.getProperty("message.alreadyExist"));
+        } catch (AlreadyExistException | WrongExecutedQueryException | DaoException | EmptyFieldsException e) {
+            LOG.trace("Raised exception ==> ", e);
+            req.setAttribute("errorMessage", e.getMessage());
+            LOG.debug("Set errorMessage attribute to request ==> " + e.getMessage());
             page = ConfigurationManager.getProperty("common.signupStart");
+            LOG.debug("Go to ==> " + page);
             return page;
         }
         List cities = Arrays.asList(City.values());
