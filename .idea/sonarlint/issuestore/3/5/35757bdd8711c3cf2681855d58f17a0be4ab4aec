@@ -1,0 +1,7 @@
+
+`	java:S112B"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
+`	java:S112D"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òιόÿÿÿÿ
+
+java:S5527"wEnable server hostname verification on this SSL/TLS connection, by setting "mail.smtp.ssl.checkserveridentity" to true.(’ί‡ƒ
+Z
+java:S2147C"DCombine this catch with the one at line 65, which has the same body.(ο­£Δ

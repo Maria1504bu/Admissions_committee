@@ -21,7 +21,7 @@
         <div class="col-sm-12 col-sm-12-custom">
             <h3 id="table-header"><fmt:message key="registrationFinal.CandidateDetails"/></h3>
 
-            <form method="POST" action="/committee/controller" class="was-validated">
+            <form method="POST" action="${pageContext.request.contextPath}/controller" class="was-validated">
                 <input type="hidden" name="command" value="signupFinal"/>
                 <div class="form-group">
                     <label for="secondName"><fmt:message key="candidate.secondName"/></label>

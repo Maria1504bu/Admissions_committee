@@ -1,0 +1,45 @@
+
+‡
+java:S1192â"pDefine a constant instead of duplicating this literal "Operation is rollback! Wrong data of candidate " 3 times.(Ì£¸´
+v
+java:S1192½"ZDefine a constant instead of duplicating this literal "Changes at db is rollback" 8 times.(ç“±Øÿÿÿÿÿ
+x
+java:S1192º"\Define a constant instead of duplicating this literal "Changes at db was committed" 8 times.(ÉËŠ²üÿÿÿÿ
+x
+java:S1192l"]Define a constant instead of duplicating this literal "Changes  at db was committed" 3 times.(ÉËŠ²üÿÿÿÿ
+o
+java:S1192q"YDefine a constant instead of duplicating this literal "Cannot close connection" 11 times.(©×§ô
+m
+java:S1192]"WDefine a constant instead of duplicating this literal "Resources are created" 11 times.(²‚ŒÚ
+l
+java:S1192·"PDefine a constant instead of duplicating this literal " is saved ? ==>" 3 times.(ü‘çñûÿÿÿÿ
+P
+java:S1141\"5Extract this nested try block into a separate method.(˜ÚØøıÿÿÿÿ
+P
+java:S1141|"5Extract this nested try block into a separate method.(Üª‹øÿÿÿÿ
+Q
+java:S1141™"5Extract this nested try block into a separate method.(°³Í—ıÿÿÿÿ
+L
+java:S1141±"5Extract this nested try block into a separate method.(Ğ´²í
+L
+java:S1141Î"5Extract this nested try block into a separate method.(Õ¯°
+Q
+java:S1141ò"5Extract this nested try block into a separate method.(¥Ïß€øÿÿÿÿ
+Q
+java:S1141"5Extract this nested try block into a separate method.(§†ıÉùÿÿÿÿ
+L
+java:S1141«"5Extract this nested try block into a separate method.(¬‹
+L
+java:S1141Ä"5Extract this nested try block into a separate method.(É¶›»
+Q
+java:S1141ß"5Extract this nested try block into a separate method.(ÙÂ§äøÿÿÿÿ
+L
+java:S1141ÿ"5Extract this nested try block into a separate method.(Ñ¤ë‘
+`
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(›¡±Ûûÿÿÿÿ
+[
+java:S11248"EReorder the modifiers to comply with the Java Language Specification.(ó™˜Ì
+I
+java:S1135“"2Complete the task associated to this TODO comment.(“ĞÎ
+U
+java:S1155">Use isEmpty() to check whether the collection is empty or not.(ÍÄíÖ

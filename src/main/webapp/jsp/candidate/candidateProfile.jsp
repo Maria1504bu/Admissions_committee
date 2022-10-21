@@ -74,7 +74,7 @@
         </table>
     </div>
     <hr>
-    <form method="POST" action="/committee/controller" enctype="multipart/form-data">
+    <form method="POST" action="${pageContext.request.contextPath}/controller" enctype="multipart/form-data">
         <label class="btn btn-primary" for="certificateFile"><fmt:message key="candidateDash.CertificateImage"/></label>
         <input type="file" name="certificateFile" id="certificateFile" class="d-none">
         <br/>
