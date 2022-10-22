@@ -39,11 +39,11 @@ Data source and connection pool configuration
               auth="Container"
               type="javax.sql.DataSource"
               maxTotal="8" maxIdle="2" maxWaitMillis="-1"
-              username="Maria1504" password="passwordForDB"
+              username="fxwlhcdiloylyu" password="52dd299fd6f0e754ed0e28629834096a6e9f46fa3850250f860c79bb489e517c"
               driverClassName="com.mysql.cj.jdbc.Driver"
               defaultAutoCommit="false"
               defaultTransactionIsolation="READ_COMMITTED"
-              url="jdbc:mysql://localhost:3306/admissions_committee?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+              url="jdbc:postgresql://ec2-54-147-36-107.compute-1.amazonaws.com/dcvmfoanjfder1?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;sslmode=require"
     />
 
 </Context>

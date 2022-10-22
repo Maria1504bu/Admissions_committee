@@ -1,9 +1,8 @@
 package apps.dao.mysql;
 
-import javax.sql.DataSource;
-
 import com.mysql.cj.jdbc.MysqlDataSource;
 
+import javax.sql.DataSource;
 import java.util.ResourceBundle;
 
 public class DbUtil {
